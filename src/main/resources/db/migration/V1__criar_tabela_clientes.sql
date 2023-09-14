@@ -1,0 +1,6 @@
+CREATE TABLE CLIENTES(
+	CPF varchar(11) NOT NULL,
+	NOME varchar(60) NOT NULL,
+	EMAIL varchar(60) NOT NULL,
+	PRIMARY KEY (CPF)
+);
