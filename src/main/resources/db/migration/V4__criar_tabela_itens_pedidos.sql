@@ -1,10 +1,10 @@
-CREATE TABLE ITENS_PEDIDOS(
-	ID_PEDIDO bigint(20) NOT NULL,
-	ID_PRODUTO bigint(20) NOT NULL,	
-	QUANTIDADE tinyint NOT NULL DEFAULT 0,
-	OBSERVACAO varchar(100),	
-	PRIMARY KEY (ID_PEDIDO, ID_PRODUTO)
+CREATE TABLE itens_pedidos(
+	id_pedido bigint(20) NOT NULL,
+	id_produto bigint(20) NOT NULL,	
+	quantidade tinyint NOT NULL DEFAULT 0,
+	observacao varchar(100),	
+	PRIMARY KEY (id_pedido, id_produto)
 );
 
-ALTER TABLE ITENS_PEDIDOS ADD CONSTRAINT fk_item_pedido_pedido FOREIGN KEY (ID_PEDIDO) REFERENCES PEDIDOS (ID_PEDIDO);
-ALTER TABLE ITENS_PEDIDOS ADD CONSTRAINT fk_item_pedido_produto FOREIGN KEY (ID_PRODUTO) REFERENCES PRODUTOS (ID_PRODUTO);
+ALTER TABLE itens_pedidos ADD CONSTRAINT fk_item_pedido_pedido FOREIGN KEY (id_pedido) REFERENCES pedidos (id_pedido);
+ALTER TABLE itens_pedidos ADD CONSTRAINT fk_item_pedido_produto FOREIGN KEY (id_produto) REFERENCES produtos (id_produto);

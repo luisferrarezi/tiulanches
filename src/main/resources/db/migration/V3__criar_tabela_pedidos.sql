@@ -1,10 +1,10 @@
-CREATE TABLE PEDIDOS(
-	ID_PEDIDO bigint(20) NOT NULL AUTO_INCREMENT,
-	CPF varchar(11) NOT NULL,	
-	STATUS tinyint NOT NULL DEFAULT 0,
-	QRCODE varchar(400) NOT NULL,
-	PAGO tinyint NOT NULL DEFAULT 0,	
-	PRIMARY KEY (ID_PEDIDO)
+CREATE TABLE pedidos(
+	id_pedido bigint(20) NOT NULL AUTO_INCREMENT,
+	cpf varchar(11) NOT NULL,	
+	status tinyint NOT NULL DEFAULT 0,
+	qrcode varchar(400) NOT NULL,
+	pago tinyint NOT NULL DEFAULT 0,	
+	PRIMARY KEY (id_pedido)
 );
 
-ALTER TABLE PEDIDOS ADD CONSTRAINT fk_pedido_cliente FOREIGN KEY (CPF) REFERENCES CLIENTES (CPF);
+ALTER TABLE pedidos ADD CONSTRAINT fk_pedido_cliente FOREIGN KEY (cpf) REFERENCES clientes (cpf);

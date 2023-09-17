@@ -1,10 +1,10 @@
-CREATE TABLE PRODUTOS(
-	ID_PRODUTO bigint(20) NOT NULL AUTO_INCREMENT,
-	CATEGORIA tinyint NOT NULL,
-	NOME varchar(30) NOT NULL,
-	DESCRICAO varchar(200) NOT NULL,
-	PRECO decimal(4,2) NOT NULL,
-	TEMPO_PREPARO tinyint DEFAULT 0,
-	IMAGEM varchar(400) DEFAULT NULL,
-	PRIMARY KEY (ID_PRODUTO)
+CREATE TABLE produtos(
+	id_produto bigint(20) NOT NULL AUTO_INCREMENT,
+	categoria tinyint NOT NULL,
+	nome varchar(30) NOT NULL,
+	descricao varchar(200) NOT NULL,
+	preco decimal(4,2) NOT NULL,
+	tempo_preparo tinyint DEFAULT 0,
+	imagem varchar(400) DEFAULT NULL,
+	PRIMARY KEY (id_produto)
 );
