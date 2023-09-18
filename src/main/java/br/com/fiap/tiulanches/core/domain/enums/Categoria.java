@@ -4,5 +4,5 @@ public enum Categoria {
 	LANCHE, 
 	ACOMPANHAMENTO, 
 	BEBIDA,
-	SOBBREMESA
+	SOBREMESA
 }

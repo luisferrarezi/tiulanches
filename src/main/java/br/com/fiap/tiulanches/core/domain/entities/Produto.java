@@ -46,7 +46,6 @@ public class Produto {
 	@Positive
 	private BigDecimal preco;
 	
-	@Size(min=1)
 	private int tempoPreparo;
 	
 	@Size(max=400)

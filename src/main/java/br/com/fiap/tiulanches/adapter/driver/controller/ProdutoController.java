@@ -12,26 +12,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fiap.tiulanches.adapter.driven.service.ProdutoService;
 import br.com.fiap.tiulanches.core.domain.dto.ProdutoDto;
+import br.com.fiap.tiulanches.core.domain.enums.Categoria;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping(value = "/produtos")
 public class ProdutoController {
 	
 	@Autowired
 	private ProdutoService service;
 	
-	@GetMapping
+	@GetMapping	
 	public Page<ProdutoDto> consultar(@PageableDefault(size=10) Pageable paginacao){
-		return service.consultaProdutoByCategoria(paginacao);
+		return service.consultaProdutos(paginacao);
+	}
+	
+	@GetMapping
+	@RequestMapping(value = "/categoria")	
+	public List<ProdutoDto> consultarByCategoria(@RequestParam Categoria categoria){
+		return service.consultaProdutoByCategoria(categoria);
 	}
 	
 	@GetMapping("/{id}")
@@ -49,7 +58,7 @@ public class ProdutoController {
 		return ResponseEntity.created(endereco).body(produto);
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public ResponseEntity<ProdutoDto> alterar(@PathVariable @NotNull Long id, @RequestBody @Valid ProdutoDto dto){
 		ProdutoDto produtoAlterado = service.alterarProduto(id, dto);		
 		
