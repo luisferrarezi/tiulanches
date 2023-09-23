@@ -3,6 +3,7 @@ package br.com.fiap.tiulanches.core.domain.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,12 +30,12 @@ public class ItemPedido {
 	private long idItem;	
 	
 	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name="id_pedido")
+	@ManyToOne(fetch=FetchType.LAZY, optional = false)
+	@JoinColumn(name="id_pedido", nullable = false)
 	private Pedido pedido;	
 	
 	@ManyToOne
-	@JoinColumn(name="id_produto")
+	@JoinColumn(name="id_produto")			
 	private Produto produto;
 	
 	@NotNull

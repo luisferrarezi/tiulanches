@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import br.com.fiap.tiulanches.core.domain.enums.StatusPedido;
 import br.com.fiap.tiulanches.core.domain.enums.Pago;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -48,13 +49,18 @@ public class Pedido {
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private Pago pago;	
-
-    @JsonManagedReference
-	@OneToMany(mappedBy="pedido")	
+    
+	@JsonManagedReference
+	@OneToMany(mappedBy="pedido", cascade = CascadeType.ALL, orphanRemoval = true)	
 	private List<ItemPedido> listItemPedido = new ArrayList<>();
 	
 	public void adicionarItem(ItemPedido item) {
-		item.setPedido(this);
 		this.listItemPedido.add(item);
+		item.setPedido(this);	
 	}
+	
+	public void removerItem(ItemPedido item) {
+		this.listItemPedido.remove(item);
+		item.setPedido(null);	
+	}	
 }

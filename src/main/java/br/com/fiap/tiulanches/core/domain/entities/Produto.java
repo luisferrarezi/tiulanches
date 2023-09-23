@@ -1,7 +1,6 @@
 package br.com.fiap.tiulanches.core.domain.entities;
 
 import java.math.BigDecimal;
-
 import br.com.fiap.tiulanches.core.domain.enums.Categoria;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,7 +26,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Produto {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private long idProduto;
 	
 	@NotNull
