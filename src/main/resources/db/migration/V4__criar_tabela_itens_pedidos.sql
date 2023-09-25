@@ -3,6 +3,7 @@ CREATE TABLE itens_pedidos(
 	id_pedido bigint(20) NOT NULL,
 	id_produto bigint(20) NOT NULL,	
 	quantidade tinyint NOT NULL DEFAULT 0,
+	preco_unitario decimal(4,2) NOT NULL,
 	observacao varchar(100),	
 	PRIMARY KEY (id_item)
 );

@@ -11,15 +11,20 @@ import org.springframework.stereotype.Service;
 import br.com.fiap.tiulanches.core.domain.dto.PedidoDto;
 import br.com.fiap.tiulanches.core.domain.entities.ItemPedido;
 import br.com.fiap.tiulanches.core.domain.entities.Pedido;
+import br.com.fiap.tiulanches.core.domain.entities.Produto;
 import br.com.fiap.tiulanches.core.domain.enums.Pago;
 import br.com.fiap.tiulanches.core.domain.enums.StatusPedido;
 import br.com.fiap.tiulanches.core.domain.repository.PedidoRepository;
+import br.com.fiap.tiulanches.core.domain.repository.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -44,6 +49,10 @@ public class PedidoService {
 		
 		for(ItemPedido itemPedido : listItemPedido) {
 			itemPedido.setPedido(pedido);
+			
+			Produto produto = produtoRepository.findById(itemPedido.getProduto().getIdProduto()).orElseThrow(() -> new EntityNotFoundException());
+			itemPedido.setProduto(produto);
+			itemPedido.setPrecoUnitario(produto.getPreco());
 		}
 		
 		pedidoRepository.save(pedido);		
@@ -57,6 +66,15 @@ public class PedidoService {
 		pedido.setPago(Pago.SIM);
 		pedido.setStatus(StatusPedido.RECEBIDO);
 		pedido.setQrcode("qrcode123456");
+		
+        List<ItemPedido> listItemPedido = pedido.getListItemPedido();		
+		for(ItemPedido itemPedido : listItemPedido) {
+			itemPedido.setPedido(pedido);
+			
+			Produto produto = produtoRepository.findById(itemPedido.getProduto().getIdProduto()).orElseThrow(() -> new EntityNotFoundException());
+			itemPedido.setProduto(produto);
+			itemPedido.setPrecoUnitario(produto.getPreco());			
+		}		
 		
 		pedido = pedidoRepository.save(pedido);			
 				
