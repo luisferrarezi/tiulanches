@@ -30,8 +30,10 @@ public class ClienteController {
 	private ClienteService service;
 	
 	@GetMapping	
-	public Page<ClienteDto> consultar(@PageableDefault(size=10) Pageable paginacao){
-		return service.consultaClientes(paginacao);
+	public ResponseEntity<Page<ClienteDto>> consultar(@PageableDefault(size=10) Pageable paginacao){
+		Page<ClienteDto> page = service.consultaClientes(paginacao); 
+		
+		return ResponseEntity.ok(page);
 	}
 	
 	@GetMapping("/{cpf}")
@@ -44,7 +46,7 @@ public class ClienteController {
 	@PostMapping
 	public ResponseEntity<ClienteDto> cadastrar(@RequestBody @Valid ClienteDto dto, UriComponentsBuilder uriBuilder){
 		ClienteDto cliente = service.criarCliente(dto);
-		URI endereco = uriBuilder.path("/clientes/{cpf}").buildAndExpand(cliente.getCpf()).toUri();
+		URI endereco = uriBuilder.path("/clientes/{cpf}").buildAndExpand(cliente.cpf()).toUri();
 		
 		return ResponseEntity.created(endereco).body(cliente);
 	}

@@ -1,12 +1,13 @@
 package br.com.fiap.tiulanches.core.domain.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import br.com.fiap.tiulanches.core.domain.entities.Cliente;
 
-@Getter
-@Setter
-public class ClienteDto {
-	private String cpf;
-	private String nome;
-	private String email;
+public record ClienteDto(
+		String cpf, 
+		String nome, 
+		String email) {
+	
+	public ClienteDto(Cliente cliente) {
+		this(cliente.getCpf(), cliente.getNome(), cliente.getEmail());
+	}
 }
