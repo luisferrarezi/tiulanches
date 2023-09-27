@@ -27,7 +27,8 @@ public class ClienteService {
     }
 	
 	public ClienteDto criarCliente(ClienteDto dto){
-		Cliente cliente = new Cliente(dto.cpf(), dto.nome(), dto.email());
+		Cliente cliente = new Cliente();
+		cliente.criar(dto);
 		repository.save(cliente);
 		
 		return new ClienteDto(cliente);

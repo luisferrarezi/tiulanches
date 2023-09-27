@@ -43,4 +43,10 @@ public class Cliente {
 			this.email = cliente.email();
 		}			
 	}
+	
+	public void criar(ClienteDto cliente) {
+		this.cpf = cliente.cpf();
+		this.nome = cliente.nome();				
+		this.email = cliente.email();					
+	}	
 }

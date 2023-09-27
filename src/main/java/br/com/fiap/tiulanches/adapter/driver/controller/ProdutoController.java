@@ -33,8 +33,10 @@ public class ProdutoController {
 	private ProdutoService service;
 	
 	@GetMapping	
-	public Page<ProdutoDto> consultar(@PageableDefault(size=10) Pageable paginacao){
-		return service.consultaProdutos(paginacao);
+	public ResponseEntity<Page<ProdutoDto>> consultar(@PageableDefault(size=10) Pageable paginacao){
+		Page<ProdutoDto> page = service.consultaProdutos(paginacao);
+		
+		return ResponseEntity.ok(page);
 	}
 	
 	@GetMapping
@@ -53,7 +55,7 @@ public class ProdutoController {
 	@PostMapping
 	public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid ProdutoDto dto, UriComponentsBuilder uriBuilder){
 		ProdutoDto produto = service.criarProduto(dto);
-		URI endereco = uriBuilder.path("/produtos/{id}").buildAndExpand(produto.getIdProduto()).toUri();
+		URI endereco = uriBuilder.path("/produtos/{id}").buildAndExpand(produto.idProduto()).toUri();
 		
 		return ResponseEntity.created(endereco).body(produto);
 	}
