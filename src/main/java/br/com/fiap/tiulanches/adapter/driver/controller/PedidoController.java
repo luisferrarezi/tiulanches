@@ -30,8 +30,10 @@ public class PedidoController {
 	private PedidoService service;
 	
 	@GetMapping	
-	public Page<PedidoDto> consultar(@PageableDefault(size=10) Pageable paginacao){
-		return service.consultaPedidos(paginacao);
+	public ResponseEntity<Page<PedidoDto>> consultar(@PageableDefault(size=10) Pageable paginacao){
+		Page<PedidoDto> page = service.consultaPedidos(paginacao); 
+		
+		return ResponseEntity.ok(page);
 	}	
 		
 	@GetMapping("/{id}")
@@ -44,7 +46,7 @@ public class PedidoController {
 	@PostMapping
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid PedidoDto dto, UriComponentsBuilder uriBuilder){
 		PedidoDto pedido = service.criarPedido(dto);
-		URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.getIdPedido()).toUri();
+		URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.idPedido()).toUri();
 		
 		return ResponseEntity.created(endereco).body(pedido);
 	}

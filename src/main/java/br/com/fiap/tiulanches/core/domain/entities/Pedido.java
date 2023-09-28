@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.ArrayList;
 import br.com.fiap.tiulanches.core.domain.enums.StatusPedido;
+import br.com.fiap.tiulanches.core.domain.dto.PedidoDto;
 import br.com.fiap.tiulanches.core.domain.enums.Pago;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,6 +15,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -24,7 +27,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "Pedido")
 @Table(name = "PEDIDOS")
 @Getter
 @Setter
@@ -35,8 +38,9 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idPedido;
 	
-	@Size(max=11)
-	private String cpf;
+	@ManyToOne
+	@JoinColumn(name="cpf")
+	private Cliente cliente;
 	
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
@@ -60,7 +64,19 @@ public class Pedido {
 	}
 	
 	public void removerItem(ItemPedido item) {
-		this.listItemPedido.remove(item);
-		item.setPedido(null);	
+		this.listItemPedido.remove(item);			
+	}	
+	
+	public void criar(PedidoDto pedido) {
+		this.cliente = pedido.cliente();
+		this.setPago(Pago.SIM);
+		this.setStatus(StatusPedido.RECEBIDO);
+		this.setQrcode("qrcode123456");
+	}
+	
+	public void atualizar(PedidoDto pedido) {
+		if (pedido.cliente() != null) {
+			this.cliente = pedido.cliente();
+		}
 	}	
 }
