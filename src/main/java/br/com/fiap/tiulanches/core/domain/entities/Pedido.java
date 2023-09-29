@@ -29,31 +29,37 @@ import lombok.Setter;
 
 @Entity(name = "Pedido")
 @Table(name = "PEDIDOS")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pedido {
 	@Id
+	@Getter	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idPedido;
 	
+	@Getter
+	@Setter
 	@ManyToOne
 	@JoinColumn(name="cpf")
 	private Cliente cliente;
 	
+	@Getter	
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private StatusPedido status;
 	
+	@Getter	
 	@NotBlank
 	@Size(max=400)
 	private String qrcode;
 	
+	@Getter	
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private Pago pago;	
     
+	@Getter
+	@Setter
 	@JsonManagedReference
 	@OneToMany(mappedBy="pedido", cascade = CascadeType.ALL, orphanRemoval = true)	
 	private List<ItemPedido> listItemPedido = new ArrayList<>();
@@ -69,14 +75,12 @@ public class Pedido {
 	
 	public void criar(PedidoDto pedido) {
 		this.cliente = pedido.cliente();
-		this.setPago(Pago.SIM);
-		this.setStatus(StatusPedido.RECEBIDO);
-		this.setQrcode("qrcode123456");
+		this.pago = Pago.SIM;
+		this.status = StatusPedido.RECEBIDO;
+		this.qrcode = "qrcode123456";
 	}
 	
-	public void atualizar(PedidoDto pedido) {
-		if (pedido.cliente() != null) {
-			this.cliente = pedido.cliente();
-		}
+	public void cancelar() {
+		this.status = StatusPedido.CANCELADO;
 	}	
 }

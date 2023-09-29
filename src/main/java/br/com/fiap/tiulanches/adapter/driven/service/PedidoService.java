@@ -19,7 +19,6 @@ import br.com.fiap.tiulanches.core.domain.repository.ClienteRepository;
 import br.com.fiap.tiulanches.core.domain.repository.PedidoRepository;
 import br.com.fiap.tiulanches.core.domain.repository.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 
 @Service
 public class PedidoService {
@@ -67,30 +66,11 @@ public class PedidoService {
 		return new PedidoDto(pedido);
 	}
 	
-	@Transactional
-	public PedidoDto alterarPedido(Long id, PedidoDto dto){
+	public void cancelarPedido(Long id){
 		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+		pedido.cancelar();
 		
-		if (dto.cliente() != null) {
-			Cliente cliente = clienteRepository.findById(dto.cliente().getCpf()).orElseThrow(() -> new EntityNotFoundException());		
-			pedido.setCliente(cliente);
-		}
-		
-		pedido.atualizar(dto);
-		
-        List<ItemPedido> listItemPedido = pedido.getListItemPedido();		
-		for(ItemPedido itemPedido : listItemPedido) {
-			itemPedido.setPedido(pedido);
-			
-			Produto produto = produtoRepository.findById(itemPedido.getProduto().getIdProduto()).orElseThrow(() -> new EntityNotFoundException());
-			itemPedido.setProduto(produto);
-			itemPedido.setPrecoUnitario(produto.getPreco());			
-		}			
-				
-		return new PedidoDto(pedido);
-	}	
-	
-	public void excluirPedido(Long id){
-		pedidoRepository.deleteById(id);
+		pedidoRepository.save(pedido);
+		//pedidoRepository.cancelaPedido(pedido.getStatus(), id);
 	}	
 }
