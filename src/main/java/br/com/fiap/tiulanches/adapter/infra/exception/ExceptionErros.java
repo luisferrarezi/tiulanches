@@ -3,11 +3,14 @@ package br.com.fiap.tiulanches.adapter.infra.exception;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.transaction.CannotCreateTransactionException;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
@@ -36,5 +39,20 @@ public class ExceptionErros {
 		Set<ConstraintViolation<?>> erros = ex.getConstraintViolations();
 		
 		return ResponseEntity.badRequest().body(erros.stream().map(ErroValidacao::new).toList());	
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity notValidValueError(MethodArgumentTypeMismatchException ex) {
+		FieldError erros = new FieldError(ex.getClass().toString(), ex.getName(), "Valor informado inválido!");
+		
+		return ResponseEntity.badRequest().body(new ErroValidacao(erros));	
+	}
+	
+	@ExceptionHandler(CannotCreateTransactionException.class)
+	public ResponseEntity<Object> notDataBaseConnectionError(CannotCreateTransactionException ex) {
+		ErroValidacao erro = new ErroValidacao("Conexão", "Falha de conexão, tente novamente mais tarde!");
+		
+		return new ResponseEntity <Object>(erro, HttpStatus.BAD_GATEWAY);	
 	}		
 }

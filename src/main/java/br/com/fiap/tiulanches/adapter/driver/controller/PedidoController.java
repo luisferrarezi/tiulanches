@@ -1,5 +1,7 @@
 package br.com.fiap.tiulanches.adapter.driver.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,8 +30,12 @@ public class PedidoController {
 	@Autowired
 	private PedidoService service;
 	
+	private static Logger logger = LoggerFactory.getLogger(PedidoController.class);
+	
 	@GetMapping	
 	public ResponseEntity<Page<PedidoDto>> consultar(@PageableDefault(size=10) Pageable paginacao){
+		logger.info("Consultar pedidos");
+		
 		Page<PedidoDto> page = service.consultaPedidos(paginacao); 
 		
 		return ResponseEntity.ok(page);
@@ -37,6 +43,8 @@ public class PedidoController {
 		
 	@GetMapping("/{id}")
 	public ResponseEntity<PedidoDto> detalhar(@PathVariable @NotNull Long id){
+		logger.info("Consultar pedido pelo idPedido: " + id.toString());
+		
 		PedidoDto pedido = service.consultaPedidosById(id);
 		
 		return ResponseEntity.ok(pedido);
@@ -44,6 +52,8 @@ public class PedidoController {
 	
 	@PostMapping
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid PedidoDto dto, UriComponentsBuilder uriBuilder){
+		logger.info("Incluir pedido");
+		
 		PedidoDto pedido = service.criarPedido(dto);
 		URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.idPedido()).toUri();
 		
@@ -52,6 +62,8 @@ public class PedidoController {
 	
 	@PutMapping("/cancelamento/{id}")
 	public ResponseEntity<PedidoDto> cancelar(@PathVariable @NotNull Long id){
+		logger.info("Cancelar pedido pelo idPedido: " + id.toString());
+		
 		service.cancelarPedido(id);		
 		
 		return ResponseEntity.ok().build();
