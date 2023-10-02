@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Cliente {
 	@Id	
 	@Size(max=11)
-	@Cpf
+	@Cpf	
 	private String cpf;
 	
 	@NotBlank

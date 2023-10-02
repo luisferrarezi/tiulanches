@@ -2,6 +2,7 @@ package br.com.fiap.tiulanches.adapter.driver.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.fiap.tiulanches.adapter.driven.service.ClienteService;
 import br.com.fiap.tiulanches.adapter.infra.exception.ErroValidacao;
 import br.com.fiap.tiulanches.core.domain.dto.ClienteDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -35,7 +39,10 @@ public class ClienteController {
 	private static Logger logger = LoggerFactory.getLogger(ClienteController.class);
 	
 	@GetMapping	
-	public ResponseEntity<Page<ClienteDto>> consultar(@PageableDefault(size=10) Pageable paginacao){
+	@Operation(summary = "Lista todos os clientes cadastrados", 
+	           description = "O retorno é paginado e o padrão são 10 registros por página", 
+	           tags = {"Cliente"})
+	public ResponseEntity<Page<ClienteDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar clientes");
 		
 		Page<ClienteDto> page = service.consultaClientes(paginacao); 
@@ -44,7 +51,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/{cpf}")
-	public ResponseEntity<ClienteDto> detalhar(@PathVariable @NotNull String cpf){
+	public ResponseEntity<ClienteDto> detalhar(@ParameterObject @PathVariable @NotNull String cpf){
 		logger.info("Consultar cliente pelo CPF: " + cpf);
 		
 		ClienteDto cliente = service.consultaClienteByCpf(cpf);
@@ -53,7 +60,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Object> cadastrar(@RequestBody @Valid ClienteDto dto, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<Object> cadastrar(@ParameterObject @RequestBody @Valid ClienteDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Incluir cliente");
 		
 		if (dto.cpf() != null) {
@@ -68,7 +75,7 @@ public class ClienteController {
 	}
 	
 	@PutMapping("/{cpf}")
-	public ResponseEntity<ClienteDto> alterar(@PathVariable @NotNull String cpf, @RequestBody @Valid ClienteDto dto){
+	public ResponseEntity<ClienteDto> alterar(@ParameterObject @PathVariable @NotNull String cpf, @RequestBody @Valid ClienteDto dto){
 		logger.info("Alterar cliente pelo CPF: " + cpf);
 		
 		ClienteDto clienteAlterado = service.alterarCliente(cpf, dto);		
@@ -77,7 +84,11 @@ public class ClienteController {
 	}	
 	
 	@DeleteMapping("/{cpf}")
-	public ResponseEntity<ClienteDto> excluir(@PathVariable @NotNull String cpf){
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Sucesso, cliente apagado"),
+			@ApiResponse(responseCode = "404", description = "Cliente não encontrado na base de dados")
+	})
+	public ResponseEntity<ClienteDto> excluir(@ParameterObject @PathVariable @NotNull String cpf){
 		logger.info("Excluir cliente pelo CPF: " + cpf);
 		
 		service.excluirCliente(cpf);		

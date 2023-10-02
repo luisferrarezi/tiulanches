@@ -71,6 +71,5 @@ public class PedidoService {
 		pedido.cancelar();
 		
 		pedidoRepository.save(pedido);
-		//pedidoRepository.cancelaPedido(pedido.getStatus(), id);
 	}	
 }

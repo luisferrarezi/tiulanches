@@ -2,6 +2,7 @@ package br.com.fiap.tiulanches.adapter.driver.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -37,7 +37,7 @@ public class ProdutoController {
 	private static Logger logger = LoggerFactory.getLogger(ProdutoController.class);
 	
 	@GetMapping	
-	public ResponseEntity<Page<ProdutoDto>> consultar(@PageableDefault(size=10) Pageable paginacao){
+	public ResponseEntity<Page<ProdutoDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar produtos");
 		
 		Page<ProdutoDto> page = service.consultaProdutos(paginacao);
@@ -45,16 +45,15 @@ public class ProdutoController {
 		return ResponseEntity.ok(page);
 	}
 	
-	@GetMapping
-	@RequestMapping(value = "/categoria")	
-	public List<ProdutoDto> consultarByCategoria(@RequestParam Categoria categoria){
+	@GetMapping(value = "/categoria/{categoria}")		
+	public List<ProdutoDto> consultarByCategoria(@ParameterObject @PathVariable @NotNull Categoria categoria){
 		logger.info("Consultar produtos pela categoria: " + categoria.toString());
 		
 		return service.consultaProdutoByCategoria(categoria);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ProdutoDto> detalhar(@PathVariable @NotNull Long id){
+	public ResponseEntity<ProdutoDto> detalhar(@ParameterObject @PathVariable @NotNull Long id){
 		logger.info("Consultar produto pelo idProduto: " + id.toString());
 		
 		ProdutoDto produto = service.consultaProdutoById(id);
@@ -63,7 +62,7 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid ProdutoDto dto, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<ProdutoDto> cadastrar(@ParameterObject @RequestBody @Valid ProdutoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Incluir produto");
 		
 		ProdutoDto produto = service.criarProduto(dto);
@@ -73,7 +72,7 @@ public class ProdutoController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ProdutoDto> alterar(@PathVariable @NotNull Long id, @RequestBody @Valid ProdutoDto dto){
+	public ResponseEntity<ProdutoDto> alterar(@ParameterObject @PathVariable @NotNull Long id, @RequestBody @Valid ProdutoDto dto){
 		logger.info("Alterar produto pelo idProduto: " + id.toString());
 		
 		ProdutoDto produtoAlterado = service.alterarProduto(id, dto);		
@@ -82,7 +81,7 @@ public class ProdutoController {
 	}	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ProdutoDto> excluir(@PathVariable @NotNull Long id){
+	public ResponseEntity<ProdutoDto> excluir(@ParameterObject @PathVariable @NotNull Long id){
 		logger.info("Excluir produto pelo idProduto: " + id.toString());
 		
 		service.excluirProduto(id);		

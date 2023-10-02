@@ -43,6 +43,8 @@ public class ClienteService {
 	}	
 	
 	public void excluirCliente(String cpf){
-		repository.deleteById(cpf);
+		Cliente cliente = repository.findById(cpf).orElseThrow(() -> new EntityNotFoundException());
+		
+		repository.deleteById(cliente.getCpf());
 	}	
 }

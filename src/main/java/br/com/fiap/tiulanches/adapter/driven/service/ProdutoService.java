@@ -53,6 +53,8 @@ public class ProdutoService {
 	}	
 	
 	public void excluirProduto(Long id){
-		repository.deleteById(id);
+		Produto produto = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+		
+		repository.deleteById(produto.getIdProduto());
 	}	
 }
