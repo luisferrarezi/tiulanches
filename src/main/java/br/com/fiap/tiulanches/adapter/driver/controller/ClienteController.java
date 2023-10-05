@@ -122,7 +122,7 @@ public class ClienteController {
 	   		   tags = {"Cliente"})	
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "204", description = "Sucesso, cliente apagado"),
-			@ApiResponse(responseCode = "404", description = "Cliente não encontrado na base de dados")
+			@ApiResponse(responseCode = "404", description = "Falha, cliente não encontrado")
 	})
 	public ResponseEntity<ClienteDto> excluir(@ParameterObject 
 			  								  @PathVariable 

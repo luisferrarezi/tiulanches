@@ -21,6 +21,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.fiap.tiulanches.adapter.driven.service.ProdutoService;
 import br.com.fiap.tiulanches.core.domain.dto.ProdutoDto;
 import br.com.fiap.tiulanches.core.domain.enums.Categoria;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -37,23 +41,50 @@ public class ProdutoController {
 	private static Logger logger = LoggerFactory.getLogger(ProdutoController.class);
 	
 	@GetMapping	
+	@Operation(summary = "Lista todos os produtos cadastrados", 
+    		   description = "O retorno é paginado e o padrão são 10 registros por página", 
+    		   tags = {"Produto"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso, lista todos os produtos em paginação")
+	})		
 	public ResponseEntity<Page<ProdutoDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar produtos");
 		
 		Page<ProdutoDto> page = service.consultaProdutos(paginacao);
 		
 		return ResponseEntity.ok(page);
-	}
+	}	
 	
-	@GetMapping(value = "/categoria/{categoria}")		
-	public List<ProdutoDto> consultarByCategoria(@ParameterObject @PathVariable @NotNull Categoria categoria){
+	@GetMapping(value = "/categoria/{categoria}")
+	@Operation(summary = "Lista todos os produtos cadastrados por categoria", 
+	           description = "Retorna uma lista não paginada dos produtos de acordo com a categoria informada", 
+	           tags = {"Produto"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso, lista todos os produtos pela categoria selecionada sem paginação")
+	})			
+	public List<ProdutoDto> consultarByCategoria(@ParameterObject 
+			                                     @PathVariable 
+			                                     @NotNull
+			                                     @Schema(implementation = Categoria.class, description = "Categoria do produto", example = "LANCHE", required = true)
+			                                     Categoria categoria){
 		logger.info("Consultar produtos pela categoria: " + categoria.toString());
 		
 		return service.consultaProdutoByCategoria(categoria);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ProdutoDto> detalhar(@ParameterObject @PathVariable @NotNull Long id){
+	@Operation(summary = "Retorna dados do produto", 
+	   		   description = "Retorna todos os dados do produto do código informado", 
+	   		   tags = {"Produto"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso, retorna dados do produto"),
+			@ApiResponse(responseCode = "404", description = "Falha, produto não encontrado")
+	})		
+	public ResponseEntity<ProdutoDto> detalhar(@ParameterObject 
+			                                   @PathVariable 
+			                                   @NotNull
+			                                   @Schema(description = "Código do produto após ser criado", example = "1", required = true)
+			                                   Long id){
 		logger.info("Consultar produto pelo idProduto: " + id.toString());
 		
 		ProdutoDto produto = service.consultaProdutoById(id);
@@ -62,6 +93,13 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
+	@Operation(summary = "Cadastra o produto", 
+	   		   description = "Cria o produto e retorna o registro cadastrado", 
+	   		   tags = {"Produto"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Sucesso, produto cadastrado"),
+			@ApiResponse(responseCode = "400", description = "Falha, não cadastra o produto por faltar informação ou com informação errada")
+	})				
 	public ResponseEntity<ProdutoDto> cadastrar(@ParameterObject @RequestBody @Valid ProdutoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Incluir produto");
 		
@@ -72,7 +110,18 @@ public class ProdutoController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ProdutoDto> alterar(@ParameterObject @PathVariable @NotNull Long id, @RequestBody @Valid ProdutoDto dto){
+	@Operation(summary = "Altera dados do produto", 
+	   		   description = "Altera dados do produto e retorna eles", 
+	   		   tags = {"Produto"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso, altera os dados do produto e retorna eles"),
+			@ApiResponse(responseCode = "404", description = "Falha, produto não encontrado")
+	})				
+	public ResponseEntity<ProdutoDto> alterar(@ParameterObject 
+			                                  @PathVariable 
+			                                  @NotNull
+			                                  @Schema(description = "Código do produto após ser criado", example = "1", required = true)
+			                                  Long id, @RequestBody @Valid ProdutoDto dto){
 		logger.info("Alterar produto pelo idProduto: " + id.toString());
 		
 		ProdutoDto produtoAlterado = service.alterarProduto(id, dto);		
@@ -81,7 +130,18 @@ public class ProdutoController {
 	}	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ProdutoDto> excluir(@ParameterObject @PathVariable @NotNull Long id){
+	@Operation(summary = "Exclui dados do produto", 
+			   description = "Exclui dados do produto", 
+			   tags = {"Produto"})	
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Sucesso, produto apagado"),
+			@ApiResponse(responseCode = "404", description = "Falha, produto não encontrado")
+	})	
+	public ResponseEntity<ProdutoDto> excluir(@ParameterObject 
+			                                  @PathVariable 
+			                                  @NotNull
+			                                  @Schema(description = "Código do produto após ser criado", example = "1", required = true)
+			                                  Long id){
 		logger.info("Excluir produto pelo idProduto: " + id.toString());
 		
 		service.excluirProduto(id);		

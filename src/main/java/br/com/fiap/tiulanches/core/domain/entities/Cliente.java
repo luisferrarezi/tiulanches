@@ -2,6 +2,7 @@ package br.com.fiap.tiulanches.core.domain.entities;
 
 import br.com.fiap.tiulanches.adapter.infra.annotation.Cpf;
 import br.com.fiap.tiulanches.core.domain.dto.ClienteDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,15 +24,18 @@ import lombok.Setter;
 public class Cliente {
 	@Id	
 	@Size(max=11)
-	@Cpf	
+	@Cpf
+	@Schema(description = "CPF do cliente sem formatação", example = "70636213005", required = true, maxLength = 11)
 	private String cpf;
 	
 	@NotBlank
 	@Size(max=60)
+	@Schema(description = "Nome do cliente", example = "Luis Antonio", required = true, maxLength = 60)
 	private String nome;
 	
 	@NotBlank
 	@Size(max=60)
+	@Schema(description = "Email do cliente", example = "luisantonio@gmail.com", required = true, maxLength = 60)
 	private String email;
 	
 	public void atualizar(ClienteDto cliente) {

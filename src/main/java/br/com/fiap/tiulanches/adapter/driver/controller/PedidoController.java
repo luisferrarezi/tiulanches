@@ -19,6 +19,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fiap.tiulanches.adapter.driven.service.PedidoService;
 import br.com.fiap.tiulanches.core.domain.dto.PedidoDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -33,7 +37,13 @@ public class PedidoController {
 	
 	private static Logger logger = LoggerFactory.getLogger(PedidoController.class);
 	
-	@GetMapping	
+	@GetMapping
+	@Operation(summary = "Lista todos os pedidos cadastrados", 
+	   		   description = "O retorno é paginado e o padrão são 10 registros por página", 
+	   		   tags = {"Pedido"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso, lista todos os produtos em paginação")
+	})		
 	public ResponseEntity<Page<PedidoDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar pedidos");
 		
@@ -43,7 +53,18 @@ public class PedidoController {
 	}	
 		
 	@GetMapping("/{id}")
-	public ResponseEntity<PedidoDto> detalhar(@ParameterObject @PathVariable @NotNull Long id){
+	@Operation(summary = "Retorna dados do pedido", 
+	   		   description = "Retorna todos os dados do pedido do código informado", 
+	   		   tags = {"Pedido"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso, retorna dados do pedido"),
+			@ApiResponse(responseCode = "404", description = "Falha, pedido não encontrado")
+	})		
+	public ResponseEntity<PedidoDto> detalhar(@ParameterObject 
+			                                  @PathVariable 
+			                                  @NotNull
+			                                  @Schema(description = "Código do pedido após ser criado", example = "1", required = true)                     
+			                                  Long id){
 		logger.info("Consultar pedido pelo idPedido: " + id.toString());
 		
 		PedidoDto pedido = service.consultaPedidosById(id);
@@ -52,6 +73,13 @@ public class PedidoController {
 	}
 	
 	@PostMapping
+	@Operation(summary = "Cadastra o pedido", 
+	   		   description = "Cria o pedido e retorna o registro cadastrado", 
+	   		   tags = {"Pedido"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Sucesso, produto cadastrado"),
+			@ApiResponse(responseCode = "400", description = "Falha, não cadastra o produto por faltar informação ou com informação errada")
+	})					
 	public ResponseEntity<PedidoDto> cadastrar(@ParameterObject @RequestBody @Valid PedidoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Incluir pedido");
 		
@@ -62,7 +90,18 @@ public class PedidoController {
 	}
 	
 	@PutMapping("/cancelamento/{id}")
-	public ResponseEntity<PedidoDto> cancelar(@ParameterObject @PathVariable @NotNull Long id){
+	@Operation(summary = "Cancela o pedido", 
+	   		   description = "Retorna todos os dados do pedido do código informado", 
+	   		   tags = {"Pedido"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso, cancela o pedido"),
+			@ApiResponse(responseCode = "404", description = "Falha, pedido não encontrado")
+	})			
+	public ResponseEntity<PedidoDto> cancelar(@ParameterObject 
+			                                  @PathVariable 
+			                                  @NotNull
+			                                  @Schema(description = "Código do pedido após ser criado", example = "1", required = true)
+			                                  Long id){
 		logger.info("Cancelar pedido pelo idPedido: " + id.toString());
 		
 		service.cancelarPedido(id);		
