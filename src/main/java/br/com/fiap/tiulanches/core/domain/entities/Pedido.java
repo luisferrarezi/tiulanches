@@ -36,7 +36,7 @@ public class Pedido {
 	@Id
 	@Getter	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Schema(description = "Código do pedido após ser criado", example = "1", required = true)	
+	@Schema(description = "Código do pedido após ser criado", example = "17", required = true)	
 	private long idPedido;
 	
 	@Getter

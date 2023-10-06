@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.core.domain.repository;
+package br.com.fiap.tiulanches.adapter.driven.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

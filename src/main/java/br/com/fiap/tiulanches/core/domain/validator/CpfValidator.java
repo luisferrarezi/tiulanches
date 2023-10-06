@@ -1,6 +1,6 @@
-package br.com.fiap.tiulanches.adapter.infra.validator;
+package br.com.fiap.tiulanches.core.domain.validator;
 
-import br.com.fiap.tiulanches.adapter.infra.annotation.Cpf;
+import br.com.fiap.tiulanches.core.domain.annotation.Cpf;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

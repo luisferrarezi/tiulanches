@@ -1,5 +1,5 @@
 <configuration>
-	<contextName>prod</contextName>
+	<contextName>prod</contextName>	
 
 	<appender name="json" class="ch.qos.logback.core.ConsoleAppender">
     	<layout class="ch.qos.logback.contrib.json.classic.JsonLayout">

@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -51,6 +52,7 @@ public class ItemPedido {
 	private BigDecimal precoUnitario;
 	
 	@NotNull
+	@NotBlank
 	@Schema(description = "Quantidade total do produto", example = "3", required = true)	
 	private int quantidade;
 	

@@ -1,10 +1,10 @@
-package br.com.fiap.tiulanches.adapter.infra.annotation;
+package br.com.fiap.tiulanches.core.domain.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import br.com.fiap.tiulanches.adapter.infra.validator.CpfValidator;
+import br.com.fiap.tiulanches.core.domain.validator.CpfValidator;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

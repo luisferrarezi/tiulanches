@@ -7,7 +7,7 @@ import br.com.fiap.tiulanches.core.domain.entities.Pedido;
 import br.com.fiap.tiulanches.core.domain.entities.Produto;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public record ItemPedidoDto(@Schema(description = "Código do item após ser criado", example = "1", required = true)
+public record ItemPedidoDto(@Schema(description = "Código do item após ser criado", example = "17", required = true)
 		                    long idItem,
 		                    @Schema(description = "Pedido que o item pertence", required = true)
 							Pedido pedido,

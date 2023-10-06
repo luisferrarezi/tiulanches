@@ -1,6 +1,5 @@
 package br.com.fiap.tiulanches.core.domain.dto;
 
-
 import java.util.List;
 
 import br.com.fiap.tiulanches.core.domain.entities.Cliente;
@@ -8,10 +7,9 @@ import br.com.fiap.tiulanches.core.domain.entities.ItemPedido;
 import br.com.fiap.tiulanches.core.domain.entities.Pedido;
 import br.com.fiap.tiulanches.core.domain.enums.Pago;
 import br.com.fiap.tiulanches.core.domain.enums.StatusPedido;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public record PedidoDto (@Schema(description = "Código do pedido após ser criado", example = "1", required = true)
+public record PedidoDto (@Schema(description = "Código do pedido após ser criado", example = "17", required = true)
 						 long idPedido,
 						 @Schema(description = "Cliente caso ele queira se identificar")
 						 Cliente cliente,

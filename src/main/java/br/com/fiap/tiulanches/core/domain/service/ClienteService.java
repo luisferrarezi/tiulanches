@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.adapter.driven.service;
+package br.com.fiap.tiulanches.core.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.fiap.tiulanches.core.domain.dto.ClienteDto;
 import br.com.fiap.tiulanches.core.domain.entities.Cliente;
-import br.com.fiap.tiulanches.core.domain.repository.ClienteRepository;
+import br.com.fiap.tiulanches.adapter.driven.repository.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 

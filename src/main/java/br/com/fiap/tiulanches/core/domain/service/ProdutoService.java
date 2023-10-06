@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.adapter.driven.service;
+package br.com.fiap.tiulanches.core.domain.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.fiap.tiulanches.core.domain.dto.ProdutoDto;
 import br.com.fiap.tiulanches.core.domain.entities.Produto;
 import br.com.fiap.tiulanches.core.domain.enums.Categoria;
-import br.com.fiap.tiulanches.core.domain.repository.ProdutoRepository;
+import br.com.fiap.tiulanches.adapter.driven.repository.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 

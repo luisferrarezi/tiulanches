@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.adapter.driven.service;
+package br.com.fiap.tiulanches.core.domain.service;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import br.com.fiap.tiulanches.core.domain.entities.Cliente;
 import br.com.fiap.tiulanches.core.domain.entities.ItemPedido;
 import br.com.fiap.tiulanches.core.domain.entities.Pedido;
 import br.com.fiap.tiulanches.core.domain.entities.Produto;
-import br.com.fiap.tiulanches.core.domain.repository.ClienteRepository;
-import br.com.fiap.tiulanches.core.domain.repository.PedidoRepository;
-import br.com.fiap.tiulanches.core.domain.repository.ProdutoRepository;
+import br.com.fiap.tiulanches.adapter.driven.repository.ClienteRepository;
+import br.com.fiap.tiulanches.adapter.driven.repository.PedidoRepository;
+import br.com.fiap.tiulanches.adapter.driven.repository.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service

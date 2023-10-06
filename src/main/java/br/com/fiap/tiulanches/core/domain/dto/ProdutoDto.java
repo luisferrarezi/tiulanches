@@ -17,7 +17,7 @@ public record ProdutoDto(@Schema(description = "Código do produto após ser cri
 						         required = true, 
 						         maxLength = 200)
 						 String descricao,
-						 @Schema(description = "Preço do produto", example = "19.00", required = true)
+						 @Schema(description = "Preço do produto", example = "19.32", required = true)
 						 BigDecimal preco,
 						 @Schema(description = "Tempo em minutos necessário para preparar todo o produto.", example = "35")
 						 int tempoPreparo,

@@ -1,6 +1,6 @@
 package br.com.fiap.tiulanches.core.domain.entities;
 
-import br.com.fiap.tiulanches.adapter.infra.annotation.Cpf;
+import br.com.fiap.tiulanches.core.domain.annotation.Cpf;
 import br.com.fiap.tiulanches.core.domain.dto.ClienteDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
