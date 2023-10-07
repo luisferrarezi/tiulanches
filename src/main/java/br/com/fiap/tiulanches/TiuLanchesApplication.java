@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @SpringBootApplication
 @OpenAPIDefinition(
-		info = @Info(title="API Tiu Lanches", version = "1.0.0", description = "Tech Challenge para conclusão Pós Graduação FIAP"),
+		info = @Info(title="API Tiu Lanches", version = "1.0.0", description = "Tech Challenge para conclusão Pós Graduação Software Architecture pela FIAP"),
 		servers = { @Server(url="http://localhost:8080") }
 )
 public class TiuLanchesApplication {	
