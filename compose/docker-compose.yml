@@ -1,13 +1,32 @@
+version: '3.8'
+
 services:
   db:
     container_name: base-mysql    
     image: mysql:8.0
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     ports:
       - 3309:3306
+
+  tiulanchesapp:
+    depends_on:
+      - db
+    container_name: tiu-lanches-app
+    image: luisferrarezi/tiulanches:1.0.1
+    restart: on-failure
+    environment:
+      - DATASOURCE_PASSWORD=123456
+      - DATASOURCE_URL=jdbc:mysql://db:3306/tiulanches
+      - DATASOURCE_USERNAME=root
+    ports:
+      - 8080:8080
+    volumes:
+      - .m2:/root/.m2    
+              
 volumes:
   db_data:
+  
