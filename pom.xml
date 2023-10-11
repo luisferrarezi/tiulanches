@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.fiap</groupId>
 	<artifactId>tiulanches</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.23.10.11-SNAPSHOT</version>
 	<name>tiulanches</name>
 	<description>Projeto para Tech Challenge FIAP</description>
 	<properties>
