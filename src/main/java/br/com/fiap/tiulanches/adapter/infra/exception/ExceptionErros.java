@@ -3,6 +3,7 @@ package br.com.fiap.tiulanches.adapter.infra.exception;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -48,6 +49,21 @@ public class ExceptionErros {
 		
 		return ResponseEntity.badRequest().body(new ErroValidacao(erros));	
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity businessError(BusinessException ex) {
+		FieldError erros = new FieldError(ex.getClass().toString(), ex.getBody().getClass().getSimpleName(), ex.getMessage());
+		
+		return ResponseEntity.badRequest().body(new ErroValidacao(erros));	
+	}
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<Object> dataIntegrityViolationError(DataIntegrityViolationException ex) {
+		ErroValidacao erro = new ErroValidacao("Exclusão", "Este registro está vinculado a outro, não pode ser excluído!");
+		
+		return new ResponseEntity <Object>(erro, HttpStatus.BAD_REQUEST);	
+	}		
 	
 	@ExceptionHandler(CannotCreateTransactionException.class)
 	public ResponseEntity<Object> notDataBaseConnectionError(CannotCreateTransactionException ex) {

@@ -185,8 +185,8 @@ public final class PedidoResponseSwagger {
 	
 	public static final String BADREQUEST = "[\r\n"
 			+ "    {\r\n"
-			+ "        \"campo\": \"categoria\",\r\n"
-			+ "        \"mensagem\": \"não deve ser nulo\"\r\n"
+			+ "        \"campo\": \"quantidade\",\r\n"
+			+ "        \"mensagem\": \"Quantidade mínima é 1\"\r\n"
 			+ "    }\r\n"
 			+ "]";
 }

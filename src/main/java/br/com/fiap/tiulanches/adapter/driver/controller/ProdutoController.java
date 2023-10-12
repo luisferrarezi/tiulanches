@@ -144,6 +144,9 @@ public class ProdutoController {
 			   tags = {"Produto"})	
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "204", description = "Sucesso, produto apagado", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "400", 
+						 description = "Falha, produto vínculado a um pedido", 
+						 content=@Content(schema = @Schema(example = ProdutoResponseSwagger.BADREQUESTVINCULADOPEDIDO))),
 			@ApiResponse(responseCode = "404", description = "Falha, produto não encontrado", content=@Content(schema = @Schema(hidden = true)))
 	})	
 	public ResponseEntity<ProdutoDto> excluir(@ParameterObject 

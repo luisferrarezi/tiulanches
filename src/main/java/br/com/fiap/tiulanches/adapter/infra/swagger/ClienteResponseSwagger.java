@@ -22,4 +22,11 @@ public final class ClienteResponseSwagger {
 			+ "    \"campo\": \"CPF\",\r\n"
 			+ "    \"mensagem\": \"CPF não informado!\"\r\n"
 			+ "}";
+	
+	public static final String BADREQUESTVINCULADOPEDIDO = "[\r\n"
+			+ "    {\r\n"
+			+ "        \"campo\": \"Exclusão\",\r\n"
+			+ "        \"mensagem\": \"Este registro está vinculado a outro, não pode ser excluído!\"\r\n"
+			+ "    }\r\n"
+			+ "]";		
 }

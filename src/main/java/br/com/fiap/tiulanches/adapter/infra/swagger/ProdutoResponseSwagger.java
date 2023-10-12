@@ -43,4 +43,11 @@ public final class ProdutoResponseSwagger {
 			+ "        \"mensagem\": \"não deve ser nulo\"\r\n"
 			+ "    }\r\n"
 			+ "]";
+	
+	public static final String BADREQUESTVINCULADOPEDIDO = "[\r\n"
+			+ "    {\r\n"
+			+ "        \"campo\": \"Exclusão\",\r\n"
+			+ "        \"mensagem\": \"Este registro está vinculado a outro, não pode ser excluído!\"\r\n"
+			+ "    }\r\n"
+			+ "]";	
 }

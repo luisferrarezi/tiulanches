@@ -87,7 +87,10 @@ public class PedidoController {
 			@ApiResponse(responseCode = "201", 
                          description = "Sucesso, produto cadastrado",
                          content=@Content(schema = @Schema(example = PedidoResponseSwagger.CREATED))),
-			@ApiResponse(responseCode = "400", description = "Falha, não cadastra o produto por faltar informação ou com informação errada")
+			@ApiResponse(responseCode = "400", 
+			             description = "Falha, não cadastra o produto por faltar informação ou com informação errada",
+			             content=@Content(schema = @Schema(example = PedidoResponseSwagger.BADREQUEST))),
+			@ApiResponse(responseCode = "404", description = "Falha, produto ou cliente não encontrado", content=@Content(schema = @Schema(hidden = true)))			
 	})					
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid @Schema(example = PedidoResponseSwagger.POST) PedidoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Incluir pedido");

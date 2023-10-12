@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -51,8 +51,7 @@ public class ItemPedido {
 	@Schema(description = "Preço do produto", example = "19.00", required = true)	
 	private BigDecimal precoUnitario;
 	
-	@NotNull
-	@NotBlank
+	@Min(value = 1, message="Quantidade mínima é 1")	
 	@Schema(description = "Quantidade total do produto", example = "3", required = true)	
 	private int quantidade;
 	

@@ -129,6 +129,9 @@ public class ClienteController {
 	   		   tags = {"Cliente"})	
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "204", description = "Sucesso, cliente apagado", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "400", 
+			 			 description = "Falha, produto vínculado a um pedido", 
+			 			 content=@Content(schema = @Schema(example = ClienteResponseSwagger.BADREQUESTVINCULADOPEDIDO))),
 			@ApiResponse(responseCode = "404", description = "Falha, cliente não encontrado", content=@Content(schema = @Schema(hidden = true)))
 	})
 	public ResponseEntity<ClienteDto> excluir(@ParameterObject 
