@@ -5,7 +5,7 @@ Tiu Lanches
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
 | :sparkles: Nome        | **Tiu Lanches**
-| :label: Tecnologias | Java, Maven, Spring Framework, Flyway, Lombok
+| :label: Tecnologias | Java, Maven, Spring, MySQL 
 | :rocket: URL         | 
 | :fire: Desafio     | 
 
@@ -15,21 +15,38 @@ Tiu Lanches
 ## Detalhes do projeto
 Projeto criado para conclusão da Pós Gradução em Software Architectura pela FIAP
 
-# Links Projeto
+# Documentação Projeto
 [Projeto no Notion](https://luisferrarezi.notion.site/Tiu-Lanches-818bd35f516d459d9525f3bc2f7c2af6)
 
-# Frameworks utilizados 
-- Spring Framework
-- Lombok
-- Flyway
-- Maven
+# Linguagem
+- Java - JDK 20
 
 # Banco de dados
-- MySql
+- MySql - 8.0
+
+# Frameworks utilizados 
+- Spring Framework - 3.1.3
+- Lombok
+- Flyway
+- Maven 
+- Jackson Databind
+- LogBack
+- Spring Doc
 
 # Variáveis de Ambiente
 Para poder funcionar é necessário cadastrar as seguintes variáveis de ambiente na sua IDE ou SO:
-- SECRET_TOKEN=<SECRET_KEY_JWT> 
 - DATASOURCE_URL=<URL_CONEXAO_BD> 
 - DATASOURCE_USERNAME=<USER_NAME_DB> 
 - DATASOURCE_PASSWORD=<SENHA_DB>
+
+# Acessos 
+- Aplicação: http://localhost:8080
+- Swagger: http://localhost:8080/swagger-ui/index.html
+- ReDoc: http://localhost:8080/redoc.html
+
+# Subir Aplicação Docker
+- Baixe o docker compose do projeto em https://github.com/luisferrarezi/tiulanches/blob/main/compose/docker-compose.yml
+
+~~~Execute
+docker compose -f docker-compose.yml up --build -d
+~~~
