@@ -7,6 +7,45 @@
 	},
 	"item": [
 		{
+			"name": "Listar Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar cliente por CPF",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/clientes/73226998072",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"73226998072"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Listar Produtos",
 			"request": {
 				"method": "GET",
@@ -26,6 +65,47 @@
 			"response": []
 		},
 		{
+			"name": "Listar produto por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar produtos por categoria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos/categoria/LANCHE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"categoria",
+						"LANCHE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Listar Pedidos",
 			"request": {
 				"method": "GET",
@@ -39,6 +119,77 @@
 					"port": "8080",
 					"path": [
 						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar pedido por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pedidos/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar pedidos por Status e pago",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pedidos/status/RECEBIDO/pago/NAO",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"status",
+						"RECEBIDO",
+						"pago",
+						"NAO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"71757773029\",\r\n    \"nome\": \"teste\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes"
 					]
 				}
 			},
@@ -79,7 +230,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{  \r\n  \"listItemPedido\": [\r\n    {\r\n      \"produto\": {\r\n        \"idProduto\": 1\r\n      },\r\n      \"quantidade\": 0,\r\n      \"observacao\": \"Sem queijo e mostarda\"\r\n    },\r\n    {\r\n      \"produto\": {\r\n        \"idProduto\": 2\r\n      },\r\n      \"quantidade\": 4\r\n    }\r\n  ]\r\n}",
+					"raw": "{ \r\n  \"cliente\": {\r\n    \"cpf\": \"30637852885\"\r\n  }, \r\n  \"listItemPedido\": [\r\n    {\r\n      \"produto\": {\r\n        \"idProduto\": 10\r\n      },\r\n      \"quantidade\": 0,\r\n      \"observacao\": \"Sem queijo e mostarda\"\r\n    },\r\n    {\r\n      \"produto\": {\r\n        \"idProduto\": 2\r\n      },\r\n      \"quantidade\": 4\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -95,183 +246,6 @@
 					"port": "8080",
 					"path": [
 						"pedidos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Alterar Produto",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{    \r\n    \"categoria\": \"LANCHE\",\r\n    \"nome\": \"OUTBACKER ICE\",  \r\n    \"descricao\": \"Hambúrguer feito com 200 g de carne, queijo, picles, tomate, alface, cebola e maionese. Se preferir, peça para acrescentar bacon e troque a maionese por mostarda.\",\r\n    \"preco\": 45.67,\r\n    \"tempoPreparo\": 30  \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/produtos/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Excluir Produto",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/produtos/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar produto por ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/produtos/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar pedido por ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/pedidos/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"pedidos",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar produtos por categoria",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/produtos/categoria/LANCHE",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos",
-						"categoria",
-						"LANCHE"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Criar Cliente",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"cpf\": \"71757773029\",\r\n    \"nome\": \"teste\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar Clientes",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar cliente por CPF",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/clientes/73226998072",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes",
-						"73226998072"
 					]
 				}
 			},
@@ -307,20 +281,29 @@
 			"response": []
 		},
 		{
-			"name": "Excluir Cliente",
+			"name": "Alterar Produto",
 			"request": {
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"categoria\": \"LANCHE\",\r\n    \"nome\": \"OUTBACKER ICE\",  \r\n    \"descricao\": \"Hambúrguer feito com 200 g de carne, queijo, picles, tomate, alface, cebola e maionese. Se preferir, peça para acrescentar bacon e troque a maionese por mostarda.\",\r\n    \"preco\": 45.67,\r\n    \"tempoPreparo\": 30  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/clientes/30637852885",
+					"raw": "http://localhost:8080/produtos/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"clientes",
-						"30637852885"
+						"produtos",
+						"5"
 					]
 				}
 			},
@@ -342,6 +325,46 @@
 						"pedidos",
 						"cancelamento",
 						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/clientes/30637852885",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"30637852885"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Produto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"1"
 					]
 				}
 			},

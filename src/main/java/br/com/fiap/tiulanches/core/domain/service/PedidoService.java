@@ -1,6 +1,7 @@
 package br.com.fiap.tiulanches.core.domain.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,8 @@ import br.com.fiap.tiulanches.core.domain.entities.Cliente;
 import br.com.fiap.tiulanches.core.domain.entities.ItemPedido;
 import br.com.fiap.tiulanches.core.domain.entities.Pedido;
 import br.com.fiap.tiulanches.core.domain.entities.Produto;
+import br.com.fiap.tiulanches.core.domain.enums.Pago;
+import br.com.fiap.tiulanches.core.domain.enums.StatusPedido;
 import br.com.fiap.tiulanches.adapter.driven.repository.ClienteRepository;
 import br.com.fiap.tiulanches.adapter.driven.repository.PedidoRepository;
 import br.com.fiap.tiulanches.adapter.driven.repository.ProdutoRepository;
@@ -34,6 +37,12 @@ public class PedidoService {
 	public Page<PedidoDto> consultaPedidos(Pageable paginacao){
 		return pedidoRepository.findAll(paginacao).map(PedidoDto::new);
 	}
+
+	public List<PedidoDto> consultaPedidosByStatusPago(StatusPedido status, Pago pago){
+		List<Pedido> listPedido = pedidoRepository.findByStatusPago(status, pago);
+		
+		return listPedido.stream().map(pedido -> new PedidoDto(pedido)).collect(Collectors.toList());
+	}	
 	
 	public PedidoDto consultaPedidosById(Long id) {
 		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
