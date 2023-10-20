@@ -9,7 +9,7 @@ Tiu Lanches
 | :rocket: URL         | 
 | :fire: Desafio     | 
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Static Badge](https://img.shields.io/badge/any_text-Version-blue?label=1.23.10.12)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Static Badge](https://img.shields.io/badge/any_text-Version-blue?label=1.23.10.20)
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
 ![](https://www.notion.so/image/https%3A%2F%2Fimagens.jotaja.com%2Fempresa%2Ffcf91c6a-1626-4412-b5d0-845c777d5611.jpg?table=block&id=818bd35f-516d-459d-9525-f3bc2f7c2af6&spaceId=62941c71-5c2d-41d6-8c4f-a5f5b14de56c&width=2000&userId=06b981be-eaf4-4de6-9a12-a77aa351d285&cache=v2#vitrinedev)
