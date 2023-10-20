@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
     container_name: tiu-lanches-app
-    image: luisferrarezi/tiulanches:1.23.10.12
+    image: luisferrarezi/tiulanches:1.23.10.20
     restart: on-failure
     environment:
       - DATASOURCE_PASSWORD=123456
