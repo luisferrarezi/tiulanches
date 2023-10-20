@@ -1,13 +1,10 @@
-# Nome do meu projeto
-
-Tiu Lanches
-
+# TIU LANCHES
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
 | :sparkles: Nome        | **Tiu Lanches**
 | :label: Tecnologias | Java, Maven, Spring, MySQL 
 | :rocket: URL         | 
-| :fire: Desafio     | 
+| :fire: Desafio     | Tech Challenge FIAP
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Static Badge](https://img.shields.io/badge/any_text-Version-blue?label=1.23.10.20)
 
