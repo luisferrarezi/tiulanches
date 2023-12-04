@@ -1,4 +1,4 @@
-FROM eclipse-temurin:20-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 ARG JAR_FILE=target/*.jar
