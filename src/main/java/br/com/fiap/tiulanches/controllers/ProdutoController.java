@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.fiap.tiulanches.services.ProdutoService;
 import br.com.fiap.tiulanches.infra.swagger.ProdutoResponseSwagger;
+import br.com.fiap.tiulanches.services.ProdutoService;
 import br.com.fiap.tiulanches.dtos.ProdutoDto;
 import br.com.fiap.tiulanches.enums.Categoria;
 import io.swagger.v3.oas.annotations.Operation;

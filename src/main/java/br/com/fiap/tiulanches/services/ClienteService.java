@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class ClienteService {
+	
 	@Autowired
 	private ClienteRepository repository;
 	
@@ -29,6 +30,10 @@ public class ClienteService {
     }
 	
 	public ClienteDto criarCliente(ClienteDto dto){
+		if (dto.cpf() == null) {
+			throw new BusinessException("CPF não informado!", HttpStatus.BAD_REQUEST, dto);
+		}		
+		
 		if (repository.findById(dto.cpf()).isEmpty()) {
 			Cliente cliente = new Cliente();
 			cliente.criar(dto);

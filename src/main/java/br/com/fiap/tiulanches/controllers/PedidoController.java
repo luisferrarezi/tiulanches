@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.fiap.tiulanches.services.PedidoService;
 import br.com.fiap.tiulanches.infra.swagger.PedidoResponseSwagger;
+import br.com.fiap.tiulanches.services.PedidoService;
 import br.com.fiap.tiulanches.dtos.PedidoDto;
 import br.com.fiap.tiulanches.enums.Pago;
 import br.com.fiap.tiulanches.enums.StatusPedido;
