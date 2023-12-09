@@ -17,6 +17,9 @@ Projeto criado para conclusão da Pós Gradução em Software Architectura pela 
 # Documentação Projeto
 [Projeto no Notion](https://luisferrarezi.notion.site/Tiu-Lanches-818bd35f516d459d9525f3bc2f7c2af6)
 
+# Pattern
+- Clean Architecture
+
 # Linguagem
 - Java - JDK 21
 
