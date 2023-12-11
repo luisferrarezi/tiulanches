@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.repository.cliente;
+package br.com.fiap.tiulanches.adapter.repository.cliente;
 
 import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -8,16 +8,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.tiulanches.repository.produto.ProdutoDto;
+import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoDto;
+import br.com.fiap.tiulanches.adapter.controller.ProdutoController;
 import br.com.fiap.tiulanches.core.entitie.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Categoria;
-import br.com.fiap.tiulanches.core.usecase.ProdutoUseCase;
-import br.com.fiap.tiulanches.repository.produto.ProdutoRepository;
+import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ProdutoService implements ProdutoUseCase {
+public class ProdutoService implements ProdutoController {
 	private final ProdutoRepository repository; 
 	
 	@Autowired
@@ -35,7 +35,7 @@ public class ProdutoService implements ProdutoUseCase {
 		return listProduto.stream().map(produto -> new ProdutoDto(produto)).collect(Collectors.toList());		
 	}
 	
-	public ProdutoDto consultaById(Long id) {
+	public ProdutoDto detalhar(Long id) {
         Produto produto = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
 
         return new ProdutoDto(produto);

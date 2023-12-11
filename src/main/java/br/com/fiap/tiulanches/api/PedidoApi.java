@@ -20,10 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import br.com.fiap.tiulanches.adapter.PedidoGateway;
-import br.com.fiap.tiulanches.controller.PedidoController;
-import br.com.fiap.tiulanches.repository.pedido.PedidoDto;
+import br.com.fiap.tiulanches.adapter.controller.PedidoController;
+import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import br.com.fiap.tiulanches.infra.swagger.PedidoResponseSwagger;
@@ -39,14 +37,14 @@ import jakarta.validation.constraints.NotNull;
 @RequestMapping(value = "/pedidos")
 public class PedidoApi {
 	
-	private final PedidoGateway gateway;
+	private final PedidoController controller;
 	
 	@Autowired
-	public PedidoApi(PedidoGateway gateway){
-		this.gateway = gateway;
+	public PedidoApi(PedidoController controller){
+		this.controller = controller;
 	};
 	
-	private static Logger logger = LoggerFactory.getLogger(PedidoController.class);
+	private static Logger logger = LoggerFactory.getLogger(PedidoApi.class);
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Lista todos os pedidos", description = "Retorno paginado, padrão de 10 registros por página", tags = {"Pedido"})
@@ -56,7 +54,7 @@ public class PedidoApi {
 	public ResponseEntity<Page<PedidoDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar pedidos");
 		
-		Page<PedidoDto> page = gateway.consultaPaginada(paginacao); 
+		Page<PedidoDto> page = controller.consultaPaginada(paginacao); 
 		
 		return ResponseEntity.ok(page);
 	}	
@@ -74,7 +72,7 @@ public class PedidoApi {
 			                                     Pago pago){
 		logger.info("Consultar pedidos pelo status: " + status.toString() + " e pago: " + pago.toString());
 		
-		return gateway.consultaByStatusPago(status, pago);
+		return controller.consultaByStatusPago(status, pago);
 	}	
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -88,7 +86,7 @@ public class PedidoApi {
 			                                  Long id){
 		logger.info("Consultar pedido pelo idPedido: " + id.toString());
 		
-		PedidoDto pedido = gateway.detalhar(id);
+		PedidoDto pedido = controller.detalhar(id);
 		
 		return ResponseEntity.ok(pedido);
 	}
@@ -104,7 +102,7 @@ public class PedidoApi {
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid @Schema(example = PedidoResponseSwagger.POST) PedidoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Cadastrar pedido");
 		
-		PedidoDto pedido = gateway.cadastrar(dto);
+		PedidoDto pedido = controller.cadastrar(dto);
 		URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.idPedido()).toUri();
 		
 		return ResponseEntity.created(endereco).body(pedido);
@@ -121,7 +119,7 @@ public class PedidoApi {
 			                                  Long id){
 		logger.info("Cancelar pedido pelo idPedido: " + id.toString());
 		
-		gateway.cancelar(id);		
+		controller.cancelar(id);		
 		
 		return ResponseEntity.ok().build();
 	}

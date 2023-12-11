@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.repository.pedido;
+package br.com.fiap.tiulanches.adapter.repository.pedido;
 
 import java.math.BigDecimal;
 

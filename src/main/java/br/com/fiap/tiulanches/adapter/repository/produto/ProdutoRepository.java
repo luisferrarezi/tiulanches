@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.repository.produto;
+package br.com.fiap.tiulanches.adapter.repository.produto;
 
 import java.util.List;
 

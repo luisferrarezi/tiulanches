@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.fiap.tiulanches.adapter.ClienteGateway;
-import br.com.fiap.tiulanches.repository.cliente.ClienteDto;
+import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
+import br.com.fiap.tiulanches.adapter.controller.ClienteController;
 import br.com.fiap.tiulanches.infra.swagger.ClienteResponseSwagger;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -36,11 +36,11 @@ import jakarta.validation.constraints.NotNull;
 @RequestMapping(value = "/clientes")
 public class ClienteApi {	
 	
-	private final ClienteGateway gateway;
+	private final ClienteController controller;
 	
 	@Autowired
-	public ClienteApi(ClienteGateway gateway) {
-		this.gateway = gateway;
+	public ClienteApi(ClienteController controller) {
+		this.controller = controller;
 	};
 	
 	private static Logger logger = LoggerFactory.getLogger(ClienteApi.class);
@@ -53,7 +53,7 @@ public class ClienteApi {
 	public ResponseEntity<Page<ClienteDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar clientes");		
 				
-		Page<ClienteDto> page = gateway.consultaPaginada(paginacao);
+		Page<ClienteDto> page = controller.consultaPaginada(paginacao);
 		
 		return ResponseEntity.ok(page);
 	}
@@ -69,7 +69,7 @@ public class ClienteApi {
 											   String cpf){
 		logger.info("Consultar cliente pelo CPF: " + cpf);
 		
-		ClienteDto cliente = gateway.detalhar(cpf);
+		ClienteDto cliente = controller.detalhar(cpf);
 		
 		return ResponseEntity.ok(cliente);
 	}
@@ -83,7 +83,7 @@ public class ClienteApi {
 	public ResponseEntity<Object> cadastrar(@RequestBody @Valid ClienteDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Cadastrar cliente");
 		
-		ClienteDto cliente = gateway.cadastrar(dto);
+		ClienteDto cliente = controller.cadastrar(dto);
 		URI endereco = uriBuilder.path("/clientes/{cpf}").buildAndExpand(cliente.cpf()).toUri();
 		return ResponseEntity.created(endereco).body(cliente);		
 	}
@@ -99,7 +99,7 @@ public class ClienteApi {
 			    							  String cpf, @RequestBody @Valid @Schema(example = ClienteResponseSwagger.PUT)  ClienteDto dto){
 		logger.info("Alterar cliente pelo CPF: " + cpf);
 		
-		ClienteDto clienteAlterado = gateway.alterar(cpf, dto);		
+		ClienteDto clienteAlterado = controller.alterar(cpf, dto);		
 		
 		return ResponseEntity.ok(clienteAlterado);
 	}	
@@ -116,7 +116,7 @@ public class ClienteApi {
 			  								  String cpf){
 		logger.info("Excluir cliente pelo CPF: " + cpf);
 		
-		gateway.excluir(cpf);		
+		controller.excluir(cpf);		
 		
 		return ResponseEntity.noContent().build();
 	}	

@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.fiap.tiulanches.repository.pedido.PedidoDto;
+import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
+import br.com.fiap.tiulanches.adapter.controller.PedidoController;
 import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
 import br.com.fiap.tiulanches.core.entitie.pedido.ItemPedido;
 import br.com.fiap.tiulanches.core.entitie.pedido.Pedido;
 import br.com.fiap.tiulanches.core.entitie.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
-import br.com.fiap.tiulanches.core.usecase.PedidoUseCase;
-import br.com.fiap.tiulanches.repository.cliente.ClienteRepository;
-import br.com.fiap.tiulanches.repository.pedido.PedidoRepository;
-import br.com.fiap.tiulanches.repository.produto.ProdutoRepository;
+import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteRepository;
+import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoRepository;
+import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class PedidoService implements PedidoUseCase {
+public class PedidoService implements PedidoController {
 	private final PedidoRepository pedidoRepository;
 	private final ProdutoRepository produtoRepository;
 	private final ClienteRepository clienteRepository;
@@ -47,7 +47,7 @@ public class PedidoService implements PedidoUseCase {
 		return listPedido.stream().map(pedido -> new PedidoDto(pedido)).collect(Collectors.toList());
 	}	
 	
-	public PedidoDto consultaById(Long id) {
+	public PedidoDto detalhar(Long id) {
 		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
 
         return new PedidoDto(pedido);

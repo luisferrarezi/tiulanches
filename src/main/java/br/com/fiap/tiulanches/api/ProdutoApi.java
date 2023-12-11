@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.fiap.tiulanches.adapter.ProdutoGateway;
-import br.com.fiap.tiulanches.controller.ProdutoController;
-import br.com.fiap.tiulanches.repository.produto.ProdutoDto;
+import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoDto;
+import br.com.fiap.tiulanches.adapter.controller.ProdutoController;
 import br.com.fiap.tiulanches.core.enums.Categoria;
 import br.com.fiap.tiulanches.infra.swagger.ProdutoResponseSwagger;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,14 +38,14 @@ import jakarta.validation.constraints.NotNull;
 @RequestMapping(value = "/produtos")
 public class ProdutoApi {
 
-	private final ProdutoGateway gateway;
+	private final ProdutoController controller;
 	
 	@Autowired
-	public ProdutoApi(ProdutoGateway gateway) {
-		this.gateway = gateway;
+	public ProdutoApi(ProdutoController controller) {
+		this.controller = controller;
 	};
 	
-	private static Logger logger = LoggerFactory.getLogger(ProdutoController.class);
+	private static Logger logger = LoggerFactory.getLogger(ProdutoApi.class);
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
 	@Operation(summary = "Lista todos os produtos", description = "Retorno paginado, padrão de 10 registros por página", tags = {"Produto"})
@@ -56,7 +55,7 @@ public class ProdutoApi {
 	public ResponseEntity<Page<ProdutoDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar produtos");
 		
-		Page<ProdutoDto> page = gateway.consultaPaginada(paginacao);
+		Page<ProdutoDto> page = controller.consultaPaginada(paginacao);
 		
 		return ResponseEntity.ok(page);
 	}	
@@ -71,7 +70,7 @@ public class ProdutoApi {
 			                                     Categoria categoria){
 		logger.info("Consultar produtos pela categoria: " + categoria.toString());
 		
-		return gateway.consultaByCategoria(categoria);
+		return controller.consultaByCategoria(categoria);
 	}
 	
 	@GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -85,7 +84,7 @@ public class ProdutoApi {
 			                                   Long id){
 		logger.info("Consultar produto pelo idProduto: " + id.toString());
 		
-		ProdutoDto produto = gateway.detalhar(id);
+		ProdutoDto produto = controller.detalhar(id);
 		
 		return ResponseEntity.ok(produto);
 	}
@@ -99,7 +98,7 @@ public class ProdutoApi {
 	public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid @Schema(example = ProdutoResponseSwagger.POST) ProdutoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Cadastrar produto");
 		
-		ProdutoDto produto = gateway.cadastrar(dto);
+		ProdutoDto produto = controller.cadastrar(dto);
 		URI endereco = uriBuilder.path("/produtos/{id}").buildAndExpand(produto.idProduto()).toUri();
 		
 		return ResponseEntity.created(endereco).body(produto);
@@ -116,7 +115,7 @@ public class ProdutoApi {
 			                                  Long id, @RequestBody @Valid @Schema(example = ProdutoResponseSwagger.PUT) ProdutoDto dto){
 		logger.info("Alterar produto pelo idProduto: " + id.toString());
 		
-		ProdutoDto produtoAlterado = gateway.alterar(id, dto);		
+		ProdutoDto produtoAlterado = controller.alterar(id, dto);		
 		
 		return ResponseEntity.ok(produtoAlterado);
 	}	
@@ -133,7 +132,7 @@ public class ProdutoApi {
 			                                  Long id){
 		logger.info("Excluir produto pelo idProduto: " + id.toString());
 		
-		gateway.excluir(id);		
+		controller.excluir(id);		
 		
 		return ResponseEntity.noContent().build();
 	}

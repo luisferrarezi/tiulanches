@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import io.swagger.v3.oas.annotations.media.Schema;
-import br.com.fiap.tiulanches.repository.pedido.PedidoDto;
+import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import jakarta.persistence.CascadeType;

@@ -1,7 +1,7 @@
 package br.com.fiap.tiulanches.core.entitie.cliente;
 
 import br.com.fiap.tiulanches.core.annotation.Cpf;
-import br.com.fiap.tiulanches.repository.cliente.ClienteDto;
+import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
