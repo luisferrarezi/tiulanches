@@ -19,8 +19,7 @@ public record PedidoDto (@Schema(description = "Código do pedido após ser cria
 						 String qrcode,
 						 @Schema(implementation = Pago.class, description = "Pedido pago", example = "SIM", required = true)
 						 Pago pago,
-						 @Schema(description = "Lista itens do pedido", required = true)
-						 
+						 @Schema(description = "Lista itens do pedido", required = true)						 
 						 List<ItemPedido> listItemPedido){	
 	public PedidoDto(Pedido pedido) {
 		this(pedido.getIdPedido(), pedido.getCliente(), pedido.getStatus(), pedido.getQrcode(), pedido.getPago(), pedido.getListItemPedido());

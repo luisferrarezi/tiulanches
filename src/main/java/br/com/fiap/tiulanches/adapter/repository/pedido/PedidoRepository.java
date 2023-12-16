@@ -11,8 +11,7 @@ import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import br.com.fiap.tiulanches.core.enums.Pago;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
-	
-	@SuppressWarnings("el-syntax")
+		
 	@Query(value = "SELECT * FROM pedidos WHERE status = :#{#status?.ordinal()} and pago = :#{#pago?.ordinal()} ", nativeQuery = true)
 	List<Pedido> findByStatusPago(@Param("status") StatusPedido status, @Param("pago") Pago pago);
 }
