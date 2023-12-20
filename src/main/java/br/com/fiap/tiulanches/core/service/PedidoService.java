@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,6 +20,7 @@ import br.com.fiap.tiulanches.core.entitie.pedido.Pedido;
 import br.com.fiap.tiulanches.core.entitie.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
+import br.com.fiap.tiulanches.core.exception.BusinessException;
 import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteRepository;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoRepository;
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoRepository;
@@ -83,5 +85,40 @@ public class PedidoService implements PedidoController {
 		pedido.cancelar();
 		
 		pedidoRepository.save(pedido);
+	}
+	
+	public void preparar(Long id){
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+		
+		if (pedido.isPermitePreparo()) {		
+			pedido.preparar();		
+			pedidoRepository.save(pedido);
+		} else {
+			throw new BusinessException("Pedido não pode ser preparado!", HttpStatus.BAD_REQUEST, new String("Pedido"));
+		}
+	}
+	
+	@Override
+	public void entregar(Long id) {
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+		
+		if (pedido.isPermiteEntregar()) {		
+			pedido.entregar();		
+			pedidoRepository.save(pedido);
+		} else {
+			throw new BusinessException("Pedido não pode ser entregue!", HttpStatus.BAD_REQUEST, new String("Pedido"));
+		}
+	}
+
+	@Override
+	public void finalizar(Long id) {
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+		
+		if (pedido.isPermiteFinalizar()) {		
+			pedido.finalizar();		
+			pedidoRepository.save(pedido);
+		} else {
+			throw new BusinessException("Pedido não pode ser finalizado!", HttpStatus.BAD_REQUEST, new String("Pedido"));
+		}
 	}	
 }

@@ -111,7 +111,7 @@ public class PedidoApi {
 	@PutMapping(value = "/cancelamento/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Cancela o pedido", description = "Cancela o pedido", tags = {"Pedido"})
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucesso, pedido cancelado", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "204", description = "Sucesso, pedido cancelado", content=@Content(schema = @Schema(hidden = true))),
 			@ApiResponse(responseCode = "404", description = "Falha, pedido não encontrado", content=@Content(schema = @Schema(hidden = true)))
 	})			
 	public ResponseEntity<PedidoDto> cancelar(@ParameterObject @PathVariable @NotNull
@@ -121,6 +121,57 @@ public class PedidoApi {
 		
 		controller.cancelar(id);		
 		
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
+	
+	@PutMapping(value = "/preparar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Inicia preparação do pedido", description = "Inicia preparação do pedido", tags = {"Pedido"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Sucesso, iniciada preparação do pedido", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "400", description = "Falha, pedido não está com status de recebido ou não foi pago", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "404", description = "Falha, pedido não encontrado", content=@Content(schema = @Schema(hidden = true)))
+	})			
+	public ResponseEntity<PedidoDto> preparar(@ParameterObject @PathVariable @NotNull
+			                                  @Schema(description = "Código do pedido no sistema", example = "1", required = true)
+			                                  Long id){
+		logger.info("Iniciar preparação do pedido pelo idPedido: " + id.toString());
+		
+		controller.preparar(id);		
+		
+		return ResponseEntity.noContent().build();
+	}	
+	
+	@PutMapping(value = "/entregar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Entrega do pedido", description = "Entrega do pedido", tags = {"Pedido"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Sucesso, entrega o pedido", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "400", description = "Falha, pedido não está com status de preparação ou não foi pago", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "404", description = "Falha, pedido não encontrado", content=@Content(schema = @Schema(hidden = true)))
+	})			
+	public ResponseEntity<PedidoDto> entregar(@ParameterObject @PathVariable @NotNull
+			                                  @Schema(description = "Código do pedido no sistema", example = "1", required = true)
+			                                  Long id){
+		logger.info("Entrega do pedido pelo idPedido: " + id.toString());
+		
+		controller.entregar(id);		
+		
+		return ResponseEntity.noContent().build();
+	}	
+	
+	@PutMapping(value = "/finalizar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Finaliza o pedido", description = "Finaliza o pedido", tags = {"Pedido"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Sucesso, finaliza o pedido", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "400", description = "Falha, pedido não está com status de pronto ou não foi pago", content=@Content(schema = @Schema(hidden = true))),
+			@ApiResponse(responseCode = "404", description = "Falha, pedido não encontrado", content=@Content(schema = @Schema(hidden = true)))
+	})			
+	public ResponseEntity<PedidoDto> finalizar(@ParameterObject @PathVariable @NotNull
+			                                   @Schema(description = "Código do pedido no sistema", example = "1", required = true)
+			                                   Long id){
+		logger.info("Finaliza o pedido pelo idPedido: " + id.toString());
+		
+		controller.finalizar(id);		
+		
+		return ResponseEntity.noContent().build();
+	}		
 }

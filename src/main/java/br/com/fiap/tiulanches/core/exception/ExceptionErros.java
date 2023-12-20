@@ -53,7 +53,7 @@ public class ExceptionErros {
 	@SuppressWarnings("rawtypes")
 	@ExceptionHandler(BusinessException.class)
 	public ResponseEntity businessError(BusinessException ex) {
-		FieldError erros = new FieldError(ex.getClass().toString(), ex.getBody().getClass().getSimpleName(), ex.getMessage());
+		FieldError erros = new FieldError(ex.getClass().toString(), ex.getBody().toString(), ex.getMessage());
 		
 		return ResponseEntity.badRequest().body(new ErroValidacao(erros));	
 	}

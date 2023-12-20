@@ -36,7 +36,7 @@ public class ClienteService implements ClienteController {
 	
 	public ClienteDto cadastrar(ClienteDto dto){
 		if (dto.cpf() == null) {
-			throw new BusinessException("CPF não informado!", HttpStatus.BAD_REQUEST, dto);
+			throw new BusinessException("CPF não informado!", HttpStatus.BAD_REQUEST, new String("CPF"));
 		}		
 		
 		if (repository.findById(dto.cpf()).isEmpty()) {
@@ -46,7 +46,7 @@ public class ClienteService implements ClienteController {
 			repository.save(cliente);
 			return new ClienteDto(cliente);
 		} else {
-			throw new BusinessException("Cliente já cadastrado", HttpStatus.BAD_REQUEST, dto);
+			throw new BusinessException("Cliente já cadastrado", HttpStatus.BAD_REQUEST, new String("Cliente"));
 		}
 	}
 	

@@ -91,4 +91,32 @@ public class Pedido {
 	public void cancelar() {
 		this.status = StatusPedido.CANCELADO;
 	}	
+	
+	public void preparar() {
+		this.status = StatusPedido.PREPARACAO;
+	}		
+	
+	public void entregar() {
+		this.status = StatusPedido.PRONTO;
+	}		
+	
+	public void finalizar() {
+		this.status = StatusPedido.FINALIZADO;
+	}		
+	
+	public boolean isPermitePreparo() {
+		return this.status == StatusPedido.RECEBIDO && isPago();
+	}			
+	
+	public boolean isPermiteEntregar() {
+		return this.status == StatusPedido.PREPARACAO && isPago();
+	}			
+	
+	public boolean isPermiteFinalizar() {
+		return this.status == StatusPedido.PRONTO && isPago();
+	}				
+	
+	public boolean isPago() {
+		return this.pago == Pago.SIM;
+	}
 }

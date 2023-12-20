@@ -13,4 +13,7 @@ public interface PedidoController {
 	public PedidoDto detalhar(Long id);	
 	public PedidoDto cadastrar(PedidoDto dto);	
 	public void cancelar(Long id);
+	public void preparar(Long id);	
+	public void entregar(Long id);
+	public void finalizar(Long id);
 }
