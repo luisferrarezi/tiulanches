@@ -3,7 +3,6 @@ package br.com.fiap.tiulanches.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +22,8 @@ import jakarta.validation.constraints.NotNull;
 @RequestMapping(value = "/pagamento")
 public class PagamentoApi {
 	
-	private final PagamentoController controller;
+	private final PagamentoController controller;	
 	
-	@Autowired
 	public PagamentoApi(PagamentoController controller) {
 		this.controller = controller;
 	}

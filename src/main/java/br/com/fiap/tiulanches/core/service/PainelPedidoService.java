@@ -3,7 +3,6 @@ package br.com.fiap.tiulanches.core.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.tiulanches.adapter.controller.PainelPedidoController;
@@ -19,7 +18,6 @@ public class PainelPedidoService implements PainelPedidoController{
 	
 	private final PainelPedidoRepository repository;
 	
-	@Autowired
 	public PainelPedidoService(PainelPedidoRepository repository) {
 		this.repository = repository;		
 	}	

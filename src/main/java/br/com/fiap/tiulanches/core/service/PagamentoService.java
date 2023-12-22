@@ -1,6 +1,5 @@
 package br.com.fiap.tiulanches.core.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.tiulanches.adapter.controller.PagamentoController;
@@ -14,7 +13,6 @@ public class PagamentoService implements PagamentoController {
 
 	private final PagamentoRepository repository;
 	
-	@Autowired
 	public PagamentoService(PagamentoRepository repository) {
 		this.repository = repository;
 	}
