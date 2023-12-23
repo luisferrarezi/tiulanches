@@ -1,9 +1,7 @@
 CREATE TABLE pedidos(
 	id_pedido bigint(20) NOT NULL AUTO_INCREMENT,
-	cpf varchar(11) NOT NULL,	
-	status tinyint NOT NULL DEFAULT 0,
-	qrcode varchar(400) NOT NULL,
-	pago tinyint NOT NULL DEFAULT 0,	
+	cpf varchar(11) NOT NULL,
+	status tinyint NOT NULL DEFAULT 0,	
 	PRIMARY KEY (id_pedido)
 );
 

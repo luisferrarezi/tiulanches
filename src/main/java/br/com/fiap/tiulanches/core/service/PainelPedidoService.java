@@ -25,9 +25,9 @@ public class PainelPedidoService implements PainelPedidoController{
 	public List<PainelPedidoDto> consultaPainelPedido() {
 		try {
 			List<PainelPedido> listPainelPedido = repository.consultaPainelPedido(StatusPedido.RECEBIDO.ordinal(), 
-				 														      StatusPedido.PREPARACAO.ordinal(), 
-				 															  StatusPedido.PRONTO.ordinal(), 
-				 															  Pago.SIM.ordinal());
+				 														      	  StatusPedido.PREPARACAO.ordinal(), 
+				 														      	  StatusPedido.PRONTO.ordinal(), 
+				 														      	  Pago.SIM.ordinal());
 		
 			return listPainelPedido.stream().map(painelPedido -> new PainelPedidoDto(painelPedido)).collect(Collectors.toList());
 		}

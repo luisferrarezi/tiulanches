@@ -9,6 +9,7 @@ import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import io.swagger.v3.oas.annotations.media.Schema;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
+import br.com.fiap.tiulanches.core.entitie.pagamento.Pagamento;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,10 +21,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
@@ -47,23 +47,18 @@ public class Pedido {
 	@Schema(description = "Cliente caso ele queira se identificar")	
 	private Cliente cliente;
 	
+	@Getter
+	@Setter
+	@JsonManagedReference
+	@OneToOne(mappedBy="pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Schema(description = "Pagamento do pedido")	
+	private Pagamento pagamento;
+	
 	@Getter	
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	@Schema(implementation = StatusPedido.class, description = "Status do pedido", example = "RECEBIDO", required = true)	
-	private StatusPedido status;
-	
-	@Getter	
-	@NotBlank
-	@Size(max=400)
-	@Schema(description = "QrCode", example = "gfdsgsdfgregedsrfg4353426tyrgfeg45", required = true, maxLength = 400)	
-	private String qrcode;
-	
-	@Getter	
-	@NotNull
-	@Enumerated(EnumType.ORDINAL)
-	@Schema(implementation = Pago.class, description = "Pedido pago", example = "SIM", required = true)
-	private Pago pago;	
+	private StatusPedido status;		
     
 	@Getter
 	@Setter
@@ -82,10 +77,11 @@ public class Pedido {
 	}	
 	
 	public void cadastrar(PedidoDto pedido) {
-		this.cliente = pedido.cliente();
-		this.pago = Pago.SIM;
+		this.cliente = pedido.cliente();		
 		this.status = StatusPedido.RECEBIDO;
-		this.qrcode = "qrcode123456";
+		
+		Pagamento pagamento = new Pagamento();		
+		this.pagamento = pagamento.criar(this);		
 	}
 	
 	public void cancelar() {
@@ -104,6 +100,10 @@ public class Pedido {
 		this.status = StatusPedido.FINALIZADO;
 	}		
 	
+	public boolean isPermiteCancelar() {
+		return this.status == StatusPedido.RECEBIDO && !isPago();
+	}			
+	
 	public boolean isPermitePreparo() {
 		return this.status == StatusPedido.RECEBIDO && isPago();
 	}			
@@ -117,6 +117,6 @@ public class Pedido {
 	}				
 	
 	public boolean isPago() {
-		return this.pago == Pago.SIM;
+		return this.pagamento.getPago() == Pago.SIM;
 	}
 }

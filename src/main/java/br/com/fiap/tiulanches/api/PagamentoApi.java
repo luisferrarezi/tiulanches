@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.tiulanches.adapter.controller.PagamentoController;
-import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoDto;
+import br.com.fiap.tiulanches.adapter.repository.pagamento.ConsultaPagamentoDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,13 +36,13 @@ public class PagamentoApi {
 			@ApiResponse(responseCode = "200", description = "Sucesso, retorna o status de pagamento do pedido"),
 			@ApiResponse(responseCode = "404", description = "Falha, pedido não encontrado", content=@Content(schema = @Schema(hidden = true)))
 	})			
-	public ResponseEntity<PagamentoDto> consultaPagamento(@ParameterObject @PathVariable @NotNull
+	public ResponseEntity<ConsultaPagamentoDto> consultaPagamento(@ParameterObject @PathVariable @NotNull
             									 		  @Schema(description = "Código do pedido no sistema", example = "1", required = true)                     
             									 		  Long id){
 		logger.info("Consultar status pagamento do pedido: " + id.toString());
 		
-		PagamentoDto pagamento = controller.consultaPagamento(id);		
+		ConsultaPagamentoDto consultaPagamento = controller.consultaPagamento(id);		
 		
-		return ResponseEntity.ok(pagamento);
+		return ResponseEntity.ok(consultaPagamento);
 	}
 }

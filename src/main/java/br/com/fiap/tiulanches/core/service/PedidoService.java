@@ -60,7 +60,7 @@ public class PedidoService implements PedidoController {
 		if (dto.cliente() != null) {
 			Cliente cliente = clienteRepository.findById(dto.cliente().getCpf()).orElseThrow(() -> new EntityNotFoundException());		
 			pedido.setCliente(cliente);
-		}
+		}		
 		
 		ObjectMapper mapper = new ObjectMapper();
 		List<ItemPedido> listItemPedido = mapper.convertValue(dto.listItemPedido(), new TypeReference<List<ItemPedido>>() {});
@@ -80,9 +80,13 @@ public class PedidoService implements PedidoController {
 	
 	public void cancelar(Long id){
 		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-		pedido.cancelar();
 		
-		pedidoRepository.save(pedido);
+		if (pedido.isPermiteCancelar()) {
+			pedido.cancelar();
+			pedidoRepository.save(pedido);
+		} else {
+			throw new BusinessException("Pedido não pode ser cancelado!", HttpStatus.BAD_REQUEST, new String("Pedido"));
+		}
 	}
 	
 	public void preparar(Long id){

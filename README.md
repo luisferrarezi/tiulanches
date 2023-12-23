@@ -32,7 +32,7 @@ Projeto criado para conclusão da Pós Gradução em Software Architectura pela 
 - Flyway
 - Maven 
 - Jackson Databind
-- LogBack
+- Log4j
 - Spring Doc
 
 # Variáveis de Ambiente
