@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import br.com.fiap.tiulanches.adapter.controller.PagamentoExternoController;
 import br.com.fiap.tiulanches.adapter.controller.PedidoController;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.core.enums.Pago;
@@ -36,10 +38,12 @@ import jakarta.validation.constraints.NotNull;
 @RequestMapping(value = "/pedidos")
 public class PedidoApi {
 	
-	private final PedidoController controller;
+	private final PedidoController pedidoController;
+	private final PagamentoExternoController pagamentoExternoController;
 	
-	public PedidoApi(PedidoController controller){
-		this.controller = controller;
+	public PedidoApi(PedidoController pedidoController, PagamentoExternoController pagamentoExternoController){
+		this.pedidoController = pedidoController;
+		this.pagamentoExternoController = pagamentoExternoController;
 	};
 	
 	private static Logger logger = LoggerFactory.getLogger(PedidoApi.class);
@@ -52,7 +56,7 @@ public class PedidoApi {
 	public ResponseEntity<Page<PedidoDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
 		logger.info("Consultar pedidos");
 		
-		Page<PedidoDto> page = controller.consultaPaginada(paginacao); 
+		Page<PedidoDto> page = pedidoController.consultaPaginada(paginacao); 
 		
 		return ResponseEntity.ok(page);
 	}	
@@ -70,7 +74,7 @@ public class PedidoApi {
 			                                     Pago pago){
 		logger.info("Consultar pedidos pelo status: " + status.toString() + " e pago: " + pago.toString());
 		
-		return controller.consultaByStatusPago(status, pago);
+		return pedidoController.consultaByStatusPago(status, pago);
 	}	
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,7 +88,7 @@ public class PedidoApi {
 			                                  Long id){
 		logger.info("Consultar pedido pelo idPedido: " + id.toString());
 		
-		PedidoDto pedido = controller.detalhar(id);
+		PedidoDto pedido = pedidoController.detalhar(id);
 		
 		return ResponseEntity.ok(pedido);
 	}
@@ -100,7 +104,10 @@ public class PedidoApi {
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid @Schema(example = PedidoResponseSwagger.POST) PedidoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Cadastrar pedido");
 		
-		PedidoDto pedido = controller.cadastrar(dto);
+		PedidoDto pedido = pedidoController.cadastrar(dto);
+		
+		pagamentoExternoController.criar(pedido);
+		
 		URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.idPedido()).toUri();
 		
 		return ResponseEntity.created(endereco).body(pedido);
@@ -117,7 +124,7 @@ public class PedidoApi {
 			                                  Long id){
 		logger.info("Cancelar pedido pelo idPedido: " + id.toString());
 		
-		controller.cancelar(id);		
+		pedidoController.cancelar(id);		
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -134,7 +141,7 @@ public class PedidoApi {
 			                                  Long id){
 		logger.info("Iniciar preparação do pedido pelo idPedido: " + id.toString());
 		
-		controller.preparar(id);		
+		pedidoController.preparar(id);		
 		
 		return ResponseEntity.noContent().build();
 	}	
@@ -151,7 +158,7 @@ public class PedidoApi {
 			                                  Long id){
 		logger.info("Entrega do pedido pelo idPedido: " + id.toString());
 		
-		controller.entregar(id);		
+		pedidoController.entregar(id);		
 		
 		return ResponseEntity.noContent().build();
 	}	
@@ -168,7 +175,7 @@ public class PedidoApi {
 			                                   Long id){
 		logger.info("Finaliza o pedido pelo idPedido: " + id.toString());
 		
-		controller.finalizar(id);		
+		pedidoController.finalizar(id);		
 		
 		return ResponseEntity.noContent().build();
 	}		

@@ -2,6 +2,7 @@ package br.com.fiap.tiulanches.core.entitie.pagamento;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoDto;
 import br.com.fiap.tiulanches.core.entitie.pedido.Pedido;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,8 +28,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pagamento {	
-	
+public class Pagamento {		
 	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Schema(description = "Código de pagamento do pedido interno", example = "7", required = true)
@@ -44,8 +44,9 @@ public class Pagamento {
 	@Schema(implementation = Pago.class, description = "Pago (SIM,NAO)", example = "SIM", required = true)	
 	private Pago pago;
 	
+	@Size(max=400)
 	@Schema(description = "Codigo do pedido no mercado pago", example = "1")
-	private long idMercadoPago;	
+	private String idMercadoPago;	
 	
 	@Size(max=400)
 	@Schema(description = "URL para cliente realizar pagamento", example = "https://www.mercadopago.com.br/payments/123456789/ticket?caller_id=123456&hash=123e4567-e89b-12d3-a456-426655440000", maxLength = 400)
@@ -57,4 +58,12 @@ public class Pagamento {
 		
 		return this;
 	};
+	
+	public void alterar(PagamentoDto pagamento) {
+		this.idPagamento = pagamento.idPagamento();
+		this.idMercadoPago = pagamento.idMercadoPago();
+		this.ticketUrl = pagamento.ticketUrl();
+		this.pedido = pagamento.pedido();
+		this.pago = pagamento.pago();
+	};	
 }
