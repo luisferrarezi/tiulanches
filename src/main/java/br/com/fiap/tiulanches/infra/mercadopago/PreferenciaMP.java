@@ -19,17 +19,17 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
 
 import br.com.fiap.tiulanches.adapter.controller.PagamentoController;
-import br.com.fiap.tiulanches.adapter.controller.PagamentoExternoController;
-import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoDto;
+import br.com.fiap.tiulanches.adapter.controller.PreferenciaExternoController;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.core.entitie.pedido.ItemPedido;
+import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.exception.BusinessException;
 
 @Service
-public class MPpagamento implements PagamentoExternoController{
+public class PreferenciaMP implements PreferenciaExternoController{
 	private final PagamentoController controller;
 	
-	public MPpagamento(PagamentoController controller){
+	public PreferenciaMP(PagamentoController controller){
 		this.controller = controller;
 	};
 	
@@ -41,18 +41,27 @@ public class MPpagamento implements PagamentoExternoController{
   	   		
 	    	PreferenceRequest request = PreferenceRequest
 	    								.builder()
+	    								.externalReference(String.valueOf(pedido.pagamento().getIdPagamento()))
 	    								.items(informaItems(pedido))	    
 	    								.payer(informaPagador(pedido))
 	    								.paymentMethods(informaTiposPagamento())
 	    								.build();	    	
 	    	
-	    	Preference preference = client.create(request);
+	    	Preference preference = client.create(request);	    	
 	    	
-	    	controller.altera(new PagamentoDto(pedido.pagamento().getIdPagamento(), pedido.pagamento().getPedido(), pedido.pagamento().getPago(), preference.getId(), preference.getSandboxInitPoint()));	    	
+	    	controller.registra(pedido.pagamento().getIdPagamento(), Pago.NAO, null, preference.getSandboxInitPoint());	    	
 	    } catch (MPApiException e) {
-	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String("Mercado Pago"));
+	    	StringBuilder erro = new StringBuilder();
+	    	erro.append("Falha integração Mercado Pago: ");
+	    	erro.append(e.getMessage());
+	    	
+	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String(erro));
 	    } catch (MPException e) {
-	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String("Mercado Pago"));
+	    	StringBuilder erro = new StringBuilder();
+	    	erro.append("Falha integração Mercado Pago: ");
+	    	erro.append(e.getMessage());
+	    	
+	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String(erro));
 	    }	    
 	}
 	
@@ -61,6 +70,7 @@ public class MPpagamento implements PagamentoExternoController{
 	    for(ItemPedido itemPedido : pedido.listItemPedido()) {
 	    	
 			PreferenceItemRequest item = PreferenceItemRequest.builder()
+										.id(String.valueOf(itemPedido.getIdItem()))
 					       				.title(itemPedido.getProduto().getNome())
 					       				.description(itemPedido.getProduto().getDescricao())
 					       				.pictureUrl(itemPedido.getProduto().getImagem())
@@ -91,6 +101,8 @@ public class MPpagamento implements PagamentoExternoController{
 	}	
 	
 	private PreferencePaymentMethodsRequest informaTiposPagamento(){	    
+		
+		
 	    List<PreferencePaymentMethodRequest> listExcludedPaymentMethodRequests = new ArrayList<>();
 	    listExcludedPaymentMethodRequests.add(PreferencePaymentMethodRequest.builder().id("bolbradesco").build());
 	    listExcludedPaymentMethodRequests.add(PreferencePaymentMethodRequest.builder().id("pec").build());

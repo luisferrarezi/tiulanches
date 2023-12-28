@@ -45,7 +45,7 @@ public class Pagamento {
 	private Pago pago;
 	
 	@Size(max=400)
-	@Schema(description = "Codigo do pedido no mercado pago", example = "1")
+	@Schema(description = "Codigo do pedido no mercado pago", example = "1320363299")
 	private String idMercadoPago;	
 	
 	@Size(max=400)
@@ -59,11 +59,28 @@ public class Pagamento {
 		return this;
 	};
 	
-	public void alterar(PagamentoDto pagamento) {
+	public void registrar(PagamentoDto pagamento) {
 		this.idPagamento = pagamento.idPagamento();
-		this.idMercadoPago = pagamento.idMercadoPago();
-		this.ticketUrl = pagamento.ticketUrl();
-		this.pedido = pagamento.pedido();
-		this.pago = pagamento.pago();
-	};	
+		validaIdMercadoPago(pagamento.idMercadoPago());
+		validaTicketUrl(pagamento.ticketUrl());
+		validaPago(pagamento.pago());
+	};
+	
+	private void validaIdMercadoPago(String idMercadoPago) {
+		if (idMercadoPago != null) {
+			this.idMercadoPago = idMercadoPago;
+		}				
+	}
+	
+	private void validaTicketUrl(String ticketUrl) {
+		if (ticketUrl != null) {
+			this.ticketUrl = ticketUrl;
+		}				
+	}
+	
+	private void validaPago(Pago pago) {
+		if (pago != null) {
+			this.pago = pago;
+		}				
+	}	
 }

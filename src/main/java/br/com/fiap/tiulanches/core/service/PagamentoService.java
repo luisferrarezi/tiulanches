@@ -8,6 +8,7 @@ import br.com.fiap.tiulanches.adapter.repository.pagamento.ConsultaPagamentoRepo
 import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoDto;
 import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoRepository;
 import br.com.fiap.tiulanches.core.entitie.pagamento.Pagamento;
+import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.exception.BusinessException;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -30,18 +31,18 @@ public class PagamentoService implements PagamentoController {
 		catch(Exception e) {
 			throw new EntityNotFoundException();
 		}
-	}
+	}	
 
 	@Override
-	public void altera(PagamentoDto dto) {
-		if (!pagamentoRepository.findById(dto.idPagamento()).isEmpty()) {
-			Pagamento pagamento = new Pagamento();
-			pagamento.alterar(dto);
-			
+	public void registra(long idPagamento, Pago pago, String idMercadoPago, String ticketUrl) {
+		Pagamento pagamento = pagamentoRepository.findById(idPagamento).orElseThrow(() -> new EntityNotFoundException());
+				
+		try {
+			PagamentoDto dto = new PagamentoDto(idPagamento, pago, idMercadoPago, ticketUrl);
+			pagamento.registrar(dto);
 			pagamentoRepository.save(pagamento);			
-		} else {
-			throw new BusinessException("Falha ao registrar pagamento!", HttpStatus.BAD_REQUEST, new String("Pagamento"));
-		}		
+		} catch (Exception e) {
+			throw new BusinessException("Falha ao alterar pagamento!", HttpStatus.BAD_REQUEST, e.getMessage());
+		}			
 	}
-
 }

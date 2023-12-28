@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.fiap.tiulanches.adapter.controller.PagamentoExternoController;
+import br.com.fiap.tiulanches.adapter.controller.PreferenciaExternoController;
 import br.com.fiap.tiulanches.adapter.controller.PedidoController;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.core.enums.Pago;
@@ -39,11 +39,11 @@ import jakarta.validation.constraints.NotNull;
 public class PedidoApi {
 	
 	private final PedidoController pedidoController;
-	private final PagamentoExternoController pagamentoExternoController;
+	private final PreferenciaExternoController preferenciaExternoController;
 	
-	public PedidoApi(PedidoController pedidoController, PagamentoExternoController pagamentoExternoController){
+	public PedidoApi(PedidoController pedidoController, PreferenciaExternoController preferenciaExternoController){
 		this.pedidoController = pedidoController;
-		this.pagamentoExternoController = pagamentoExternoController;
+		this.preferenciaExternoController = preferenciaExternoController;
 	};
 	
 	private static Logger logger = LoggerFactory.getLogger(PedidoApi.class);
@@ -106,7 +106,7 @@ public class PedidoApi {
 		
 		PedidoDto pedido = pedidoController.cadastrar(dto);
 		
-		pagamentoExternoController.criar(pedido);
+		preferenciaExternoController.criar(pedido);
 		
 		URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.idPedido()).toUri();
 		
