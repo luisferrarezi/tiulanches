@@ -104,9 +104,9 @@ public class PedidoApi {
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid @Schema(example = PedidoResponseSwagger.POST) PedidoDto dto, UriComponentsBuilder uriBuilder){
 		logger.info("Cadastrar pedido");
 		
-		PedidoDto pedido = pedidoController.cadastrar(dto);
-		
+		PedidoDto pedido = pedidoController.cadastrar(dto);		
 		preferenciaExternoController.criar(pedido);
+		pedido = pedidoController.detalhar(pedido.idPedido());
 		
 		URI endereco = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.idPedido()).toUri();
 		

@@ -20,8 +20,9 @@ import com.mercadopago.resources.preference.Preference;
 
 import br.com.fiap.tiulanches.adapter.controller.PagamentoController;
 import br.com.fiap.tiulanches.adapter.controller.PreferenciaExternoController;
+import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoDto;
+import br.com.fiap.tiulanches.adapter.repository.pedido.ItemPedidoDto;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
-import br.com.fiap.tiulanches.core.entitie.pedido.ItemPedido;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.exception.BusinessException;
 
@@ -33,7 +34,7 @@ public class PreferenciaMP implements PreferenciaExternoController{
 		this.controller = controller;
 	};
 	
-	public void criar(PedidoDto pedido) {
+	public void criar(PedidoDto dto) {
 		try {
   	   		MercadoPagoConfig.setAccessToken(System.getenv("ACCESS_TOKEN_MP"));  	   		
   	   		
@@ -41,15 +42,15 @@ public class PreferenciaMP implements PreferenciaExternoController{
   	   		
 	    	PreferenceRequest request = PreferenceRequest
 	    								.builder()
-	    								.externalReference(String.valueOf(pedido.pagamento().getIdPagamento()))
-	    								.items(informaItems(pedido))	    
-	    								.payer(informaPagador(pedido))
+	    								.externalReference(String.valueOf(dto.pagamento().idPagamento()))
+	    								.items(informaItems(dto))	    
+	    								.payer(informaPagador(dto))
 	    								.paymentMethods(informaTiposPagamento())
 	    								.build();	    	
 	    	
 	    	Preference preference = client.create(request);	    	
 	    	
-	    	controller.registra(pedido.pagamento().getIdPagamento(), Pago.NAO, null, preference.getSandboxInitPoint());	    	
+	    	controller.registra(new PagamentoDto(dto.pagamento().idPagamento(), Pago.NAO, null, preference.getSandboxInitPoint()));	    	
 	    } catch (MPApiException e) {
 	    	StringBuilder erro = new StringBuilder();
 	    	erro.append("Falha integração Mercado Pago: ");
@@ -67,16 +68,16 @@ public class PreferenciaMP implements PreferenciaExternoController{
 	
 	private List<PreferenceItemRequest> informaItems(PedidoDto pedido){
 		List<PreferenceItemRequest> items = new ArrayList<>();		
-	    for(ItemPedido itemPedido : pedido.listItemPedido()) {
+	    for(ItemPedidoDto itemPedido : pedido.listItemPedido()) {
 	    	
 			PreferenceItemRequest item = PreferenceItemRequest.builder()
-										.id(String.valueOf(itemPedido.getIdItem()))
-					       				.title(itemPedido.getProduto().getNome())
-					       				.description(itemPedido.getProduto().getDescricao())
-					       				.pictureUrl(itemPedido.getProduto().getImagem())
-					       				.quantity(itemPedido.getQuantidade())
+										.id(String.valueOf(itemPedido.idItem()))
+					       				.title(itemPedido.produto().nome())
+					       				.description(itemPedido.produto().descricao())
+					       				.pictureUrl(itemPedido.produto().imagem())
+					       				.quantity(itemPedido.quantidade())
 					       				.currencyId("BRL")
-					       				.unitPrice(itemPedido.getPrecoUnitario())
+					       				.unitPrice(itemPedido.precoUnitario())
 					       				.build();
 
 	    	items.add(item);	
@@ -88,11 +89,11 @@ public class PreferenciaMP implements PreferenciaExternoController{
 	private PreferencePayerRequest informaPagador(PedidoDto pedido){		
 	    if (pedido.cliente() != null) {
 	    	return PreferencePayerRequest.builder()
-	    			.email(pedido.cliente().getEmail())
-	    			.name(pedido.cliente().getNome())
+	    			.email(pedido.cliente().email())
+	    			.name(pedido.cliente().nome())
 	    			.identification(IdentificationRequest.builder()
 	    							.type("CPF")
-	    							.number(pedido.cliente().getCpf())
+	    							.number(pedido.cliente().cpf())
 	    							.build())
 	    			.build();
 	    }		

@@ -27,6 +27,7 @@ Projeto criado para conclusão da Pós Gradução em Software Architectura pela 
 - MySql - 8.0
 
 # Frameworks utilizados 
+- Mercado Pago SDK - 2.1.17
 - Spring Framework - 3.2.0
 - Lombok
 - Flyway

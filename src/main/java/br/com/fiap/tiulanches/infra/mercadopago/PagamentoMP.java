@@ -11,6 +11,7 @@ import com.mercadopago.resources.payment.Payment;
 
 import br.com.fiap.tiulanches.adapter.controller.PagamentoController;
 import br.com.fiap.tiulanches.adapter.controller.PagamentoExternoController;
+import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoDto;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.exception.BusinessException;
 
@@ -37,7 +38,7 @@ public class PagamentoMP implements PagamentoExternoController{
 				Payment payment = client.get(idPagamento);
 				
 				if (payment.getStatus().equalsIgnoreCase(STATUS)) {
-					controller.registra(Long.parseLong(payment.getExternalReference()), Pago.SIM, String.valueOf(idPagamento), null);					
+					controller.registra(new PagamentoDto(Long.parseLong(payment.getExternalReference()), Pago.SIM, String.valueOf(idPagamento), null));					
 				}
 			} catch (MPApiException e) {
 				StringBuilder erro = new StringBuilder();

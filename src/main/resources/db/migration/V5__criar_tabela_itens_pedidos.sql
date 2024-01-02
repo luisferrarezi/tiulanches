@@ -8,5 +8,4 @@ CREATE TABLE itens_pedidos(
 	PRIMARY KEY (id_item)
 );
 
-ALTER TABLE itens_pedidos ADD CONSTRAINT fk_item_pedido_pedido FOREIGN KEY (id_pedido) REFERENCES pedidos (id_pedido);
 ALTER TABLE itens_pedidos ADD CONSTRAINT fk_item_pedido_produto FOREIGN KEY (id_produto) REFERENCES produtos (id_produto);

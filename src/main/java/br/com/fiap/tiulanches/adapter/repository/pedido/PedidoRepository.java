@@ -13,7 +13,7 @@ import br.com.fiap.tiulanches.core.enums.Pago;
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
 	@Query(value = "SELECT pe.* " + 
                    "  FROM pedidos pe " +
-                   " INNER JOIN pagamentos pa on pa.id_pedido = pe.id_pedido AND pa.pago = :#{#pago?.ordinal()} " +
+                   " INNER JOIN pagamentos pa on pa.id_pagamento = pe.id_pagamento AND pa.pago = :#{#pago?.ordinal()} " +
                    " WHERE pe.status = :#{#status?.ordinal()} ", nativeQuery = true)
 	List<Pedido> findByStatusPago(@Param("status") StatusPedido status, @Param("pago") Pago pago);
 }

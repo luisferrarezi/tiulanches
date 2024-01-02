@@ -2,19 +2,20 @@ package br.com.fiap.tiulanches.core.entitie.pedido;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.util.ArrayList;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import io.swagger.v3.oas.annotations.media.Schema;
+import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
 import br.com.fiap.tiulanches.core.entitie.pagamento.Pagamento;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,6 +38,7 @@ public class Pedido {
 	@Id
 	@Getter	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_pedido")
 	@Schema(description = "Código do pedido após ser criado", example = "17", required = true)	
 	private long idPedido;
 	
@@ -48,9 +50,9 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@Getter
-	@Setter
-	@JsonManagedReference
-	@OneToOne(mappedBy="pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Setter	
+	@OneToOne(cascade= CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="id_pagamento", nullable = false)
 	@Schema(description = "Pagamento do pedido")	
 	private Pagamento pagamento;
 	
@@ -62,14 +64,14 @@ public class Pedido {
     
 	@Getter
 	@Setter
-	@JsonManagedReference
-	@OneToMany(mappedBy="pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="id_pedido")
 	@Schema(description = "Lista itens do pedido", required = true)	
 	private List<ItemPedido> listItemPedido = new ArrayList<>();
 	
 	public void adicionarItem(ItemPedido item) {
-		this.listItemPedido.add(item);
-		item.setPedido(this);	
+		item.setIdPedido(this.idPedido);
+		this.listItemPedido.add(item);			
 	}
 	
 	public void removerItem(ItemPedido item) {
@@ -77,11 +79,9 @@ public class Pedido {
 	}	
 	
 	public void cadastrar(PedidoDto pedido) {
-		this.cliente = pedido.cliente();		
 		this.status = StatusPedido.RECEBIDO;
-		
-		Pagamento pagamento = new Pagamento();		
-		this.pagamento = pagamento.criar(this);		
+		validaCliente(pedido.cliente());
+		validaPagamento();		
 	}
 	
 	public void cancelar() {
@@ -119,4 +119,15 @@ public class Pedido {
 	public boolean isPago() {
 		return this.pagamento.getPago() == Pago.SIM;
 	}
+	
+	private void validaCliente(ClienteDto dto) {		
+		if (dto != null) {
+			this.cliente = new Cliente(dto.cpf(), dto.nome(), dto.email());
+		}
+	}
+	
+	private void validaPagamento() {
+		Pagamento pagamento = new Pagamento();		
+		this.pagamento = pagamento.criar();
+	}	
 }

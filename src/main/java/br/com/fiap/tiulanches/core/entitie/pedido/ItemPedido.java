@@ -2,12 +2,10 @@ package br.com.fiap.tiulanches.core.entitie.pedido;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import br.com.fiap.tiulanches.core.entitie.produto.Produto;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "ItemPedido")
 @Table(name = "ITENS_PEDIDOS")
 @Getter
 @Setter
@@ -35,12 +33,10 @@ public class ItemPedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Schema(description = "Código do item após ser criado", example = "1", required = true)	
 	private long idItem;	
-	
-	@JsonBackReference
-	@ManyToOne(fetch=FetchType.LAZY, optional = false)
-	@JoinColumn(name="id_pedido", nullable = false)
+		
+	@Column(name = "id_pedido")
 	@Schema(description = "Pedido que o item pertence", required = true)	
-	private Pedido pedido;	
+	private long idPedido;	
 	
 	@ManyToOne
 	@JoinColumn(name="id_produto")			

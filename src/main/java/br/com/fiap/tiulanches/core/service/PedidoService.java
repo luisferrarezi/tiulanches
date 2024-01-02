@@ -58,7 +58,7 @@ public class PedidoService implements PedidoController {
 		pedido.cadastrar(dto);
 		
 		if (dto.cliente() != null) {
-			Cliente cliente = clienteRepository.findById(dto.cliente().getCpf()).orElseThrow(() -> new EntityNotFoundException());		
+			Cliente cliente = clienteRepository.findById(dto.cliente().cpf()).orElseThrow(() -> new EntityNotFoundException());		
 			pedido.setCliente(cliente);
 		}		
 		

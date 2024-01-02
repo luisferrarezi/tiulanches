@@ -10,7 +10,7 @@ public interface PainelPedidoRepository extends JpaRepository <PainelPedido, Lon
 	
 	@Query(value = "SELECT pe.id_pedido, pe.status " + 
 	               "  FROM pedidos pe " +
-	               " INNER JOIN pagamentos pa on pa.id_pedido = pe.id_pedido AND pa.pago = :#{#pago} " +
+	               " INNER JOIN pagamentos pa on pa.id_pagamento = pe.id_pagamento AND pa.pago = :#{#pago} " +
 	               " WHERE pe.status IN (:#{#recebido}, :#{#preparacao}, :#{#pronto}) " + 
 	               " ORDER BY pe.status DESC, pe.id_pedido ", nativeQuery = true)
 	List<PainelPedido> consultaPainelPedido(@Param("recebido") int recebido,

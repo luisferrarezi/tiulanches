@@ -97,9 +97,9 @@ public class ClienteApi {
 			    							  String cpf, @RequestBody @Valid @Schema(example = ClienteResponseSwagger.PUT)  ClienteDto dto){
 		logger.info("Alterar cliente pelo CPF: " + cpf);
 		
-		ClienteDto clienteAlterado = controller.alterar(cpf, dto);		
+		ClienteDto cliente = controller.alterar(cpf, dto);		
 		
-		return ResponseEntity.ok(clienteAlterado);
+		return ResponseEntity.ok(cliente);
 	}	
 	
 	@DeleteMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)

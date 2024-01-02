@@ -113,9 +113,9 @@ public class ProdutoApi {
 			                                  Long id, @RequestBody @Valid @Schema(example = ProdutoResponseSwagger.PUT) ProdutoDto dto){
 		logger.info("Alterar produto pelo idProduto: " + id.toString());
 		
-		ProdutoDto produtoAlterado = controller.alterar(id, dto);		
+		ProdutoDto produto = controller.alterar(id, dto);		
 		
-		return ResponseEntity.ok(produtoAlterado);
+		return ResponseEntity.ok(produto);
 	}	
 	
 	@DeleteMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
