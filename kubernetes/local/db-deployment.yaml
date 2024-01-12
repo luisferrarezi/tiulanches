@@ -1,3 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+  labels:
+    app: db-config
+data:  
+  ds_username: root
+---
 apiVersion: v1                                                                                
 kind: PersistentVolume                                                                        
 metadata:                                                                                     
@@ -13,7 +22,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain     
   hostPath:                                                                                   
     path: /var/lib/mysql
----                                                                                           
+---
 apiVersion: v1                                                                                
 kind: PersistentVolumeClaim                                                                   
 metadata:                                                                                     
@@ -27,7 +36,7 @@ spec:
     requests:                                                                                 
       storage: 1Gi
   storageClassName: local-storage-db
----	  
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,20 +60,40 @@ spec:
       containers:
       - name: mysql
         image: mysql:8.0
-        envFrom:
-        - configMapRef:
-            name: db-config
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2.0"
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom :
+              secretKeyRef :
+                name : app-secrets
+                key :  mysql_root_pass
         volumeMounts:
         - name: mysql-pv
           mountPath: /var/lib/mysql
         ports:
         - containerPort: 3306
-          name: mysql
+          name: mysql-port
+        readinessProbe:
+          tcpSocket:
+            port: mysql-port
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: mysql-port
+          initialDelaySeconds: 30
+          periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysql-svc
 spec:
   type: NodePort
   selector:

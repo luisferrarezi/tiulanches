@@ -1,0 +1,116 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: db-tiulanches-sc
+provisioner: cstor.csi.openebs.io
+allowVolumeExpansion: true
+parameters:
+  cas-type: cstor
+  replicaCount: "3"
+  cstorPoolCluster: cstorpool-kfjmd
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+  labels:
+    app: db-config
+data:  
+  ds_username: root
+---
+apiVersion: v1                                                                                
+kind: PersistentVolume                                                                        
+metadata:                                                                                     
+  name: mysql-pv
+  labels:
+    name: mysql-pv
+spec:                                                                                         
+  capacity:                                                                                   
+    storage: 1Gi
+  accessModes:                                                                                
+    - ReadWriteOnce
+  storageClassName: local-storage-db  
+  persistentVolumeReclaimPolicy: Retain     
+  hostPath:                                                                                   
+    path: db-tiulanches-sc
+---
+apiVersion: v1                                                                                
+kind: PersistentVolumeClaim                                                                   
+metadata:                                                                                     
+  name: mysql-pvc                                                                        
+  labels:
+    name: mysql-pvc
+spec:                                                                                         
+  accessModes:                                                                                
+    - ReadWriteOnce                                                                           
+  resources:                                                                                  
+    requests:                                                                                 
+      storage: 1Gi
+  storageClassName: local-storage-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: base-mysql
+  labels:
+    app: base-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      volumes:
+      - name: mysql-pv
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1024Mi"
+            cpu: "1.0"
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom :
+              secretKeyRef :
+                name : app-secrets
+                key :  mysql_root_pass
+        volumeMounts:
+        - name: mysql-pv
+          mountPath: /var/lib/mysql
+        ports:
+        - containerPort: 3306
+          name: mysql-port
+        readinessProbe:
+          tcpSocket:
+            port: mysql-port
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: mysql-port
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+spec:
+  type: NodePort
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306  
+      nodePort: 31100

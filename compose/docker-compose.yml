@@ -8,9 +8,9 @@ services:
       - db_data:/var/lib/mysql
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=123456      
+      - MYSQL_ROOT_PASSWORD=123abc      
     ports:
-      - 3309:3306
+      - 31100:3306
     deploy:
       resources:
         limits:
@@ -27,7 +27,7 @@ services:
 #    image: luisferrarezi/tiulanches:23.12.04
 #    restart: on-failure
 #    environment:
-#      - DATASOURCE_PASSWORD=123456
+#      - DATASOURCE_PASSWORD=123abc
 #      - DATASOURCE_URL=jdbc:mysql://db:3306/tiulanches
 #      - DATASOURCE_USERNAME=root
 #    ports:

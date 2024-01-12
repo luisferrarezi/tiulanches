@@ -51,8 +51,6 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/apache/tomcat/embed/tomcat-embed-core/10.1.17/tomcat-embed-core-10.1.17.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.17/tomcat-embed-websocket-10.1.17.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-web/6.1.2/spring-web-6.1.2.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/io/micrometer/micrometer-observation/1.12.1/micrometer-observation-1.12.1.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/io/micrometer/micrometer-commons/1.12.1/micrometer-commons-1.12.1.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-webmvc/6.1.2/spring-webmvc-6.1.2.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-expression/6.1.2/spring-expression-6.1.2.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-devtools/3.2.1/spring-boot-devtools-3.2.1.jar" enabled="true" runInBatchMode="false"/>
@@ -64,6 +62,15 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-core/6.1.2/spring-core-6.1.2.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-jcl/6.1.2/spring-jcl-6.1.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-starter-actuator/3.2.1/spring-boot-starter-actuator-3.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-actuator-autoconfigure/3.2.1/spring-boot-actuator-autoconfigure-3.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-actuator/3.2.1/spring-boot-actuator-3.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/io/micrometer/micrometer-observation/1.12.1/micrometer-observation-1.12.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/io/micrometer/micrometer-commons/1.12.1/micrometer-commons-1.12.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/io/micrometer/micrometer-jakarta9/1.12.1/micrometer-jakarta9-1.12.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/io/micrometer/micrometer-core/1.12.1/micrometer-core-1.12.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/flywaydb/flyway-core/9.22.3/flyway-core-9.22.3.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.15.3/jackson-dataformat-toml-2.15.3.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar" enabled="true" runInBatchMode="false"/>

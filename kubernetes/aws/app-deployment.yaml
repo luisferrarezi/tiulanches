@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  labels:
+    app: app-config
+data:  
+  ds_url: jdbc:mysql://tiulanches-db.czv1r07tahhk.us-east-1.rds.amazonaws.com:3306/tiulanches?&createDatabaseIfNotExist=true
+  ds_username: root
+---  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: app-deployment
+spec:
+  selector:
+    matchLabels:
+      app: app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: tiulanches
+          image: luisferrarezi/tiulanches:v24.01.09
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "1.0"
+          ports:
+            - containerPort: 8080
+              name: app-port
+          env:
+            - name: DATASOURCE_URL   
+              valueFrom :
+                configMapKeyRef :
+                  name : app-config
+                  key :  ds_url
+
+            - name: DATASOURCE_PASSWORD  
+              valueFrom :
+                secretKeyRef :
+                  name : app-secrets
+                  key :  ds_pass
+
+            - name: DATASOURCE_USERNAME
+              valueFrom :
+                configMapKeyRef :
+                  name : app-config
+                  key :  ds_username
+
+            - name: ACCESS_TOKEN_MP
+              valueFrom :
+                secretKeyRef :
+                  name : app-secrets
+                  key :  mp_token
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: app-port
+            initialDelaySeconds: 120
+            periodSeconds: 60
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: app-port
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            failureThreshold: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-svc
+spec:
+  selector:
+    app: app
+  ports:
+    - protocol: "TCP"
+      port: 8080 
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
