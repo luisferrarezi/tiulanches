@@ -51,18 +51,18 @@ public class PreferenciaMP implements PreferenciaExternoController{
 	    	Preference preference = client.create(request);	    	
 	    	
 	    	controller.registra(new PagamentoDto(dto.pagamento().idPagamento(), Pago.NAO, null, preference.getSandboxInitPoint()));	    	
-	    } catch (MPApiException e) {
+	    } catch (MPApiException e) {	    	
 	    	StringBuilder erro = new StringBuilder();
 	    	erro.append("Falha integração Mercado Pago: ");
-	    	erro.append(e.getMessage());
+	    	erro.append(e.getMessage());	    	
 	    	
-	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String(erro));
+	    	throw new BusinessException(e.getMessage() + e.getApiResponse().getContent().toString(), HttpStatus.BAD_REQUEST, new String(erro));
 	    } catch (MPException e) {
 	    	StringBuilder erro = new StringBuilder();
 	    	erro.append("Falha integração Mercado Pago: ");
-	    	erro.append(e.getMessage());
+	    	erro.append(e.getMessage());	    	
 	    	
-	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String(erro));
+	    	throw new BusinessException(e.getMessage() + "aqui porra", HttpStatus.BAD_REQUEST, new String(erro));
 	    }	    
 	}
 	
