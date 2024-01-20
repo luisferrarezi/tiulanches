@@ -7,6 +7,6 @@ export const options = {
 };
 
 export default function () {
-  http.get('http://a8526fc1daf1a4093880d91d27f3e915-1834186291.us-east-1.elb.amazonaws.com:8080/actuator/health');
+  http.get('http://localhost:31200/actuator/health');
   sleep(1);
 }

@@ -56,13 +56,13 @@ public class PreferenciaMP implements PreferenciaExternoController{
 	    	erro.append("Falha integração Mercado Pago: ");
 	    	erro.append(e.getMessage());	    	
 	    	
-	    	throw new BusinessException(e.getMessage() + e.getApiResponse().getContent().toString(), HttpStatus.BAD_REQUEST, new String(erro));
+	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String(erro));
 	    } catch (MPException e) {
 	    	StringBuilder erro = new StringBuilder();
 	    	erro.append("Falha integração Mercado Pago: ");
 	    	erro.append(e.getMessage());	    	
 	    	
-	    	throw new BusinessException(e.getMessage() + "aqui porra", HttpStatus.BAD_REQUEST, new String(erro));
+	    	throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST, new String(erro));
 	    }	    
 	}
 	

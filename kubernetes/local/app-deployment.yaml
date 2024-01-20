@@ -17,22 +17,26 @@ spec:
   selector:
     matchLabels:
       app: app
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
         app: app
-    spec:
+    spec:      
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
       containers:
         - name: tiulanches
-          image: luisferrarezi/tiulanches:v24.01.17
+          image: luisferrarezi/tiulanches:v24.01.20
           resources:
             requests:
               memory: "512Mi"
               cpu: "250m"
             limits:
-              memory: "2048Mi"
-              cpu: "2.0"
+              memory: "1024Mi"
+              cpu: "1.0"
           ports:
             - containerPort: 8080
               name: app-port
@@ -83,9 +87,8 @@ spec:
   selector:
     app: app
   ports:
-    - protocol: "TCP"
-      port: 8080 
-      targetPort: 8080 
+    - protocol: TCP
+      port: 8080       
       nodePort: 31200
   type: NodePort
 ---
@@ -98,12 +101,12 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: app-deployment
-  minReplicas: 1
-  maxReplicas: 10
+  minReplicas: 2
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 70
+          averageUtilization: 50

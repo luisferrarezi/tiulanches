@@ -52,7 +52,7 @@ spec:
     metadata:
       labels:
         app: mysql
-    spec:
+    spec:      
       volumes:
       - name: mysql-pv
         persistentVolumeClaim:
@@ -65,8 +65,8 @@ spec:
             memory: "512Mi"
             cpu: "500m"
           limits:
-            memory: "2048Mi"
-            cpu: "2.0"
+            memory: "1024Mi"
+            cpu: "1.0"
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom :

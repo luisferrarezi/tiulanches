@@ -24,9 +24,13 @@ spec:
       labels:
         app: app
     spec:
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4    
       containers:
         - name: tiulanches
-          image: luisferrarezi/tiulanches:v24.01.09
+          image: luisferrarezi/tiulanches:v24.01.20
           resources:
             requests:
               memory: "512Mi"

@@ -7,364 +7,573 @@
 	},
 	"item": [
 		{
-			"name": "Listar Clientes",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar cliente por CPF",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/clientes/73226998072",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes",
-						"73226998072"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar Produtos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/produtos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar produto por ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/produtos/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar produtos por categoria",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/produtos/categoria/LANCHE",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos",
-						"categoria",
-						"LANCHE"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar Pedidos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/pedidos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"pedidos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar pedido por ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/pedidos/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"pedidos",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar pedidos por Status e pago",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/pedidos/status/RECEBIDO/pago/NAO",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"pedidos",
-						"status",
-						"RECEBIDO",
-						"pago",
-						"NAO"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Criar Cliente",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"cpf\": \"71757773029\",\r\n    \"nome\": \"teste\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "Listar Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"clientes"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Criar Produto",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{   \r\n  \"nome\": \"X-Tudo\",\r\n  \"categoria\": \"SOBREMESA\",\r\n  \"descricao\": \"pão, 2 carnes, queijo, presunto, bacon, ovo, alface, tomate, milho e batata.\",\r\n  \"preco\": 19.32,\r\n  \"tempoPreparo\": 35,\r\n  \"imagem\": \"https://img.freepik.com/fotos-gratis/vista-frontal-deliciosas-batatas-fritas-com-cheeseburgers-em-fundo-escuro-lanche-prato-fast-food-torrada-hamburguer-jantar_140725-158687.jpg?w=2000\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Listar cliente por CPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/clientes/12345678909",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"clientes",
+								"12345678909"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/produtos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Criar Pedido",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n  \"cliente\": {\r\n    \"cpf\": \"30637852885\"\r\n  }, \r\n  \"listItemPedido\": [\r\n    {\r\n      \"produto\": {\r\n        \"idProduto\": 10\r\n      },\r\n      \"quantidade\": 0,\r\n      \"observacao\": \"Sem queijo e mostarda\"\r\n    },\r\n    {\r\n      \"produto\": {\r\n        \"idProduto\": 2\r\n      },\r\n      \"quantidade\": 4\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Criar Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\": \"12345678909\",\r\n    \"nome\": \"APRO\",\r\n    \"email\": \"teste@teste.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/pedidos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"pedidos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Alterar Cliente",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{     \r\n    \"nome\": \"hahahahah\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Alterar Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{     \r\n    \"nome\": \"fdfdfdfdfdfdfd\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/clientes/55386084097",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"clientes",
+								"55386084097"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/clientes/72294985036",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes",
-						"72294985036"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Alterar Produto",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{    \r\n    \"categoria\": \"LANCHE\",\r\n    \"nome\": \"OUTBACKER ICE\",  \r\n    \"descricao\": \"Hambúrguer feito com 200 g de carne, queijo, picles, tomate, alface, cebola e maionese. Se preferir, peça para acrescentar bacon e troque a maionese por mostarda.\",\r\n    \"preco\": 45.67,\r\n    \"tempoPreparo\": 30  \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Excluir Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/clientes/84810848086",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"clientes",
+								"84810848086"
+							]
 						}
-					}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "Listar Produtos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/produtos/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"produtos",
-						"5"
-					]
+				{
+					"name": "Listar produto por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/produtos/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"produtos",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar produtos por categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/produtos/categoria/SOBREMESA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"produtos",
+								"categoria",
+								"SOBREMESA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Produto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n  \"nome\": \"Bolo Prestígio\",\r\n  \"categoria\": \"SOBREMESA\",\r\n  \"descricao\": \"Bolo Prestígio uai não sabe o que é isso não?\",\r\n  \"preco\": 19.32,\r\n  \"tempoPreparo\": 35,\r\n  \"imagem\": \"https://img.freepik.com/fotos-gratis/vista-frontal-deliciosas-batatas-fritas-com-cheeseburgers-em-fundo-escuro-lanche-prato-fast-food-torrada-hamburguer-jantar_140725-158687.jpg?w=2000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Produto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"descricao\": \"Bolo Prestígio\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/produtos/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"produtos",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Produto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/produtos/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"produtos",
+								"5"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Cancelar Pedido",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/pedidos/cancelamento/7",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"pedidos",
-						"cancelamento",
-						"7"
-					]
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "Listar Pedidos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar pedido por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/pedidos/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar pedidos por Status e pago",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/pedidos/status/RECEBIDO/pago/NAO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos",
+								"status",
+								"RECEBIDO",
+								"pago",
+								"NAO"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Painel Pedidos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/painelpedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"painelpedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cliente\": {\r\n        \"cpf\": \"12345678909\"\r\n    },\r\n    \"listItemPedido\": [\r\n        {\r\n            \"produto\": {\r\n                \"idProduto\": 1\r\n            },\r\n            \"quantidade\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar Pedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/pedidos/cancelamento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos",
+								"cancelamento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Preparar pedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{     \r\n    \"nome\": \"ha\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/pedidos/preparar/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos",
+								"preparar",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Entregar pedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{     \r\n    \"nome\": \"ha\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/pedidos/entregar/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos",
+								"entregar",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finalizar pedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{     \r\n    \"nome\": \"ha\",\r\n    \"email\": \"teste@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/pedidos/finalizar/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pedidos",
+								"finalizar",
+								"5"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Excluir Cliente",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/clientes/30637852885",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"clientes",
-						"30637852885"
-					]
+			"name": "Pagamento",
+			"item": [
+				{
+					"name": "Pagamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:31200/pagamento/status/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pagamento",
+								"status",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"payment.created\",\r\n    \"api_version\": \"v1\",\r\n    \"data\": {\r\n        \"id\": \"1320380263\"\r\n    },\r\n    \"date_created\": \"2023-12-28T18:01:41Z\",\r\n    \"id\": 109478527472,\r\n    \"live_mode\": false,\r\n    \"type\": \"payment\",\r\n    \"user_id\": \"37046661\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:31200/pagamentowb/processa?data.id=1320380317&type=payment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "31200",
+							"path": [
+								"pagamentowb",
+								"processa"
+							],
+							"query": [
+								{
+									"key": "data.id",
+									"value": "1320380317"
+								},
+								{
+									"key": "type",
+									"value": "payment"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Excluir Produto",
+			"name": "Health",
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/produtos/1",
+					"raw": "http://localhost:31200/actuator/health",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "31200",
 					"path": [
-						"produtos",
-						"1"
+						"actuator",
+						"health"
 					]
 				}
 			},
