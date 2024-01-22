@@ -13,7 +13,7 @@
 
 # Detalhes do projeto
 ## Objetivo
-Projeto criado para conclusão da Pós Gradução em Software Architectura pela FIAP
+Projeto criado para conclusão da Pós Gradução em Software Architecture pela FIAP
 
 ## Requisitos
 Há uma lanchonete em expansão devido ao seu sucesso. Mas sem um sistema estruturado para atender as necessidades da lanchonete os atendimentos podem ser caóticos pela devido a alta demanda.
@@ -125,3 +125,4 @@ Segue o link direto para o local onde a collection do postman está disponível:
 ## Fase 2
 Segue link do vídeo que explica como a arquitetura e aplicação estão estruturadas e como funciona o aplicativo desde a criação do pedido até a sua entrega.
 
+https://youtu.be/kGFOxVzJDgw
