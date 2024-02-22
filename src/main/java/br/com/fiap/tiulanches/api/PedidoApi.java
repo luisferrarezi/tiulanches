@@ -100,7 +100,7 @@ public class PedidoApi {
 			@ApiResponse(responseCode = "400", description = "Falha, não cadastra o pedido falta informação ou está errada",
 			             content=@Content(schema = @Schema(example = PedidoResponseSwagger.BADREQUEST))),
 		 	@ApiResponse(responseCode = "401", description = "Não autorizado, cliente não está logado na aplicação para fazer o pedido",
-			             content=@Content(schema = @Schema(example = PedidoResponseSwagger.BADREQUEST))),						 
+			             content=@Content(schema = @Schema(example = PedidoResponseSwagger.UNAUTHORIZED))),						 
 			@ApiResponse(responseCode = "404", description = "Falha, produto ou cliente não encontrado", content=@Content(schema = @Schema(hidden = true)))			
 	})					
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid @Schema(example = PedidoResponseSwagger.POST) PedidoDto dto, UriComponentsBuilder uriBuilder){

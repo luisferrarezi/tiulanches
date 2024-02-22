@@ -201,4 +201,11 @@ public final class PedidoResponseSwagger {
 			+ "        \"mensagem\": \"Quantidade mínima é 1\"\r\n"
 			+ "    }\r\n"
 			+ "]";
+
+	public static final String UNAUTHORIZED = "[\r\n"
+			+ "    {\r\n"
+			+ "        \"campo\": \"Cliente\",\r\n"
+			+ "        \"mensagem\": \"Cliente não logado na aplicação!\"\r\n"
+			+ "    }\r\n"
+			+ "]";			
 }
