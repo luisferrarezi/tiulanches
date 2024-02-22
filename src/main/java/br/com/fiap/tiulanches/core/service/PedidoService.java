@@ -58,7 +58,12 @@ public class PedidoService implements PedidoController {
 		pedido.cadastrar(dto);
 		
 		if (dto.cliente() != null) {
-			Cliente cliente = clienteRepository.findById(dto.cliente().cpf()).orElseThrow(() -> new EntityNotFoundException());		
+			Cliente cliente = clienteRepository.findById(dto.cliente().cpf()).orElseThrow(() -> new EntityNotFoundException());
+
+			if (!cliente.isLogado()){
+				throw new BusinessException("Cliente não logado na aplicação!", HttpStatus.UNAUTHORIZED, new String("Cliente"));
+			}
+
 			pedido.setCliente(cliente);
 		}		
 		

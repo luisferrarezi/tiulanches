@@ -1,13 +1,17 @@
 package br.com.fiap.tiulanches.core.entitie.cliente;
 
 import br.com.fiap.tiulanches.core.annotation.Cpf;
+import br.com.fiap.tiulanches.core.enums.Logado;
 import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -39,6 +43,11 @@ public class Cliente {
 	@Size(max=60)
 	@Schema(description = "Email do cliente", example = "luisantonio@gmail.com", required = true, maxLength = 60)
 	private String email;
+
+	@NotNull
+	@Enumerated(EnumType.ORDINAL)
+	@Schema(implementation = Logado.class, description = "Categoria do produto", example = "LANCHE", required = true)	
+	private Logado logado;
 	
 	public void atualizar(ClienteDto cliente) {
 		validaNome(cliente.nome());
@@ -48,7 +57,8 @@ public class Cliente {
 	public void cadastrar(ClienteDto cliente) {
 		this.cpf = cliente.cpf();
 		validaNome(cliente.nome());				
-		validaEmail(cliente.email());					
+		validaEmail(cliente.email());
+		this.logado = Logado.NAO;
 	}
 	
 	private void validaNome(String nome) {
@@ -62,4 +72,8 @@ public class Cliente {
 			this.email = email;
 		}				
 	}	
+
+	public boolean isLogado(){
+		return this.logado == Logado.SIM;
+	}
 }

@@ -19,7 +19,7 @@ import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class ExceptionErros {
-	
+
 	@SuppressWarnings("rawtypes")
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity notFoundError() {
@@ -55,7 +55,15 @@ public class ExceptionErros {
 	public ResponseEntity businessError(BusinessException ex) {
 		FieldError erros = new FieldError(ex.getClass().toString(), ex.getBody().toString(), ex.getMessage());
 		
-		return ResponseEntity.badRequest().body(new ErroValidacao(erros));	
+		ResponseEntity response;
+
+		if (ex.getHttpStatus() == HttpStatus.UNAUTHORIZED) {
+			response = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErroValidacao(erros));
+		} else {
+			response = ResponseEntity.badRequest().body(new ErroValidacao(erros));	
+		}
+
+		return response;
 	}
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
