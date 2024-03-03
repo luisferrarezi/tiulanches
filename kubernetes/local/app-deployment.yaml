@@ -29,7 +29,7 @@ spec:
           - 8.8.4.4
       containers:
         - name: tiulanches
-          image: luisferrarezi/tiulanches:v24.01.20
+          image: luisferrarezi/tiulanches:v24.02.27
           resources:
             requests:
               memory: "512Mi"
@@ -110,3 +110,4 @@ spec:
         target:
           type: Utilization
           averageUtilization: 50
+               
