@@ -20,12 +20,6 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4.3.1
-      with:
-        name: docker-build
-        path: target
         
   docker:
     needs: build
@@ -36,11 +30,6 @@ jobs:
         working-directory: ${{ github.workspace }}
     
     steps:
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v4.1.4
-      with:
-        name: docker-build      
-    
     - name: Checkout
       uses: actions/checkout@v4.1.1
         
@@ -56,7 +45,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5.2.0
       with:
-        context: ${{ github.workspace }}
+        context: ./target
         push: true
         tags: luisferrarezi/tiulanches:latest
         artifacts: docker-build
