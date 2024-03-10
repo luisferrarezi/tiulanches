@@ -43,9 +43,6 @@ jobs:
     
     - name: Checkout
       uses: actions/checkout@v4.1.1
-       
-    - name: Docker Setup QEMU
-      uses: docker/setup-qemu-action@v3.0.0
         
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3.1.0
@@ -59,7 +56,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5.2.0
       with:
-        context: docker-build
+        context: ${{ github.workspace }}/target
         push: true
         tags: luisferrarezi/tiulanches:latest
         artifacts: docker-build
