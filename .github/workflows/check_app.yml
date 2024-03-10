@@ -62,7 +62,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5.2.0
       with:
-        context: .
+        context: docker-build
         push: true
         tags: luisferrarezi/tiulanches:latest
         artifacts: docker-build
