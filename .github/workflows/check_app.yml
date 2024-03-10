@@ -24,10 +24,10 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
-        name: github-actions-artifact
+        name: docker-build
         path: target
         
-  create-image:
+  docker:
     needs: build
     runs-on: ubuntu-latest   
     
@@ -35,7 +35,7 @@ jobs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v4.1.4
       with:
-        name: github-actions-artifact          
+        name: docker-build          
     
     - name: Checkout
       uses: actions/checkout@v4.1.1
@@ -58,4 +58,5 @@ jobs:
         context: .
         push: true
         tags: luisferrarezi/tiulanches:latest
+        artifacts: docker-build
           
