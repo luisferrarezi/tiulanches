@@ -36,7 +36,6 @@ jobs:
         context: .
         push: true
         tags: luisferrarezi/tiulanches:latest
-        artifacts: docker-build      
         
 #  docker:
 #    needs: build
