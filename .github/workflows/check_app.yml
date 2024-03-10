@@ -21,13 +21,6 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
 
-    - name: Azure Login
-      uses: Azure/login@v2.0.0
-      with:
-        client-id: ${{ secrets.CLIENT_ID }}
-        tenant-id: ${{ secrets.TENANT_ID }}
-        subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
-
     - name: ACR Login
       uses: Azure/docker-login@v1
       with:
