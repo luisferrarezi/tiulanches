@@ -30,12 +30,19 @@ jobs:
   docker:
     needs: build
     runs-on: ubuntu-latest   
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.workspace }}
     
     steps:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v4.1.4
       with:
-        name: docker-build          
+        name: docker-build      
+
+    - name: Copy artifacts
+      run: cp docker-build/tiulanches-0.0.1-SNAPSHOT.jar /target
     
     - name: Checkout
       uses: actions/checkout@v4.1.1
