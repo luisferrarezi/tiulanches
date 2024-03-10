@@ -25,7 +25,7 @@ jobs:
       uses: Azure/docker-login@v1
       with:
         username: ${{ secrets.USERNAME_ACR }}
-        password: ${{ secrets.PASSWORD_ID }}
+        password: ${{ secrets.PASSWORD_ACR }}
         login-server: ${{ secrets.SERVER_ACR }}
     - run: |
         docker build . -t tiulanches.azurecr.io/tiulanches:latest
