@@ -53,6 +53,7 @@ jobs:
 
     - name: Cria ConfigMap
       run: |
+        touch configmap.yaml
         cat > configmap.yaml << EOF ${{ secrets.CONFIG_MAP_YAML }} EOF
 
     - name: Deploy to Kubernetes cluster
