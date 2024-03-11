@@ -39,6 +39,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4.1.1
 
+    - name: Azure Login
+      uses: Azure/login@v2.0.0
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Azure Kubernetes set context
       uses: Azure/aks-set-context@v3
       with:        
