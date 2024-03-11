@@ -55,7 +55,7 @@ jobs:
       run: |
         touch configmap.yaml
         cat > configmap.yaml << __EOF__
-        ${{ CONFIG_MAP_YAML }}
+        ${{ secrets.CONFIG_MAP_YAML }}
         __EOF__
 
 #    - name: Deploy to Kubernetes cluster
