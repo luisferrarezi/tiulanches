@@ -53,8 +53,7 @@ jobs:
 
     - name: Cria ConfigMap
       run: |
-        touch configmap.yaml
-        cat > configmap.yaml << EOF ${{ secrets.CONFIG_MAP_YAML }} EOF
+        cat << EOF >> configmap.yaml ${{ secrets.CONFIG_MAP_YAML }} EOF
 
     - name: Deploy to Kubernetes cluster
       uses: Azure/k8s-deploy@v4.9
