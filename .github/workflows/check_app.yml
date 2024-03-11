@@ -28,7 +28,7 @@ jobs:
         password: ${{ secrets.PASSWORD_ACR }}
         login-server: ${{ secrets.SERVER_ACR }}
     - run: |
-        docker build . -t tiulanches.azurecr.io/tiulanches:latest
+        docker build . -t tiulanchesacr.azurecr.io/tiulanches:latest
         docker push tiulanchesacr.azurecr.io/tiulanches:latest
         
 #  image-azure:
