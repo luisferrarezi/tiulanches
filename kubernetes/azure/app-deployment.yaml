@@ -30,23 +30,23 @@ spec:
           env:
             - name: DATASOURCE_URL   
               valueFrom :
-                secretKeyRef:
-                  name: app-secrets
+                configMapKeyRef:
+                  name: app-config
                   key: ds_url
             - name: DATASOURCE_PASSWORD  
               valueFrom:
-                secretKeyRef:
-                  name: app-secrets
+                configMapKeyRef:
+                  name: app-config
                   key: ds_pass
             - name: DATASOURCE_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: app-secrets
+                  name: app-config
                   key: ds_username
             - name: ACCESS_TOKEN_MP
               valueFrom:
-                secretKeyRef:
-                  name: app-secrets
+                configMapKeyRef:
+                  name: app-config
                   key: mp_token
           readinessProbe:
             httpGet:
