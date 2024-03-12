@@ -31,10 +31,36 @@ jobs:
         docker build . -t tiulanchesacr.azurecr.io/tiulanches:latest
         docker push tiulanchesacr.azurecr.io/tiulanches:latest
         
-#  image-azure:
-#    needs: build
-#    runs-on: ubuntu-latest   
+  deploy-aks:
+    needs: build
+    runs-on: ubuntu-latest   
         
-#    steps:
-#    - name: Checkout
-#      uses: actions/checkout@v4.1.1
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+
+    - name: Cria ConfigMap
+      run: |
+        touch configmap.yaml
+        cat > configmap.yaml << __EOF__
+        ${{ secrets.CONFIG_MAP_YAML }}
+        __EOF__
+
+    - name: Azure Login
+      uses: Azure/login@v2.0.0
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Azure Kubernetes set context
+      uses: Azure/aks-set-context@v3
+      with:        
+        resource-group: ${{ secrets.RESOURSE_GROUP }}
+        cluster-name: ${{ secrets.CLUSTER_NAME }}
+        subscription: ${{ secrets.SUBSCRIPTION }}
+
+    - name: Deploy to Kubernetes cluster
+      uses: Azure/k8s-deploy@v4.9
+      with:
+        manifests: |          
+          configmap.yaml
+          kubernetes/azure/app-deployment.yaml
