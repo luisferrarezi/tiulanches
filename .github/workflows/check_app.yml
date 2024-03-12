@@ -62,6 +62,6 @@ jobs:
       uses: Azure/k8s-deploy@v4.9
       with:
         manifests: |
-          kubernets/azure/metrics.yaml
+          kubernetes/azure/metrics.yaml
           configmap.yaml
-          kubernets/azure/app-deployment.yaml
+          kubernetes/azure/app-deployment.yaml
