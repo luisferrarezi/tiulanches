@@ -61,7 +61,6 @@ jobs:
     - name: Deploy to Kubernetes cluster
       uses: Azure/k8s-deploy@v4.9
       with:
-        manifests: |
-          kubernetes/azure/metrics.yaml
+        manifests: |          
           configmap.yaml
           kubernetes/azure/app-deployment.yaml
