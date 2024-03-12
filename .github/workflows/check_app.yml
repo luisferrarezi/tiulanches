@@ -44,8 +44,7 @@ jobs:
         touch configmap.yaml
         cat > configmap.yaml << __EOF__
         ${{ secrets.CONFIG_MAP_YAML }}
-        __EOF__
-        cat configmap.yaml
+        __EOF__        
 
 #    - name: Azure Login
 #      uses: Azure/login@v2.0.0
