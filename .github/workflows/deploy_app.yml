@@ -23,3 +23,47 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package
+
+    - name: ACR Login
+      uses: Azure/docker-login@v1
+      with:
+        username: ${{ secrets.USERNAME_ACR }}
+        password: ${{ secrets.PASSWORD_ACR }}
+        login-server: ${{ secrets.SERVER_ACR }}
+    - run: |
+        docker build . -t tiulanchesacr.azurecr.io/tiulanches:latest
+        docker push tiulanchesacr.azurecr.io/tiulanches:latest
+        
+  deploy-aks:
+    needs: build
+    runs-on: ubuntu-latest   
+        
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+
+    - name: Cria ConfigMap
+      run: |
+        touch configmap.yaml
+        cat > configmap.yaml << __EOF__
+        ${{ secrets.CONFIG_MAP_YAML }}
+        __EOF__
+
+    - name: Azure Login
+      uses: Azure/login@v2.0.0
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Azure Kubernetes set context
+      uses: Azure/aks-set-context@v3
+      with:        
+        resource-group: ${{ secrets.RESOURSE_GROUP }}
+        cluster-name: ${{ secrets.CLUSTER_NAME }}
+        subscription: ${{ secrets.SUBSCRIPTION }}
+
+    - name: Deploy to Kubernetes cluster
+      uses: Azure/k8s-deploy@v4.9
+      with:
+        manifests: |          
+          configmap.yaml
+          kubernetes/azure/app-deployment.yaml
