@@ -8,9 +8,9 @@ services:
       - db_data:/var/lib/mysql
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=123abc      
+      - MYSQL_ROOT_PASSWORD=123456      
     ports:
-      - 31100:3306
+      - 3309:3306
     deploy:
       resources:
         limits:
@@ -20,29 +20,28 @@ services:
           cpus: "0.50"
           memory: 512M
 
-#  tiulanchesapp:
-#    depends_on:
-#      - db
-#    container_name: tiu-lanches-app
-#    image: luisferrarezi/tiulanches:v24.01.20
-#    restart: on-failure
-#    environment:
-#      - DATASOURCE_PASSWORD=123abc
-#      - DATASOURCE_URL=jdbc:mysql://db:3306/tiulanches
-#      - DATASOURCE_USERNAME=root
-#      - ACCESS_TOKEN_MP=TEST-8082269579515558-122306-f21bb2b36f40cc394c200f5130ff797f-37046661
-#    ports:
-#      - 8080:8080
-#    volumes:
-#      - .m2:/root/.m2  
-#    deploy:    
-#      resources:
-#        limits:
-#          cpus: "1"
-#          memory: 1024M
-#        reservations: 
-#          cpus: "0.25"
-#          memory: 512M
+  tiulanchesapp:
+    depends_on:
+      - db
+    container_name: tiu-lanches-app
+    image: luisferrarezi/tiulanches:v24.03.16
+    restart: on-failure
+    environment:
+      - DATASOURCE_PASSWORD=123456
+      - DATASOURCE_URL=jdbc:mysql://db:3306/tiulanches?createDatabaseIfNotExist=true
+      - DATASOURCE_USERNAME=root
+    ports:
+      - 8080:8080
+    volumes:
+      - .m2:/root/.m2  
+    deploy:    
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024M
+        reservations: 
+          cpus: "0.25"
+          memory: 512M
               
 volumes:
   db_data:

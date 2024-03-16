@@ -17,7 +17,7 @@ spec:
   selector:
     matchLabels:
       app: app
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -29,7 +29,7 @@ spec:
           - 8.8.4.4
       containers:
         - name: tiulanches
-          image: luisferrarezi/tiulanches:v24.02.27
+          image: luisferrarezi/tiulanches:v24.03.16
           resources:
             requests:
               memory: "512Mi"
@@ -101,7 +101,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: app-deployment
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 4
   metrics:
     - type: Resource
