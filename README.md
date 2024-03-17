@@ -126,3 +126,50 @@ Segue o link direto para o local onde a collection do postman está disponível:
 Segue link do vídeo que explica como a arquitetura e aplicação estão estruturadas e como funciona o aplicativo desde a criação do pedido até a sua entrega.
 
 https://youtu.be/kGFOxVzJDgw
+
+# Alterações no Projeto
+## Novos recursos
+Para a conclusão da 3ª Fase do projeto foi necessário criar novos recursos:
+- Azure Function -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-auth-function) do projeto.
+- Terraform App -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-app-terraform) do projeto.
+- Terraform Database -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-database-function) do projeto.
+
+## Automação
+Atualmente para esta branch existem 2 níveis de automação, explicado abaixo:
+
+- Pull Request: este é executado no momento que é criado o PR, e nele é realizado um build para garantir que a aplicação não foi quebrada após alteração.
+- Push: este é executado somente após o PR ter sido aprovado e executado o merge para a main, primeiro é realizado o build da aplicação, estando tudo ok  é então logado no Container Registry da Azure, criado a imagem como latest e faz o upload dela para o ACR. 
+        Finalmente cria-se o ConfigMap com variáveis de ambiente necessárias para serem utilizadas pela aplicação no AKS, feito isso são utilizados os yamls configmap.yaml e app-deployment.yaml, para subir a aplicação no AKS.
+
+## Variáveis de Ambiente para Azure
+Existe a variável de ambiente que é indispensável para que a function funcione corretamente:
+- AZURE_CREDENTIALS=<AZURE_CREDENTIALS> - Credenciais necessárias do usuário github para que possa realizar o deploy
+- CLUSTER_NAME=<CLUSTER_NAME> - O nome do cluster que foi criado para o AKS
+- CONFIG_MAP_YAML=<CONFIG_MAP_YAML> - ConfigMap necessário com as variáveis de ambiente para o funcionamento da aplicação
+- RESOURSE_GROUP=<RESOURSE_GROUP> - Resouce Group destinado na Azure para a aplicação
+- SUBSCRIPTION=<SUBSCRIPTION> - Subscription ao qual o AKS criado pertence
+- PASSWORD_ACR=<PASSWORD_ACR> - Senha para enviar imagem no ACR
+- SERVER_ACR=<SERVER_ACR> - Server criado para enviar imagem no ACR
+- USERNAME_ACR=<USERNAME_ACR> - Usuário para enviar imagem no ACR
+
+# Cloud
+## Azure
+Para a hospedagem de todo o projeto foi escolhida a Azure como Cloud pelos seguintes motivos:
+
+- Extremamente robusta, segura e confiável
+- Centraliza todos os recursos em Resouce Group, facilitando assim localizar tudo o que foi criado e ter melhor visualização dos custos da estrutura
+- Transparente com os custos onde exibe de forma eficaz e clara onde está sendo usasdo o seu dinheiro e permite com muita agilidade interromper todos os recursos desnecessários e assim ajudando a economizar, diferente a AWS que faz questão de esconder muitos recursos criados que estão te cobrando.
+- Tenho a conta de estudante que me permite utilizar R$ 500 para criar apresentar o projeto.
+
+# Vídeo explicativo
+## Fase 3
+Segue link do vídeo que explica os seguintes pontos:
+- Terraform criados para a estrutura que é montada
+- Processo em cada um dos repositório com github actions
+- Estrutura de login
+- Estrutura Functions
+- Estrutura Database
+- Estrutura aplicação
+- Demonstração do funcionamento da aplicação e do processo do login, realizando pedido tanto quando o CPF é informado e não informado
+
+Link: https://youtu.be/v9yVQ3_HeSU
