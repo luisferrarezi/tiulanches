@@ -20,28 +20,28 @@ services:
           cpus: "0.50"
           memory: 512M
 
-  tiulanchesapp:
-    depends_on:
-      - db
-    container_name: tiu-lanches-app
-    image: luisferrarezi/tiulanches:v24.03.16
-    restart: on-failure
-    environment:
-      - DATASOURCE_PASSWORD=123456
-      - DATASOURCE_URL=jdbc:mysql://db:3306/tiulanches?createDatabaseIfNotExist=true
-      - DATASOURCE_USERNAME=root
-    ports:
-      - 8080:8080
-    volumes:
-      - .m2:/root/.m2  
-    deploy:    
-      resources:
-        limits:
-          cpus: "1"
-          memory: 1024M
-        reservations: 
-          cpus: "0.25"
-          memory: 512M
+#  tiulanchesapp:
+#    depends_on:
+#      - db
+#    container_name: tiu-lanches-app
+#    image: luisferrarezi/tiulanches:v24.03.16
+#    restart: on-failure
+#    environment:
+#      - DATASOURCE_PASSWORD=123456
+#      - DATASOURCE_URL=jdbc:mysql://db:3306/tiulanches?createDatabaseIfNotExist=true
+#      - DATASOURCE_USERNAME=root
+#    ports:
+#      - 8080:8080
+#    volumes:
+#      - .m2:/root/.m2  
+#    deploy:    
+#      resources:
+#        limits:
+#          cpus: "1"
+#          memory: 1024M
+#        reservations: 
+#          cpus: "0.25"
+#          memory: 512M
               
 volumes:
   db_data:

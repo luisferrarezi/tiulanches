@@ -1,4 +1,4 @@
-CREATE TABLE pedidos(
+CREATE TABLE tiulanches.pedidos(
 	id_pedido bigint(20) NOT NULL AUTO_INCREMENT,
 	id_pagamento bigint(20) NOT NULL,
 	cpf varchar(11),

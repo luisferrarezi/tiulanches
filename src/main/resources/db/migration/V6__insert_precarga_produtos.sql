@@ -1,9 +1,9 @@
-INSERT INTO produtos (categoria, 
-                      nome,
-					  descricao,
-					  preco,
-					  tempo_preparo,
-					  imagem)
+INSERT INTO tiulanches.produtos (categoria, 
+                                 nome,
+					             descricao,
+					             preco,
+					             tempo_preparo,
+					             imagem)
 select 0 AS categoria,
        'X TUDÃO' AS nome,
        'Pão, Maionese, Catchup, 2 Hamburguer, 2 Presuntos, 2 Queijos, 2 Ovos, Bacon, Alface, Tomate, Milho e Batata' AS descricao,
