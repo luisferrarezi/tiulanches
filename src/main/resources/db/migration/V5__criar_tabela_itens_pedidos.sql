@@ -1,4 +1,4 @@
-CREATE TABLE itens_pedidos(
+CREATE TABLE tiulanches.itens_pedidos(
 	id_item bigint(20) NOT NULL AUTO_INCREMENT,
 	id_pedido bigint(20) NOT NULL,
 	id_produto bigint(20) NOT NULL,	
