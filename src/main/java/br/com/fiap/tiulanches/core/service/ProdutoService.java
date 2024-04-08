@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoDto;
 import br.com.fiap.tiulanches.adapter.controller.ProdutoController;
+import br.com.fiap.tiulanches.adapter.mensagem.produto.ProdutoMensagem;
 import br.com.fiap.tiulanches.core.entitie.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Categoria;
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoRepository;
@@ -18,9 +19,11 @@ import jakarta.transaction.Transactional;
 @Service
 public class ProdutoService implements ProdutoController {
 	private final ProdutoRepository repository; 
-	
-	public ProdutoService(ProdutoRepository repository) {
+	private final ProdutoMensagem produtoMensagem;
+
+	public ProdutoService(ProdutoRepository repository, ProdutoMensagem produtoMensagem) {
 		this.repository = repository;
+		this.produtoMensagem = produtoMensagem;
 	}
 	
 	public Page<ProdutoDto> consultaPaginada(Pageable paginacao){
@@ -30,11 +33,11 @@ public class ProdutoService implements ProdutoController {
 	public List<ProdutoDto> consultaByCategoria(Categoria categoria){
 		List<Produto> listProduto = repository.findByCategoria(categoria);
 		
-		return listProduto.stream().map(produto -> new ProdutoDto(produto)).collect(Collectors.toList());		
+		return listProduto.stream().map(ProdutoDto::new).collect(Collectors.toList());		
 	}
 	
 	public ProdutoDto detalhar(Long id) {
-        Produto produto = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 
         return new ProdutoDto(produto);
     }
@@ -43,20 +46,22 @@ public class ProdutoService implements ProdutoController {
 		Produto produto = new Produto();
 		produto.cadastrar(dto);
 		repository.save(produto);
-		
-		return new ProdutoDto(produto);
+		ProdutoDto produtoDto = new ProdutoDto(produto);
+
+		produtoMensagem.enviaMensagem("CREATE", produtoDto);		
+		return produtoDto;
 	}
 	
 	@Transactional	
 	public ProdutoDto alterar(Long id, ProdutoDto dto){
-		Produto produto = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+		Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 		produto.atualizar(dto);
 				
 		return new ProdutoDto(produto);
 	}	
 	
 	public void excluir(Long id){
-		Produto produto = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+		Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 		
 		repository.deleteById(produto.getIdProduto());
 	}	
