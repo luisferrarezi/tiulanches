@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.core.entitie.cliente;
+package br.com.fiap.tiulanches.core.entity.cliente;
 
 import br.com.fiap.tiulanches.core.annotation.Cpf;
 import br.com.fiap.tiulanches.core.enums.Logado;

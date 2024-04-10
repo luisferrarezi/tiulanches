@@ -1,8 +1,8 @@
-package br.com.fiap.tiulanches.core.entitie.pedido;
+package br.com.fiap.tiulanches.core.entity.pedido;
 
 import java.math.BigDecimal;
 
-import br.com.fiap.tiulanches.core.entitie.produto.Produto;
+import br.com.fiap.tiulanches.core.entity.produto.Produto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

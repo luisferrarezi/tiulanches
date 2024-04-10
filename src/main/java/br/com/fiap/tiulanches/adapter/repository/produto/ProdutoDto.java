@@ -2,7 +2,7 @@ package br.com.fiap.tiulanches.adapter.repository.produto;
 
 import java.math.BigDecimal;
 
-import br.com.fiap.tiulanches.core.entitie.produto.Produto;
+import br.com.fiap.tiulanches.core.entity.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Categoria;
 import io.swagger.v3.oas.annotations.media.Schema;
 

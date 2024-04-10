@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.core.entitie.produto;
+package br.com.fiap.tiulanches.core.entity.produto;
 
 import java.math.BigDecimal;
 

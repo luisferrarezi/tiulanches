@@ -1,6 +1,6 @@
 package br.com.fiap.tiulanches.adapter.repository.cliente;
 
-import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
+import br.com.fiap.tiulanches.core.entity.cliente.Cliente;
 import br.com.fiap.tiulanches.core.enums.Logado;
 import io.swagger.v3.oas.annotations.media.Schema;
 

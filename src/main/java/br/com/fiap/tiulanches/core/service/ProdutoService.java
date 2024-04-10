@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoDto;
 import br.com.fiap.tiulanches.adapter.controller.ProdutoController;
-import br.com.fiap.tiulanches.adapter.mensagem.produto.ProdutoMensagem;
-import br.com.fiap.tiulanches.core.entitie.produto.Produto;
+import br.com.fiap.tiulanches.adapter.message.EventoEnum;
+import br.com.fiap.tiulanches.adapter.message.produto.ProdutoMessage;
+import br.com.fiap.tiulanches.core.entity.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Categoria;
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,9 +20,9 @@ import jakarta.transaction.Transactional;
 @Service
 public class ProdutoService implements ProdutoController {
 	private final ProdutoRepository repository; 
-	private final ProdutoMensagem produtoMensagem;
+	private final ProdutoMessage produtoMensagem;
 
-	public ProdutoService(ProdutoRepository repository, ProdutoMensagem produtoMensagem) {
+	public ProdutoService(ProdutoRepository repository, ProdutoMessage produtoMensagem) {
 		this.repository = repository;
 		this.produtoMensagem = produtoMensagem;
 	}
@@ -48,7 +49,7 @@ public class ProdutoService implements ProdutoController {
 		repository.save(produto);
 		ProdutoDto produtoDto = new ProdutoDto(produto);
 
-		produtoMensagem.enviaMensagem("CREATE", produtoDto);		
+		produtoMensagem.enviaMensagem(EventoEnum.CREATE, produtoDto);
 		return produtoDto;
 	}
 	
@@ -56,13 +57,18 @@ public class ProdutoService implements ProdutoController {
 	public ProdutoDto alterar(Long id, ProdutoDto dto){
 		Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 		produto.atualizar(dto);
-				
-		return new ProdutoDto(produto);
+
+		ProdutoDto produtoDto = new ProdutoDto(produto);
+		produtoMensagem.enviaMensagem(EventoEnum.UPDATE, produtoDto);
+		
+		return produtoDto;
 	}	
 	
 	public void excluir(Long id){
 		Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 		
 		repository.deleteById(produto.getIdProduto());
+		
+		produtoMensagem.enviaMensagem(EventoEnum.DELETE, new ProdutoDto(produto));
 	}	
 }

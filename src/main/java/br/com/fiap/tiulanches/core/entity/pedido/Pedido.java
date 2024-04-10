@@ -1,4 +1,4 @@
-package br.com.fiap.tiulanches.core.entitie.pedido;
+package br.com.fiap.tiulanches.core.entity.pedido;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import io.swagger.v3.oas.annotations.media.Schema;
 import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
-import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
-import br.com.fiap.tiulanches.core.entitie.pagamento.Pagamento;
+import br.com.fiap.tiulanches.core.entity.cliente.Cliente;
+import br.com.fiap.tiulanches.core.entity.pagamento.Pagamento;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
