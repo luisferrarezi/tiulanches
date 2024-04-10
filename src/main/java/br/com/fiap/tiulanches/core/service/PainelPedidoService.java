@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.fiap.tiulanches.adapter.controller.PainelPedidoController;
 import br.com.fiap.tiulanches.adapter.repository.painelpedido.PainelPedidoDto;
 import br.com.fiap.tiulanches.adapter.repository.painelpedido.PainelPedidoRepository;
-import br.com.fiap.tiulanches.core.entitie.painelpedido.PainelPedido;
+import br.com.fiap.tiulanches.core.entity.painelpedido.PainelPedido;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import jakarta.persistence.EntityNotFoundException;

@@ -1,6 +1,6 @@
 package br.com.fiap.tiulanches.adapter.repository.pagamento;
 
-import br.com.fiap.tiulanches.core.entitie.pagamento.Pagamento;
+import br.com.fiap.tiulanches.core.entity.pagamento.Pagamento;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import io.swagger.v3.oas.annotations.media.Schema;
 

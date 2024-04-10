@@ -1,6 +1,6 @@
 package br.com.fiap.tiulanches.adapter.repository.painelpedido;
 
-import br.com.fiap.tiulanches.core.entitie.painelpedido.PainelPedido;
+import br.com.fiap.tiulanches.core.entity.painelpedido.PainelPedido;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import io.swagger.v3.oas.annotations.media.Schema;
 

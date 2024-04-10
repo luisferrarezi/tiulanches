@@ -94,6 +94,12 @@
     		<groupId>com.fasterxml.jackson.core</groupId>
     		<artifactId>jackson-databind</artifactId>
    		</dependency>
+
+		<!-- Kafka -->
+    	<dependency>
+      		<groupId>org.springframework.kafka</groupId>
+      		<artifactId>spring-kafka</artifactId>
+    	</dependency>
 	</dependencies>
 
 	<build>
@@ -108,6 +114,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<jvmArguments>-Dfile.encoding=UTF8</jvmArguments>
 				</configuration>
 			</plugin>
 		</plugins>

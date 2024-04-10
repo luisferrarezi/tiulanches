@@ -7,7 +7,7 @@ import br.com.fiap.tiulanches.adapter.repository.pagamento.ConsultaPagamentoDto;
 import br.com.fiap.tiulanches.adapter.repository.pagamento.ConsultaPagamentoRepository;
 import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoDto;
 import br.com.fiap.tiulanches.adapter.repository.pagamento.PagamentoRepository;
-import br.com.fiap.tiulanches.core.entitie.pagamento.Pagamento;
+import br.com.fiap.tiulanches.core.entity.pagamento.Pagamento;
 import br.com.fiap.tiulanches.core.exception.BusinessException;
 import jakarta.persistence.EntityNotFoundException;
 

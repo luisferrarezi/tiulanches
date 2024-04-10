@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.fiap.tiulanches.core.entitie.pagamento.ConsultaPagamento;
+import br.com.fiap.tiulanches.core.entity.pagamento.ConsultaPagamento;
 
 public interface ConsultaPagamentoRepository extends JpaRepository <ConsultaPagamento, Long>{
 		

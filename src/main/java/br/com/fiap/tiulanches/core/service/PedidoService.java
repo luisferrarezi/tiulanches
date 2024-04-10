@@ -13,10 +13,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.fiap.tiulanches.adapter.repository.pedido.PedidoDto;
 import br.com.fiap.tiulanches.adapter.controller.PedidoController;
-import br.com.fiap.tiulanches.core.entitie.cliente.Cliente;
-import br.com.fiap.tiulanches.core.entitie.pedido.ItemPedido;
-import br.com.fiap.tiulanches.core.entitie.pedido.Pedido;
-import br.com.fiap.tiulanches.core.entitie.produto.Produto;
+import br.com.fiap.tiulanches.core.entity.cliente.Cliente;
+import br.com.fiap.tiulanches.core.entity.pedido.ItemPedido;
+import br.com.fiap.tiulanches.core.entity.pedido.Pedido;
+import br.com.fiap.tiulanches.core.entity.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Pago;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
 import br.com.fiap.tiulanches.core.exception.BusinessException;

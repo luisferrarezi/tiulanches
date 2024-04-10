@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.fiap.tiulanches.core.entitie.pedido.Pedido;
 import br.com.fiap.tiulanches.core.enums.StatusPedido;
+import br.com.fiap.tiulanches.core.entity.pedido.Pedido;
 import br.com.fiap.tiulanches.core.enums.Pago;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
