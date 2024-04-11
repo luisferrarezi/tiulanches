@@ -122,12 +122,12 @@ public class Pedido {
 	
 	private void validaCliente(ClienteDto dto) {		
 		if (dto != null) {
-			this.cliente = new Cliente(dto.cpf(), dto.nome(), dto.email(), dto.logado());
+			this.cliente = new Cliente(dto.cpf(), dto.nome(), dto.email(), dto.logado(), 0);
 		}
 	}
 	
 	private void validaPagamento() {
-		Pagamento pagamento = new Pagamento();		
-		this.pagamento = pagamento.criar();
+		Pagamento pagamentoNovo = new Pagamento();		
+		this.pagamento = pagamentoNovo.criar();
 	}	
 }

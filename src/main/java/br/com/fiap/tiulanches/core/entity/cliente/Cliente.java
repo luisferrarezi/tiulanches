@@ -47,8 +47,11 @@ public class Cliente {
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	@Schema(implementation = Logado.class, description = "Categoria do produto", example = "LANCHE", required = true)	
-	private Logado logado;
+	private Logado logado;	
 	
+	@Schema(description = "Indica se o cliente possuí algum pedido vinculado a ele", example = "0", required = true)
+	private int pedidoVinculado;
+
 	public void atualizar(ClienteDto cliente) {
 		validaNome(cliente.nome());
 		validaEmail(cliente.email());
@@ -76,4 +79,8 @@ public class Cliente {
 	public boolean isLogado(){
 		return this.logado == Logado.SIM;
 	}
+
+	public boolean isPossuiPedido(){
+		return this.pedidoVinculado == 1;
+	}	
 }

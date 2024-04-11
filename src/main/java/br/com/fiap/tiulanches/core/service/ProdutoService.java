@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoDto;
@@ -13,6 +14,7 @@ import br.com.fiap.tiulanches.adapter.message.EventoEnum;
 import br.com.fiap.tiulanches.adapter.message.produto.ProdutoMessage;
 import br.com.fiap.tiulanches.core.entity.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Categoria;
+import br.com.fiap.tiulanches.core.exception.BusinessException;
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -45,7 +47,7 @@ public class ProdutoService implements ProdutoController {
 	
 	public ProdutoDto cadastrar(ProdutoDto dto){
 		Produto produto = new Produto();
-		produto.cadastrar(dto);
+		produto.registrar(dto);
 		repository.save(produto);
 		ProdutoDto produtoDto = new ProdutoDto(produto);
 
@@ -56,7 +58,7 @@ public class ProdutoService implements ProdutoController {
 	@Transactional	
 	public ProdutoDto alterar(Long id, ProdutoDto dto){
 		Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
-		produto.atualizar(dto);
+		produto.registrar(dto);
 
 		ProdutoDto produtoDto = new ProdutoDto(produto);
 		produtoMensagem.enviaMensagem(EventoEnum.UPDATE, produtoDto);
@@ -67,8 +69,11 @@ public class ProdutoService implements ProdutoController {
 	public void excluir(Long id){
 		Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 		
-		repository.deleteById(produto.getIdProduto());
-		
+		if (produto.isPossuiPedido()){
+			throw new BusinessException("Produto já utilizado em pedido, não pode ser excluído!", HttpStatus.BAD_REQUEST, "Produto");
+		}
+
+		repository.deleteById(produto.getIdProduto());		
 		produtoMensagem.enviaMensagem(EventoEnum.DELETE, new ProdutoDto(produto));
 	}	
 }
