@@ -67,7 +67,10 @@ public class Produto {
     		maxLength = 400)	
 	private String imagem;
 	
-	public void atualizar(ProdutoDto produto) {
+	@Schema(description = "Indica se o produto possuí algum pedido vinculado a ele", example = "0", required = true)
+	private int pedidoVinculado;
+
+	public void registrar(ProdutoDto produto) {
 		validaCategoria(produto.categoria());		
 		validaNome(produto.nome());
 		validaDescricao(produto.descricao());		
@@ -75,15 +78,6 @@ public class Produto {
 		validaTempoPreparo(produto.tempoPreparo());
 		validaImagem(produto.imagem());
 	}
-	
-	public void cadastrar(ProdutoDto produto) {
-		validaCategoria(produto.categoria());		
-		validaNome(produto.nome());
-		validaDescricao(produto.descricao());		
-		validaPreco(produto.preco());		
-		validaTempoPreparo(produto.tempoPreparo());
-		validaImagem(produto.imagem());
-	}	
 	
 	private void validaCategoria(Categoria categoria) {
 		if (categoria != null) {
@@ -120,4 +114,8 @@ public class Produto {
 			this.imagem = imagem;
 		}
 	}
+
+	public boolean isPossuiPedido(){
+		return this.pedidoVinculado == 1;
+	}		
 }

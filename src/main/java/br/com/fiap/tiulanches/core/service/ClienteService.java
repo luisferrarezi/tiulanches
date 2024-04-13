@@ -70,6 +70,10 @@ public class ClienteService implements ClienteController {
 	public void excluir(String cpf){
 		Cliente cliente = repository.findById(cpf).orElseThrow(EntityNotFoundException::new);
 		
+		if (cliente.isPossuiPedido()){
+			throw new BusinessException("Cliente já utilizado em pedido, não pode ser excluído!", HttpStatus.BAD_REQUEST, "Cliente");
+		}
+
 		repository.deleteById(cliente.getCpf());
 		message.enviaMensagem(EventoEnum.DELETE, new ClienteDto(cliente));
 	}	
