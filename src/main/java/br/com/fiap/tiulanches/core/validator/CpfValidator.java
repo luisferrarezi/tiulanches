@@ -28,8 +28,11 @@ public class CpfValidator implements ConstraintValidator<Cpf, String> {
 	        || cpf.equals("88888888888") || cpf.equals("99999999999") || (cpf.length() != 11))
 	      return (false);	    
 
-	    int d1, d2;
-	    int digito1, digito2, resto;
+	    int d1;
+		int d2;
+	    int digito1;
+		int digito2;
+		int resto;
 	    int digitoCPF;
 	    String nDigResult;
 
@@ -46,7 +49,7 @@ public class CpfValidator implements ConstraintValidator<Cpf, String> {
 	      // para o segundo digito repita o procedimento incluindo o primeiro
 	      // digito calculado no passo anterior.
 	      d2 = d2 + (12 - nCount) * digitoCPF;
-	    };
+	    }
 
 	    // Primeiro resto da divisão por 11.
 	    resto = (d1 % 11);
