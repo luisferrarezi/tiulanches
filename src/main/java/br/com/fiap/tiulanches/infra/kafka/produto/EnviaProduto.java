@@ -14,8 +14,8 @@ public class EnviaProduto implements ProdutoMessage {
     private final KafkaTemplate<String, Object> kafka;
 
     public EnviaProduto(KafkaTemplate<String, Object> kafka) {
-		    this.kafka = kafka;
-	  }
+	    this.kafka = kafka;
+    }
 
     @Override
     public void enviaMensagem(EventoEnum evento, ProdutoDto produto) {
