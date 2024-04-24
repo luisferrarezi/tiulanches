@@ -18,8 +18,6 @@ import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
 import br.com.fiap.tiulanches.core.enums.Logado;
 
 class EnviaClienteTest {
-
-    private ClienteDto clienteDto;
     private EnviaCliente enviaCliente;
 
     private static final String CPF = "68330488004";
@@ -45,6 +43,7 @@ class EnviaClienteTest {
 
     @Test
     void enviaMensagemTest(){
+        ClienteDto clienteDto;
         clienteDto = new ClienteDto(CPF, NOME, EMAIL, Logado.NAO);
 
         when(kafka.send(anyString(), any(ClienteEvent.class))).thenReturn(null);

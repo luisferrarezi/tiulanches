@@ -4,46 +4,55 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.fiap.tiulanches.core.entity.produto.Produto;
 import br.com.fiap.tiulanches.core.enums.Categoria;
+import br.com.fiap.tiulanches.utils.produto.ProdutoEnum;
+import br.com.fiap.tiulanches.utils.produto.ProdutoPadrao;
 
 class ProdutoDtoTest {
 
     private ProdutoDto produtoDto;
+    private ProdutoPadrao produtoPadrao;
 
-    private static final long ID_PRODUTO = 10L;
-    private static final String NOME = "Teste";
-    private static final String DESCRICAO = "Teste";
-    private static final BigDecimal PRECO = BigDecimal.valueOf(11.20);
-    private static final int TEMPO_PREPARO = 10;
-    private static final String IMAGEM = "Teste";
+    private final Long idProdutoPadrao = (Long) ProdutoEnum.ID_PRODUTO.getValor();
+    private final String nomePadrao = (String) ProdutoEnum.NOME.getValor();
+    private final String descricaoPadrao = (String) ProdutoEnum.DESCRICAO.getValor();
+    private final BigDecimal precoPadrao = (BigDecimal) ProdutoEnum.PRECO.getValor();
+    private final Integer tempoPreparoPadrao = (Integer) ProdutoEnum.TEMPO_PREPARO.getValor();
+    private final String imagemPadrao = (String) ProdutoEnum.IMAGEM.getValor();    
+    
+    @BeforeEach
+    void beforeEach(){
+        produtoPadrao = new ProdutoPadrao();
+    }    
 
     @Test
     void constructorAllArgumentsTest(){
-        produtoDto = new ProdutoDto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM);
+        produtoDto = produtoPadrao.createProdutoDto();
         
-        assertEquals(ID_PRODUTO, produtoDto.idProduto());
+        assertEquals(idProdutoPadrao, produtoDto.idProduto());
         assertEquals(Categoria.ACOMPANHAMENTO, produtoDto.categoria());
-        assertEquals(NOME, produtoDto.nome());
-        assertEquals(DESCRICAO, produtoDto.descricao());
-        assertEquals(PRECO, produtoDto.preco());
-        assertEquals(TEMPO_PREPARO, produtoDto.tempoPreparo());
-        assertEquals(IMAGEM, produtoDto.imagem());
+        assertEquals(nomePadrao, produtoDto.nome());
+        assertEquals(descricaoPadrao, produtoDto.descricao());
+        assertEquals(precoPadrao, produtoDto.preco());
+        assertEquals(tempoPreparoPadrao, produtoDto.tempoPreparo());
+        assertEquals(imagemPadrao, produtoDto.imagem());
     }
 
     @Test
     void constructorByProdutoTest(){
-        Produto produto = new Produto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM, 0);
+        Produto produto = produtoPadrao.createProduto();
         produtoDto = new ProdutoDto(produto);
 
-        assertEquals(ID_PRODUTO, produtoDto.idProduto());
+        assertEquals(idProdutoPadrao, produtoDto.idProduto());
         assertEquals(Categoria.ACOMPANHAMENTO, produtoDto.categoria());
-        assertEquals(NOME, produtoDto.nome());
-        assertEquals(DESCRICAO, produtoDto.descricao());
-        assertEquals(PRECO, produtoDto.preco());
-        assertEquals(TEMPO_PREPARO, produtoDto.tempoPreparo());
-        assertEquals(IMAGEM, produtoDto.imagem());
+        assertEquals(nomePadrao, produtoDto.nome());
+        assertEquals(descricaoPadrao, produtoDto.descricao());
+        assertEquals(precoPadrao, produtoDto.preco());
+        assertEquals(tempoPreparoPadrao, produtoDto.tempoPreparo());
+        assertEquals(imagemPadrao, produtoDto.imagem());
     }    
 }

@@ -7,107 +7,117 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.math.BigDecimal;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoDto;
 import br.com.fiap.tiulanches.core.enums.Categoria;
+import br.com.fiap.tiulanches.utils.produto.ProdutoEnum;
+import br.com.fiap.tiulanches.utils.produto.ProdutoPadrao;
 
 class ProdutoTest {
     
-    private ProdutoDto produtoDto;
     private Produto produto;
+    private ProdutoDto produtoDto;
+    private ProdutoPadrao produtoPadrao;
 
-    private static final long ID_PRODUTO = 10L;
-    private static final String NOME = "Teste";
-    private static final String DESCRICAO = "Teste";
-    private static final BigDecimal PRECO = BigDecimal.valueOf(11.20);
-    private static final int TEMPO_PREPARO = 10;
-    private static final String IMAGEM = "Teste";
+    private final Long idProdutoPadrao = (Long) ProdutoEnum.ID_PRODUTO.getValor();
+    private final String nomePadrao = (String) ProdutoEnum.NOME.getValor();
+    private final String descricaoPadrao = (String) ProdutoEnum.DESCRICAO.getValor();
+    private final BigDecimal precoPadrao = (BigDecimal) ProdutoEnum.PRECO.getValor();
+    private final Integer tempoPreparoPadrao = (Integer) ProdutoEnum.TEMPO_PREPARO.getValor();
+    private final String imagemPadrao = (String) ProdutoEnum.IMAGEM.getValor();
+
+    @BeforeEach
+    void beforeEach(){
+        produtoPadrao = new ProdutoPadrao();
+    }
 
     @Test
     void constructorAllArgumentsTest(){
-        produto = new Produto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM, 0);
-        
-        assertEquals(ID_PRODUTO, produto.getIdProduto());
+        produto = produtoPadrao.createProduto();
+
+        assertEquals(idProdutoPadrao.longValue(), produto.getIdProduto());
         assertEquals(Categoria.ACOMPANHAMENTO, produto.getCategoria());
-        assertEquals(NOME, produto.getNome());
-        assertEquals(DESCRICAO, produto.getDescricao());
-        assertEquals(PRECO, produto.getPreco());
-        assertEquals(TEMPO_PREPARO, produto.getTempoPreparo());
-        assertEquals(IMAGEM, produto.getImagem());
+        assertEquals(nomePadrao, produto.getNome());
+        assertEquals(descricaoPadrao, produto.getDescricao());
+        assertEquals(precoPadrao, produto.getPreco());
+        assertEquals(tempoPreparoPadrao.intValue(), produto.getTempoPreparo());
+        assertEquals(imagemPadrao, produto.getImagem());
         assertEquals(0, produto.getPedidoVinculado());
     }
 
     @Test
     void constructorByProdutoTest(){
-        Produto produto = new Produto();
+        produto = new Produto();
 
-        produto.setIdProduto(ID_PRODUTO);
+        produto.setIdProduto(idProdutoPadrao);
         produto.setCategoria(Categoria.ACOMPANHAMENTO);
-        produto.setNome(NOME);
-        produto.setDescricao(DESCRICAO);
-        produto.setPreco(PRECO);
-        produto.setTempoPreparo(TEMPO_PREPARO);
-        produto.setImagem(IMAGEM);
+        produto.setNome(nomePadrao);
+        produto.setDescricao(descricaoPadrao);
+        produto.setPreco(precoPadrao);
+        produto.setTempoPreparo(tempoPreparoPadrao);
+        produto.setImagem(imagemPadrao);
         produto.setPedidoVinculado(0);
 
-        assertEquals(ID_PRODUTO, produto.getIdProduto());
+        assertEquals(idProdutoPadrao.longValue(), produto.getIdProduto());
         assertEquals(Categoria.ACOMPANHAMENTO, produto.getCategoria());
-        assertEquals(NOME, produto.getNome());
-        assertEquals(DESCRICAO, produto.getDescricao());
-        assertEquals(PRECO, produto.getPreco());
-        assertEquals(TEMPO_PREPARO, produto.getTempoPreparo());
-        assertEquals(IMAGEM, produto.getImagem());
+        assertEquals(nomePadrao, produto.getNome());
+        assertEquals(descricaoPadrao, produto.getDescricao());
+        assertEquals(precoPadrao, produto.getPreco());
+        assertEquals(tempoPreparoPadrao.intValue(), produto.getTempoPreparo());
+        assertEquals(imagemPadrao, produto.getImagem());
         assertEquals(0, produto.getPedidoVinculado());
     }
     
     @Test
     void equalsTest(){
-        produto = new Produto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM, 0);
-        Produto produto2 = new Produto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM, 0);
+        produto = produtoPadrao.createProduto();
+        Produto produto2 = produtoPadrao.createProduto();
 
         assertDoesNotThrow(()->produto.equals(produto2));
     }
 
     @Test
     void hashCodeTest(){
-        produto = new Produto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM, 0);
+        produto = produtoPadrao.createProduto();
 
         assertDoesNotThrow(()->produto.hashCode());
     }
 
     @Test
     void produtoIsPossuiPedidoTest(){
-        produto = new Produto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM, 1);
+        produto = produtoPadrao.createProduto();
+        produto.setPedidoVinculado(1);
 
         assertTrue(produto.isPossuiPedido());
     }
 
     @Test
     void produtoIsNotPossuiPedidoTest(){
-        produto = new Produto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM, 0);
+        produto = produtoPadrao.createProduto();
 
         assertFalse(produto.isPossuiPedido());
     }    
 
     @Test
     void produtoRegistrarTest(){
-        produtoDto = new ProdutoDto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM);
+        produtoDto = produtoPadrao.createProdutoDto();
 
         produto = new Produto();
         produto.registrar(produtoDto);
         
         assertEquals(Categoria.ACOMPANHAMENTO, produto.getCategoria());
-        assertEquals(NOME, produto.getNome());
-        assertEquals(DESCRICAO, produto.getDescricao());
-        assertEquals(PRECO, produto.getPreco());
-        assertEquals(TEMPO_PREPARO, produto.getTempoPreparo());
-        assertEquals(IMAGEM, produto.getImagem());
+        assertEquals(nomePadrao, produto.getNome());
+        assertEquals(descricaoPadrao, produto.getDescricao());
+        assertEquals(precoPadrao, produto.getPreco());
+        assertEquals(tempoPreparoPadrao.intValue(), produto.getTempoPreparo());
+        assertEquals(imagemPadrao, produto.getImagem());
     }    
    
     @Test
     void produtoRegistrarNullTest(){
-        produtoDto = new ProdutoDto(ID_PRODUTO, null, null, null, null, 0, null);
+        produtoDto = new ProdutoDto(idProdutoPadrao, null, null, null, null, 0, null);
 
         produto = new Produto();
         produto.registrar(produtoDto);
