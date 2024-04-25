@@ -2,35 +2,37 @@ package br.com.fiap.tiulanches.adapter.repository.cliente;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import br.com.fiap.tiulanches.core.entity.cliente.Cliente;
 import br.com.fiap.tiulanches.core.enums.Logado;
+import br.com.fiap.tiulanches.utils.cliente.ClienteEnum;
+import br.com.fiap.tiulanches.utils.cliente.ClientePadrao;
 
 class ClienteDtoTest {
-    
+    private ClientePadrao clientePadrao;
     private ClienteDto clienteDto;
-    private static final String CPF = "68330488004";
-    private static final String NOME = "teste";
-    private static final String EMAIL = "teste@teste.com";
+
+    @BeforeEach
+    void beforeEach(){
+        clientePadrao = new ClientePadrao();
+    }
 
     @Test
     void constructorAllArgumentsTest(){
-        clienteDto = new ClienteDto(CPF, NOME, EMAIL, Logado.NAO);
-        assertEquals(CPF, clienteDto.cpf());
-        assertEquals(NOME, clienteDto.nome());
-        assertEquals(EMAIL, clienteDto.email());
+        clienteDto = clientePadrao.createClientDto();
+        assertEquals(ClienteEnum.CPF.getValor(), clienteDto.cpf());
+        assertEquals(ClienteEnum.NOME.getValor(), clienteDto.nome());
+        assertEquals(ClienteEnum.EMAIL.getValor(), clienteDto.email());
         assertEquals(Logado.NAO, clienteDto.logado());
     }
 
     @Test
     void constructorByClienteTest(){
-        Cliente cliente = new Cliente(CPF, NOME, EMAIL, Logado.NAO, 0);
-        
-        clienteDto = new ClienteDto(cliente);
-        assertEquals(CPF, clienteDto.cpf());
-        assertEquals(NOME, clienteDto.nome());
-        assertEquals(EMAIL, clienteDto.email());
+        clienteDto = new ClienteDto(clientePadrao.createClient());
+        assertEquals(ClienteEnum.CPF.getValor(), clienteDto.cpf());
+        assertEquals(ClienteEnum.NOME.getValor(), clienteDto.nome());
+        assertEquals(ClienteEnum.EMAIL.getValor(), clienteDto.email());
         assertEquals(Logado.NAO, clienteDto.logado());
     }    
 }

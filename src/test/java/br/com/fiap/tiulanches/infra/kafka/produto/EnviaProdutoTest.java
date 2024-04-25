@@ -22,7 +22,6 @@ import br.com.fiap.tiulanches.core.enums.Categoria;
 class EnviaProdutoTest {
 
     private EnviaProduto enviaProduto;
-    private ProdutoDto produtoDto;
 
     private static final long ID_PRODUTO = 10L;
     private static final String NOME = "Teste";
@@ -50,6 +49,7 @@ class EnviaProdutoTest {
 
     @Test
     void enviaMensagemTest(){
+        ProdutoDto produtoDto;
         produtoDto = new ProdutoDto(ID_PRODUTO, Categoria.ACOMPANHAMENTO, NOME, DESCRICAO, PRECO, TEMPO_PREPARO, IMAGEM);
 
         when(kafka.send(anyString(), any(ProdutoEvent.class))).thenReturn(null);

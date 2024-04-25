@@ -5,24 +5,30 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
 import br.com.fiap.tiulanches.core.enums.Logado;
+import br.com.fiap.tiulanches.utils.cliente.ClienteEnum;
+import br.com.fiap.tiulanches.utils.cliente.ClientePadrao;
 
 class ClienteTest {
 
     private Cliente cliente;
-    private static final String CPF = "68330488004";
-    private static final String NOME = "teste";
-    private static final String EMAIL = "teste@teste.com";
+    private ClientePadrao clientePadrao;
+
+    @BeforeEach
+    void beforeEach(){
+        clientePadrao = new ClientePadrao();
+    }
 
     @Test
     void constructorAllArgumentsTest(){
-        cliente = new Cliente(CPF, NOME, EMAIL, Logado.NAO, 0);
-        assertEquals(CPF, cliente.getCpf());
-        assertEquals(NOME, cliente.getNome());
-        assertEquals(EMAIL, cliente.getEmail());
+        cliente = clientePadrao.createClient();
+        assertEquals(ClienteEnum.CPF.getValor(), cliente.getCpf());
+        assertEquals(ClienteEnum.NOME.getValor(), cliente.getNome());
+        assertEquals(ClienteEnum.EMAIL.getValor(), cliente.getEmail());
         assertEquals(Logado.NAO, cliente.getLogado());
         assertEquals(0, cliente.getPedidoVinculado());        
     }
@@ -30,89 +36,93 @@ class ClienteTest {
     @Test
     void constructorNoArgumentsTest(){
         cliente = new Cliente();
-        cliente.setCpf(CPF);
-        cliente.setNome(NOME);
-        cliente.setEmail(EMAIL);
+        cliente.setCpf(ClienteEnum.CPF.getValor());
+        cliente.setNome(ClienteEnum.NOME.getValor());
+        cliente.setEmail(ClienteEnum.EMAIL.getValor());
         cliente.setLogado(Logado.NAO);
         cliente.setPedidoVinculado(0);
 
-        assertEquals(CPF, cliente.getCpf());
-        assertEquals(NOME, cliente.getNome());
-        assertEquals(EMAIL, cliente.getEmail());
+        assertEquals(ClienteEnum.CPF.getValor(), cliente.getCpf());
+        assertEquals(ClienteEnum.NOME.getValor(), cliente.getNome());
+        assertEquals(ClienteEnum.EMAIL.getValor(), cliente.getEmail());
         assertEquals(Logado.NAO, cliente.getLogado());
         assertEquals(0, cliente.getPedidoVinculado());        
     }    
 
     @Test
     void equalsTest(){
-        cliente = new Cliente(CPF, NOME, EMAIL, Logado.NAO, 0);
-        Cliente cliente2 = new Cliente(CPF, NOME, EMAIL, Logado.NAO, 0);
+        cliente = clientePadrao.createClient();
+        Cliente cliente2 = clientePadrao.createClient();
 
         assertDoesNotThrow(()->cliente.equals(cliente2));
     }
 
     @Test
     void hashCodeTest(){
-        cliente = new Cliente(CPF, NOME, EMAIL, Logado.NAO, 0);
+        cliente = clientePadrao.createClient();        
 
         assertDoesNotThrow(()->cliente.hashCode());
     }
 
     @Test
     void clienteIsLogadoTest(){
-        cliente = new Cliente(CPF, NOME, EMAIL, Logado.SIM, 0);
+        cliente = new Cliente(ClienteEnum.CPF.getValor(), 
+                              ClienteEnum.NOME.getValor(), 
+                              ClienteEnum.EMAIL.getValor(), 
+                              Logado.SIM, 
+                              0);
 
         assertTrue(cliente.isLogado());
     }
 
     @Test
     void clienteIsNotLogadoTest(){
-        cliente = new Cliente(CPF, NOME, EMAIL, Logado.NAO, 0);
+        cliente = clientePadrao.createClient();
 
         assertFalse(cliente.isLogado());
     }    
 
     @Test
     void clienteIsPossuiPedidoTest(){
-        cliente = new Cliente(CPF, NOME, EMAIL, Logado.SIM, 1);
+        cliente = new Cliente(ClienteEnum.CPF.getValor(), 
+                              ClienteEnum.NOME.getValor(), 
+                              ClienteEnum.EMAIL.getValor(), 
+                              Logado.SIM, 
+                              1);
 
         assertTrue(cliente.isPossuiPedido());
     }
 
     @Test
     void clienteIsNotPossuiPedidoTest(){
-        cliente = new Cliente(CPF, NOME, EMAIL, Logado.SIM, 0);
+        cliente = clientePadrao.createClient();
 
         assertFalse(cliente.isPossuiPedido());
     }    
 
     @Test
     void clienteAtualizarTest(){
-        ClienteDto clienteDto = new ClienteDto(CPF, NOME, EMAIL, Logado.NAO);
-
         cliente = new Cliente();
-        cliente.atualizar(clienteDto);
+        cliente.atualizar(clientePadrao.createClientDto());
         
-        assertEquals(NOME, cliente.getNome());
-        assertEquals(EMAIL, cliente.getEmail());
+        assertEquals(ClienteEnum.NOME.getValor(), cliente.getNome());
+        assertEquals(ClienteEnum.EMAIL.getValor(), cliente.getEmail());
     }    
     
     @Test
     void clienteCriarTest(){
-        ClienteDto clienteDto = new ClienteDto(CPF, NOME, EMAIL, Logado.NAO);
-
         cliente = new Cliente();
-        cliente.cadastrar(clienteDto);
+        cliente.cadastrar(clientePadrao.createClientDto());
         
-        assertEquals(CPF, cliente.getCpf());
-        assertEquals(NOME, cliente.getNome());
-        assertEquals(EMAIL, cliente.getEmail());
+        assertEquals(ClienteEnum.CPF.getValor(), cliente.getCpf());
+        assertEquals(ClienteEnum.NOME.getValor(), cliente.getNome());
+        assertEquals(ClienteEnum.EMAIL.getValor(), cliente.getEmail());
         assertEquals(Logado.NAO, cliente.getLogado());
     }    
     
     @Test
     void clienteAtualizarNullTest(){
-        ClienteDto clienteDto = new ClienteDto(CPF, null, null, Logado.NAO);
+        ClienteDto clienteDto = new ClienteDto(ClienteEnum.NOME.getValor(), null, null, Logado.NAO);
 
         cliente = new Cliente();
         cliente.atualizar(clienteDto);

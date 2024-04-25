@@ -24,7 +24,7 @@ public class ClienteService implements ClienteController {
 	public ClienteService(ClienteRepository repository, ClienteMessage message) {
 		this.repository = repository;
 		this.message = message;
-	};
+	}
 	
 	public Page<ClienteDto> consultaPaginada(Pageable paginacao){
 		return repository.findAll(paginacao).map(ClienteDto::new);
