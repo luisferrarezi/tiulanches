@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -50,12 +51,14 @@ public class ProdutoApi {
 	@ApiResponses(value = { 
 			@ApiResponse(responseCode = "200", description = "Sucesso, lista todos os produtos em paginação")
 	})		
-	public ResponseEntity<Page<ProdutoDto>> consultar(@ParameterObject @PageableDefault(size=10) Pageable paginacao){
+	public ResponseEntity<Page<ProdutoDto>> consultar(@RequestParam(defaultValue = "0") int page,
+													  @RequestParam(defaultValue = "10") int size){
 		logger.info("Consultar produtos");
 		
-		Page<ProdutoDto> page = controller.consultaPaginada(paginacao);
+		Pageable paginacao = PageRequest.of(page, size);
+		Page<ProdutoDto> consultaPage = controller.consultaPaginada(paginacao);
 		
-		return ResponseEntity.ok(page);
+		return ResponseEntity.ok(consultaPage);
 	}	
 	
 	@GetMapping(value = "/categoria/{categoria}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -66,7 +69,7 @@ public class ProdutoApi {
 	public List<ProdutoDto> consultarByCategoria(@ParameterObject @PathVariable @NotNull
 			                                     @Schema(implementation = Categoria.class, description = "Categoria do produto", example = "LANCHE", required = true)
 			                                     Categoria categoria){
-		logger.info("Consultar produtos pela categoria: " + categoria.toString());
+		logger.info("Consultar produtos pela categoria: {}", categoria.toString());
 		
 		return controller.consultaByCategoria(categoria);
 	}
@@ -80,7 +83,7 @@ public class ProdutoApi {
 	public ResponseEntity<ProdutoDto> detalhar(@ParameterObject @PathVariable @NotNull
 			                                   @Schema(description = "Código do produto no sistema", example = "1", required = true)
 			                                   Long id){
-		logger.info("Consultar produto pelo idProduto: " + id.toString());
+		logger.info("Consultar produto pelo idProduto: {}", id);
 		
 		ProdutoDto produto = controller.detalhar(id);
 		
@@ -111,7 +114,7 @@ public class ProdutoApi {
 	public ResponseEntity<ProdutoDto> alterar(@ParameterObject @PathVariable @NotNull
 			                                  @Schema(description = "Código do produto no sistema", example = "8", required = true)
 			                                  Long id, @RequestBody @Valid @Schema(example = ProdutoResponseSwagger.PUT) ProdutoDto dto){
-		logger.info("Alterar produto pelo idProduto: " + id.toString());
+		logger.info("Alterar produto pelo idProduto: {}", id);
 		
 		ProdutoDto produto = controller.alterar(id, dto);		
 		
@@ -128,7 +131,7 @@ public class ProdutoApi {
 	public ResponseEntity<ProdutoDto> excluir(@ParameterObject @PathVariable @NotNull
 			                                  @Schema(description = "Código do produto no sistema", example = "1", required = true)
 			                                  Long id){
-		logger.info("Excluir produto pelo idProduto: " + id.toString());
+		logger.info("Excluir produto pelo idProduto: {}", id);
 		
 		controller.excluir(id);		
 		
