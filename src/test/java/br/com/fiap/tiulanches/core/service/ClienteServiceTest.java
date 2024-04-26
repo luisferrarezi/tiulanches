@@ -49,7 +49,7 @@ class ClienteServiceTest {
 
         clientePadrao = new ClientePadrao();
         clienteDtoTest = clientePadrao.createClientDto();
-        clienteTest = Optional.ofNullable(clientePadrao.createClient());        
+        clienteTest = Optional.ofNullable(clientePadrao.createClient());
         clienteService = new ClienteService(clienteRepository, message);
     }
 
