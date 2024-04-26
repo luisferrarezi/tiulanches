@@ -2,7 +2,7 @@ package br.com.fiap.tiulanches.utils.produto;
 
 import java.math.BigDecimal;
 
-public enum ProdutoEnum {
+public enum ProdutoEnum {    
     ID_PRODUTO(10L),
     NOME("Teste"),
     DESCRICAO("Teste"),
