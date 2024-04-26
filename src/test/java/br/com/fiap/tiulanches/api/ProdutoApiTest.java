@@ -36,6 +36,8 @@ import br.com.fiap.tiulanches.utils.produto.ProdutoEnum;
 import br.com.fiap.tiulanches.utils.produto.ProdutoPadrao;
 
 class ProdutoApiTest {
+    private static final String URL_PRODUTO_FILTRO = "/produtos/{id}";
+
     private MockMvc mockMvc;
     private ProdutoPadrao produtoPadrao;
     private Utils utils;
@@ -78,7 +80,7 @@ class ProdutoApiTest {
         when(controller.alterar(anyLong(), any(ProdutoDto.class)))
             .thenAnswer(i -> i.getArgument(1));
 
-        mockMvc.perform(put("/produtos/{id}", idProdutoPadrao)
+        mockMvc.perform(put(URL_PRODUTO_FILTRO, idProdutoPadrao)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(utils.asJsonString(produtoDto)))
             .andExpect(status().isOk())
@@ -135,7 +137,7 @@ class ProdutoApiTest {
         ProdutoDto produtoDto = produtoPadrao.createProdutoDto();
 
         when(controller.detalhar(anyLong())).thenReturn(produtoDto);
-        mockMvc.perform(get("/produtos/{id}", produtoDto.idProduto())
+        mockMvc.perform(get(URL_PRODUTO_FILTRO, produtoDto.idProduto())
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.idProduto").value(produtoDto.idProduto()))
@@ -151,7 +153,7 @@ class ProdutoApiTest {
     void testExcluir() throws Exception {
         doNothing().when(controller).excluir(anyLong());
 
-        mockMvc.perform(delete("/produtos/{id}", idProdutoPadrao.longValue()))
+        mockMvc.perform(delete(URL_PRODUTO_FILTRO, idProdutoPadrao.longValue()))
             .andExpect(status().isNoContent());
     }
 }
