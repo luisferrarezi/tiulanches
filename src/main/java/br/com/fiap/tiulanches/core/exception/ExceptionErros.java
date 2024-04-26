@@ -20,7 +20,6 @@ import jakarta.validation.ConstraintViolationException;
 @RestControllerAdvice
 @SuppressWarnings("rawtypes")
 public class ExceptionErros {
-
 	
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity notFoundError() {
