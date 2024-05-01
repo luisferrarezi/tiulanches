@@ -127,9 +127,9 @@ class ProdutoApiTest {
         ));
 
         when(controller.consultaByCategoria(any(Categoria.class))).thenReturn(listProduto);
-        mockMvc.perform(get("/categoria/{categoria}", Categoria.ACOMPANHAMENTO)
+        mockMvc.perform(get("/produtos/categoria/{categoria}", Categoria.ACOMPANHAMENTO)
                     .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isOk());
     }
 
     @Test
