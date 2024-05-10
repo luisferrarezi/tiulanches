@@ -1,0 +1,12 @@
+apiVersion: v1 
+kind: ConfigMap 
+metadata: 
+  name: tiulanches-config 
+  labels: 
+    app: tiulanches-config 
+data:  
+  ds_url: jdbc:mysql://tiulanchessrv.mysql.database.azure.com:3306/tiulanches?createDatabaseIfNotExist=true&useSSL=true&requireSSL=false 
+  ds_pass: V$!d4rmysql
+  ds_username: tiulanches@tiulanchessrv 
+  conexao_kafka: 10.0.132.224:9092
+  

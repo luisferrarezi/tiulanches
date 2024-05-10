@@ -7,7 +7,7 @@ metadata:
 data:  
   ds_url: jdbc:mysql://mysql-svc/tiulanches?&createDatabaseIfNotExist=true
   ds_username: root
-  conexao_kafka: 10.105.69.241:9092
+  conexao_kafka: 10.110.5.216:9092
 ---  
 apiVersion: apps/v1
 kind: Deployment
@@ -66,20 +66,6 @@ spec:
                 configMapKeyRef :
                   name : db-config
                   key :  ds_username
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: tiulanches-port
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            failureThreshold: 3
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: tiulanches-port
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            failureThreshold: 3
 ---
 apiVersion: v1
 kind: Service
@@ -89,8 +75,31 @@ spec:
   selector:
     app: tiulanches
   ports:
-    - protocol: TCP
-      port: 8080       
-      nodePort: 31200
-  type: NodePort
-               
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+---    
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tiulanches-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /produtos
+        backend:
+          service:
+            name: tiulanches-svc
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: /clientes
+        backend:
+          service:
+            name: tiulanches-svc
+            port: 
+              number: 80

@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: tiulanches-deployment
   labels:
-    app: app-deployment
+    app: tiulanches-deployment
 spec:
   selector:
     matchLabels:
-      app: app
+      app: tiulanches
   replicas: 1
   template:
     metadata:
       labels:
-        app: app
+        app: tiulanches
     spec:
       containers:
         - name: tiulanches
@@ -26,39 +26,39 @@ spec:
               cpu: "1.0"                  
           ports:
             - containerPort: 8080
-              name: app-port
+              name: tiulanches-port
           env:
             - name: DATASOURCE_URL   
               valueFrom :
                 configMapKeyRef:
-                  name: app-config
+                  name: tiulanches-config
                   key: ds_url
             - name: DATASOURCE_PASSWORD  
               valueFrom:
                 configMapKeyRef:
-                  name: app-config
+                  name: tiulanches-config
                   key: ds_pass
             - name: DATASOURCE_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: app-config
+                  name: tiulanches-config
                   key: ds_username
-            - name: ACCESS_TOKEN_MP
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config
-                  key: mp_token
+            - name: CONEXAO_KAFKA
+              valueFrom :
+                configMapKeyRef :
+                  name : tiulanches-config
+                  key : conexao_kafka                  
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: app-port
+              port: tiulanches-port
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: app-port
+              port: tiulanches-port
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
@@ -66,10 +66,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-svc
+  name: tiulanches-svc
 spec:
   selector:
-    app: app
+    app: tiulanches
   ports:
     - port: 8080
       targetPort: 8080
