@@ -1,0 +1,12 @@
+apiVersion: v1 
+kind: ConfigMap 
+metadata: 
+  name: tiulanches-config 
+  labels: 
+    app: tiulanches-config 
+data:  
+  ds_url: 
+  ds_pass: 
+  ds_username: 
+  conexao_kafka: :9092
+  
