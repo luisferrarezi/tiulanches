@@ -47,21 +47,7 @@ spec:
               valueFrom :
                 configMapKeyRef :
                   name : tiulanches-config
-                  key : conexao_kafka                  
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: tiulanches-port
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            failureThreshold: 3
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: tiulanches-port
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            failureThreshold: 3
+                  key : conexao_kafka
 ---
 apiVersion: v1
 kind: Service
@@ -71,6 +57,31 @@ spec:
   selector:
     app: tiulanches
   ports:
-    - port: 8080
-      targetPort: 8080
-  type: LoadBalancer
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tiulanches-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /produtos
+        backend:
+          service:
+            name: tiulanches-svc
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: /clientes
+        backend:
+          service:
+            name: tiulanches-svc
+            port: 
+              number: 80
