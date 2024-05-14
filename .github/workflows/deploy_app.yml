@@ -98,4 +98,4 @@ jobs:
       with:
         manifests: |          
           tiulanches-config.yaml
-          kubernetes/azure/app-deployment.yaml
+          kubernetes/azure/tiulanches-deployment.yaml
