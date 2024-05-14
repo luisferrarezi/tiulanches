@@ -20,3 +20,10 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package
+
+    - name: Tests
+      run: mvn test
+
+    - name: SonarCloud Scan    
+      uses: SonarSource/sonarcloud-github-action@v2.1.1
+          
