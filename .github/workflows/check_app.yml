@@ -4,7 +4,37 @@ on:
   pull_request:
     branches: [main]
 
+env:
+ BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
+
 jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4.1.1
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4.1.0
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        server-id: github
+        settings-path: ${{ github.workspace }}
+
+    - name: Tests
+      run: mvn test  
+
+  sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4.1.1
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@$BRANCH_NAME
+
   build:
     runs-on: ubuntu-latest
 
@@ -20,10 +50,4 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package
-
-    - name: Tests
-      run: mvn test
-
-    - name: SonarCloud Scan    
-      uses: SonarSource/sonarcloud-github-action@v2.1.1
           
