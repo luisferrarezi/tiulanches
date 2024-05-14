@@ -76,8 +76,8 @@ jobs:
 
     - name: Cria ConfigMap
       run: |
-        touch configmap.yaml
-        cat > configmap.yaml << __EOF__
+        touch tiulanches-config.yaml
+        cat > tiulanches-config.yaml << __EOF__
         ${{ env.CONFIG_MAP_YAML }}
         __EOF__
 
