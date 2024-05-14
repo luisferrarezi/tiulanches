@@ -30,9 +30,7 @@ jobs:
       uses: actions/setup-java@v4.1.0
       with:
         java-version: '21'
-        distribution: 'temurin'
-        server-id: github
-        settings-path: ${{ github.workspace }}        
+        distribution: 'temurin'        
     - name: SonarCloud Scan
       run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=luisferrarezi -Dsonar.organization=luisferrarezi -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
