@@ -78,7 +78,7 @@ jobs:
       run: |
         touch tiulanches-config.yaml
         cat > tiulanches-config.yaml << __EOF__
-        ${{ CONFIG_MAP_YAML }}
+        ${{ secrets.CONFIG_MAP_YAML }}
         __EOF__
 
     - name: Azure Login
