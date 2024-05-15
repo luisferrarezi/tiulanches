@@ -17,6 +17,8 @@
 		<java.version>21</java.version>		
 	    	<sonar.organization>luisferrarezi</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+	        <sonar.projectKey>luisferrarezi_tiulanches</sonar.projectKey>
+	        <jacoco.version>0.8.12</jacoco.version>
 	</properties>
 	<dependencies>
 		<!-- Springboot -->
@@ -147,24 +149,60 @@
 				</configuration>
 			</plugin>
 <plugin>
-    <groupId>org.jacoco</groupId>
-    <artifactId>jacoco-maven-plugin</artifactId>
-    <version>0.8.12</version>
-    <executions>
-      <execution>
-        <id>prepare-agent</id>
-        <goals>
-          <goal>prepare-agent</goal>
-        </goals>
-      </execution>
-      <execution>
-        <id>report</id>
-          <goals>
-            <goal>report</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <skip>false</skip>
+                    <destFile>${basedir}/target/coverage-reports/jacoco.exec</destFile>
+                    <dataFile>${basedir}/target/coverage-reports/jacoco.exec</dataFile>
+                    <output>file</output>
+                    <append>true</append>
+                    <excludes>
+                        <exclude>*MethodAccess</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <phase>test-compile</phase>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                        <configuration>
+                            <append>false</append>
+                            <destFile>${project.basedir}/jacoco/jacoco-it.exec</destFile>
+                            <output>file</output>
+                            <propertyName>failsafeArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.basedir}/jacoco/jacoco-it.exec</dataFile>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 </project>
