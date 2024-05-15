@@ -32,7 +32,7 @@ jobs:
         java-version: '21'
         distribution: 'temurin'        
     - name: SonarCloud Scan
-      run: mvn -B verify sonar:sonar -Dsonar.projectKey=luisferrarezi_tiulanches -Dsonar.organization=luisferrarezi -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+      run: mvn clean verify sonar:sonar -Dsonar.projectKey=luisferrarezi_tiulanches -Dsonar.organization=luisferrarezi -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -78,7 +78,7 @@ jobs:
       run: |
         touch tiulanches-config.yaml
         cat > tiulanches-config.yaml << __EOF__
-        ${{ env.CONFIG_MAP_YAML }}
+        ${{ CONFIG_MAP_YAML }}
         __EOF__
 
     - name: Azure Login
