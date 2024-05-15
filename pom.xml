@@ -17,11 +17,6 @@
 		<java.version>21</java.version>		
 	    	<sonar.organization>luisferrarezi</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-    		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-    		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
-    		<sonar.language>java</sonar.language>		
-		<jacoco.version>0.8.3</jacoco.version>
 	</properties>
 	<dependencies>
 		<!-- Springboot -->
@@ -134,11 +129,6 @@
     		<version>5.11.0</version>
     		<scope>test</scope>
 		</dependency>
-		<dependency>
-    		<groupId>org.jacoco</groupId> 
-    		<artifactId>jacoco-maven-plugin</artifactId>
-    		<version>0.8.12</version>
-		</dependency>		
 	</dependencies>
 
 	<build>
@@ -156,38 +146,41 @@
 					<jvmArguments>-Dfile.encoding=UTF8</jvmArguments>
 				</configuration>
 			</plugin>
-
-<plugin>
-    <groupId>org.jacoco</groupId>
-    <artifactId>jacoco-maven-plugin</artifactId>
-    <version>${jacoco.version}</version>
-    <configuration>
-        <skip>${maven.test.skip}</skip>
-        <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-        <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-        <output>file</output>
-        <append>true</append>
-        <excludes>
-            <exclude>*MethodAccess</exclude>
-        </excludes>
-    </configuration>
-    <executions>
-        <execution>
-            <id>jacoco-initialize</id>
-            <goals>
-                <goal>prepare-agent</goal>
-            </goals>
-            <phase>test-compile</phase>
-        </execution>
-        <execution>
-            <id>jacoco-site</id>
-            <phase>verify</phase>
-            <goals>
-                <goal>report</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>			
+			<plugin>
+          		<groupId>org.jacoco</groupId>
+          		<artifactId>jacoco-maven-plugin</artifactId>
+          		<version>0.8.12</version>
+        		</plugin>
 		</plugins>
 	</build>
+	<profiles>
+    <profile>
+      <id>coverage</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>report</id>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>	
 </project>
