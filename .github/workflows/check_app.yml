@@ -26,16 +26,32 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4.1.1      
+    
     - name: Set up JDK 21
       uses: actions/setup-java@v4.1.0
       with:
         java-version: '21'
         distribution: 'temurin'        
-    - name: SonarCloud Scan
-      run: mvn -B verify sonar:sonar -Dsonar.projectKey=luisferrarezi_tiulanches -Dsonar.organization=luisferrarezi -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+    
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+        
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Sonar scan
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=luisferrarezi_tiulanches
 
   build:
     runs-on: ubuntu-latest
