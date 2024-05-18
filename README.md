@@ -2,7 +2,7 @@
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
 | :sparkles: Nome        | **Tiu Lanches**
-| :label: Tecnologias | Java, Maven, Spring, MySQL, Docker, Kubernetes
+| :label: Tecnologias | Java, Maven, Spring, MySQL, Docker, Kubernetes, Kafka
 | :rocket: URL         | 
 | :fire: Desafio     | Tech Challenge FIAP
 
@@ -63,14 +63,17 @@ Segue uma ilustração da arquitetura criada no kubernetes localmente:
 - MySql - 8.0
 
 ### Frameworks utilizados 
-- Mercado Pago SDK - 2.1.17
-- Spring Framework - 3.2.0
+- Spring Framework
 - Lombok
 - Flyway
 - Maven 
 - Jackson Databind
 - Log4j
 - Spring Doc
+- Kafka
+- Jacoco
+- JUnit
+- Mockito
 
 ### Variáveis de Ambiente
 Existem variáveis de ambiente na aplicação que estão cadastradas no docker compose e para kubernetes para serem apenas executadas.
@@ -173,3 +176,42 @@ Segue link do vídeo que explica os seguintes pontos:
 - Demonstração do funcionamento da aplicação e do processo do login, realizando pedido tanto quando o CPF é informado e não informado
 
 Link: https://youtu.be/v9yVQ3_HeSU
+
+# Vídeo explicativo
+## Fase 4
+Segue link do vídeo que explica os seguintes pontos:
+- Terraform readequado
+- Estrutura Microsservices
+- Nginx
+- Estrutura testes
+- Deploys AKS
+- Sonar
+- Estrutura bases
+- Demonstração do funcionamento da aplicação em microsservices
+
+
+
+# Alterações no Projeto
+## Novos recursos
+Para a conclusão da 4ª Fase do projeto foi necessário criar novos repositórios:
+- Pagamento -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-pagamento) do projeto.
+- Pedidos -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-pedido) do projeto.
+- Produção -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-producao) do projeto.
+
+## Automação
+Atualmente para esta branch existem 2 níveis de automação, explicado abaixo:
+
+- Pull Request: este é executado no momento que é criado o PR, e nele é realizado um build para garantir que a aplicação não foi quebrada após alteração.
+- Push: este é executado somente após o PR ter sido aprovado e executado o merge para a main, primeiro é realizado o build da aplicação, estando tudo ok  é então logado no Container Registry da Azure, criado a imagem como latest e faz o upload dela para o ACR. 
+        Finalmente cria-se o ConfigMap com variáveis de ambiente necessárias para serem utilizadas pela aplicação no AKS, feito isso são utilizados os yamls configmap.yaml e app-deployment.yaml, para subir a aplicação no AKS.
+
+## Variáveis de Ambiente para Azure
+Novas variáveis de ambiente que são indispensáveis para que funcione corretamente:
+- CONEXAO_KAFKA=<CONEXAO_KAFKA> - Configuração do service do kafka
+- SONAR_TOKEN=<SONAR_TOKEN> - Token criado no sonar para que a aplicação seja validada por ele
+
+## Sonar
+Foi implementado no através do git actions execução de testes e validação via sonar de todos os PRs e Main.
+
+Segue imagem que ilustra o coverage e validação do sonar para este projeto:
+![](https://github.com/luisferrarezi/tiulanches/tree/main/Documenta%C3%A7%C3%A3o/Imagens/coverage.jpg?table=block&id=ea599cfc-189c-4b5a-b3eb-21db292154fe&spaceId=62941c71-5c2d-41d6-8c4f-a5f5b14de56c&width=2000&userId=&cache=v2)
