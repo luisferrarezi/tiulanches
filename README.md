@@ -214,4 +214,4 @@ Novas variáveis de ambiente que são indispensáveis para que funcione corretam
 Foi implementado no através do git actions execução de testes e validação via sonar de todos os PRs e Main.
 
 Segue imagem que ilustra o coverage e validação do sonar para este projeto:
-![](https://github.com/luisferrarezi/tiulanches/tree/main/Documenta%C3%A7%C3%A3o/Imagens/coverage.jpg?table=block&id=ea599cfc-189c-4b5a-b3eb-21db292154fe&spaceId=62941c71-5c2d-41d6-8c4f-a5f5b14de56c&width=2000&userId=&cache=v2)
+![](https://github.com/luisferrarezi/tiulanches/tree/main/documentacao/imagens/coverage.jpg?table=block&id=ea599cfc-189c-4b5a-b3eb-21db292154fe&spaceId=62941c71-5c2d-41d6-8c4f-a5f5b14de56c&width=2000&userId=&cache=v2)
