@@ -216,3 +216,8 @@ Foi implementado no através do git actions execução de testes e validação v
 Segue imagem que ilustra o coverage e validação do sonar para este projeto:
 
 ![](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/imagens/coverage.jpg?table=block&id=ea599cfc-189c-4b5a-b3eb-21db292154fe&spaceId=62941c71-5c2d-41d6-8c4f-a5f5b14de56c&width=2000&userId=&cache=v2)
+
+## Arquitetura
+Abaixo a imagem que ilustra a arquitetura atual do projeto usando microsserviços:
+
+![](https://luisferrarezi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F62941c71-5c2d-41d6-8c4f-a5f5b14de56c%2F67119464-361b-4c01-9d4d-c8953d75b26f%2FUntitled.png?table=block&id=f42cce93-a93f-4e1a-8cda-e28417bd1d97&spaceId=62941c71-5c2d-41d6-8c4f-a5f5b14de56c&width=1820&userId=&cache=v2)
