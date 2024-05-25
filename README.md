@@ -189,7 +189,7 @@ Segue link do vídeo que explica os seguintes pontos:
 - Estrutura bases
 - Demonstração do funcionamento da aplicação em microsservices
 
-Vídeo: https://youtu.be/4WYPlbg_rkY?si=-DZ4jvn7iuCtyuya
+Vídeo: https://youtu.be/4WYPlbg_rkY
 
 # Alterações no Projeto
 ## Novos recursos
