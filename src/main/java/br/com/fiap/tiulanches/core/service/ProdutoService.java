@@ -45,6 +45,7 @@ public class ProdutoService implements ProdutoController {
         return new ProdutoDto(produto);
     }
 	
+	@Transactional
 	public ProdutoDto cadastrar(ProdutoDto dto){
 		Produto produto = new Produto();
 		produto.registrar(dto);
@@ -66,6 +67,7 @@ public class ProdutoService implements ProdutoController {
 		return produtoDto;
 	}	
 	
+	@Transactional
 	public void excluir(Long id){
 		Produto produto = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 		
