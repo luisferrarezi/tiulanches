@@ -36,6 +36,7 @@ public class ClienteService implements ClienteController {
         return new ClienteDto(cliente);
     }
 	
+	@Transactional
 	public ClienteDto cadastrar(ClienteDto dto){
 		if (dto.cpf() == null) {
 			throw new BusinessException("CPF não informado!", HttpStatus.BAD_REQUEST, "CPF");
@@ -66,7 +67,8 @@ public class ClienteService implements ClienteController {
 
 		return clienteDto;
 	}	
-	
+
+	@Transactional
 	public void excluir(String cpf){
 		Cliente cliente = repository.findById(cpf).orElseThrow(EntityNotFoundException::new);
 		

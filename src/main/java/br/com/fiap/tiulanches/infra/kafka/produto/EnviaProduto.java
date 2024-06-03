@@ -1,14 +1,14 @@
 package br.com.fiap.tiulanches.infra.kafka.produto;
 
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import br.com.fiap.tiulanches.adapter.message.EventoEnum;
 import br.com.fiap.tiulanches.adapter.message.produto.ProdutoEvent;
 import br.com.fiap.tiulanches.adapter.message.produto.ProdutoMessage;
 import br.com.fiap.tiulanches.adapter.repository.produto.ProdutoDto;
 
-@Service
+@Component
 public class EnviaProduto implements ProdutoMessage {
 
     private final KafkaTemplate<String, Object> kafka;

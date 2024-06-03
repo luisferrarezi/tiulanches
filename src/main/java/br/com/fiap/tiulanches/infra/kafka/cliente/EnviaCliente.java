@@ -1,14 +1,14 @@
 package br.com.fiap.tiulanches.infra.kafka.cliente;
 
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import br.com.fiap.tiulanches.adapter.message.EventoEnum;
 import br.com.fiap.tiulanches.adapter.message.cliente.ClienteEvent;
 import br.com.fiap.tiulanches.adapter.message.cliente.ClienteMessage;
 import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
 
-@Service
+@Component
 public class EnviaCliente implements ClienteMessage {
 
     private final KafkaTemplate<String, Object> kafka;
