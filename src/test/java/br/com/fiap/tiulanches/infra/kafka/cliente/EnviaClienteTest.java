@@ -15,14 +15,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import br.com.fiap.tiulanches.adapter.message.EventoEnum;
 import br.com.fiap.tiulanches.adapter.message.cliente.ClienteEvent;
 import br.com.fiap.tiulanches.adapter.repository.cliente.ClienteDto;
-import br.com.fiap.tiulanches.core.enums.Logado;
+import br.com.fiap.tiulanches.utils.cliente.ClientePadrao;
 
 class EnviaClienteTest {
     private EnviaCliente enviaCliente;
-
-    private static final String CPF = "68330488004";
-    private static final String NOME = "teste";
-    private static final String EMAIL = "teste@teste.com";
 
     @Mock
     KafkaTemplate<String, Object> kafka;
@@ -43,8 +39,10 @@ class EnviaClienteTest {
 
     @Test
     void enviaMensagemTest(){
+        ClientePadrao cliente = new ClientePadrao();
+
         ClienteDto clienteDto;
-        clienteDto = new ClienteDto(CPF, NOME, EMAIL, Logado.NAO);
+        clienteDto = new ClienteDto(cliente.createClient());
 
         when(kafka.send(anyString(), any(ClienteEvent.class))).thenReturn(null);
         assertDoesNotThrow(()->enviaCliente.enviaMensagem(EventoEnum.CREATE, clienteDto));
