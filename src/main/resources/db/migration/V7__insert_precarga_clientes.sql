@@ -1,2 +1,2 @@
-INSERT INTO tiulanches.clientes (cpf, nome, email, logado)
-	                     values ('06490645009', 'teste', 'teste@gmail.com', 1)
+INSERT INTO tiulanches.clientes (cpf, nome, email, endereco, numero, bairro, cidade, estado, cep, telefone)
+	                     values ('06490645009', 'teste', 'teste@gmail.com', 'qualquer rua', '123', 'qualquer', 'sao paulo', 'SP', '12345-000', '(11) 99999-9999')

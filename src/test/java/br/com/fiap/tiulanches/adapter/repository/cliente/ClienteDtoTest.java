@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import br.com.fiap.tiulanches.core.enums.Logado;
 import br.com.fiap.tiulanches.utils.cliente.ClienteEnum;
 import br.com.fiap.tiulanches.utils.cliente.ClientePadrao;
 
@@ -24,7 +23,6 @@ class ClienteDtoTest {
         assertEquals(ClienteEnum.CPF.getValor(), clienteDto.cpf());
         assertEquals(ClienteEnum.NOME.getValor(), clienteDto.nome());
         assertEquals(ClienteEnum.EMAIL.getValor(), clienteDto.email());
-        assertEquals(Logado.NAO, clienteDto.logado());
     }
 
     @Test
@@ -33,6 +31,5 @@ class ClienteDtoTest {
         assertEquals(ClienteEnum.CPF.getValor(), clienteDto.cpf());
         assertEquals(ClienteEnum.NOME.getValor(), clienteDto.nome());
         assertEquals(ClienteEnum.EMAIL.getValor(), clienteDto.email());
-        assertEquals(Logado.NAO, clienteDto.logado());
     }    
 }
