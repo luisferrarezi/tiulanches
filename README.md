@@ -245,8 +245,10 @@ Nesta fase por ter sido executada a aplicação ZAP para identificar as vulnerab
 - Cadastro
 - Pedidos
 
-Segue abaixo o correspondente ao cadastro
+Segue abaixo o correspondente aos cadastros:
+
 [Lista produtos antes correção](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/owasp/zap/ZAP-Lista-Produtos.pdf)
+
 [Lista produtos após correção](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/owasp/zap/ZAP-Lista-Produtos-Corrigido.pdf)
 
 ## Execução
