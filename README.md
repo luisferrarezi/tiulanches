@@ -221,3 +221,57 @@ Segue imagem que ilustra o coverage e validação do sonar para este projeto:
 Abaixo a imagem que ilustra a arquitetura atual do projeto usando microsserviços:
 
 ![](https://luisferrarezi.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F62941c71-5c2d-41d6-8c4f-a5f5b14de56c%2F67119464-361b-4c01-9d4d-c8953d75b26f%2FUntitled.png?table=block&id=f42cce93-a93f-4e1a-8cda-e28417bd1d97&spaceId=62941c71-5c2d-41d6-8c4f-a5f5b14de56c&width=1820&userId=&cache=v2)
+
+# Vídeo explicativo
+## Fase 5
+Segue link do vídeo que explica os seguintes pontos:
+- Padrão SAGA utilizado
+- Relatórios OWASP ZAP
+- RIPD
+- Demonstraçao do duncionamento da arquitetura utilizando o padrão SAGA
+
+Vídeo: 
+
+# Alterações no Projeto
+## Novos recursos
+Para a conclusão da 5ª Fase do projeto foi necessário alterar o comunicação entre as aplicações repositórios:
+- Pagamento -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-pagamento) do projeto.
+- Pedidos -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-pedido) do projeto.
+- Produção -> Mais detalhes acessar o [Readme](https://github.com/luisferrarezi/tiulanches-producao) do projeto.
+
+## OWASP ZAP
+Nesta fase por ter sido executada a aplicação ZAP para identificar as vulnerabilidades dentro dos repositórios podem ser encontrados seus relatórios, são eles:
+- Pagamento
+- Cadastro
+- Pedidos
+
+Segue abaixo o correspondente ao cadastro
+[Lista produtos antes correção](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/owasp/zap/ZAP-Lista-Produtos.pdf)
+[Lista produtos após correção](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/owasp/zap/ZAP-Lista-Produtos-Corrigido.pdf)
+
+## Execução
+Antes de se executar qualquer comando deste projeto é necessário que esse sejam executados os comandos que estão no repositório que tem toda a especificação para ter uma estrutura prévia. [Tiu Lanches - Terraform app](https://github.com/luisferrarezi/tiulanches-app-terraform).
+
+Para executar o projeto localmente é necessário que antes seja criada uma base Mysql e configurar as variáveis de ambiente especificadas em "Variáveis de Ambiente", após isso vá até kubernetes\local onde tem o deployment necessário:
+
+~~~Execute
+sh startapp.sh
+~~~
+
+Neste bash tem as instruções em que serão executados os deployments na ordem e tempo correto
+
+## RIPD
+Foi criado um Relatório de Impacto à Proteção de Dados Pessoais (RIPD), baseado em um modelo repassado pela FIAP
+
+[RIPD](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/lgpd/RIPD.pdf)
+
+## Arquitetura
+A arquitetura está específicada neste mesmo Readme, e é o mesmo que o divulgado para a fase 4.
+
+## SAGA
+O padrão SAGA que escolhi para este projeto é o coreografado, pelas seguintes razões:
+- O projeto foi todo arquitetado com Kafka que é uma ferramenta muito confiável e robusta que permite comportar este padrão
+- Para manter cada microsserviço com sua devida responsabilidade
+- Manter projetos independentes e descentralizados
+
+Para poder atender este padrão os projetos foram alterados de forma que os cadastros atualmente precisarão receber a confirmação de que suas informações foram devidamente cadastradas em todos os demais microsserviços quando necessário. E dessa forma garantir a consistência dos dados entre as aplicações. O Kafka tem um papel fundamental nessa replicação de dados, porque quando uma aplicação que precisa receber uma mensagem está fora, ao subir novamente ela recebe todas as mensagens pendentes para ela e assim atualiza as informações devidamente.
