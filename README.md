@@ -230,7 +230,7 @@ Segue link do vídeo que explica os seguintes pontos:
 - RIPD
 - Demonstraçao do duncionamento da arquitetura utilizando o padrão SAGA
 
-Vídeo: 
+Vídeo: https://youtu.be/Gz90W1RUxJA
 
 # Alterações no Projeto
 ## Novos recursos
