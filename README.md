@@ -268,7 +268,7 @@ Foi criado um Relatório de Impacto à Proteção de Dados Pessoais (RIPD), base
 [RIPD](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/lgpd/RIPD.pdf)
 
 ## Arquitetura
-A arquitetura está específicada neste mesmo Readme, e é o mesmo que o divulgado para a fase 4.
+![](https://github.com/luisferrarezi/tiulanches/blob/main/documentacao/imagens/SAGA.png)
 
 ## SAGA
 O padrão SAGA que escolhi para este projeto é o coreografado, pelas seguintes razões:
